@@ -1,0 +1,27 @@
+<template>
+  <div id="app">
+      <b-navbar toggleable="md" type="dark" variant="primary">
+          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+          <b-navbar-brand >
+            <img src="https://placekitten.com/g/30/30" alt="Kitten">
+            IF-ormáticos FC</b-navbar-brand>
+
+          <b-collapse id="nav-collapse" is-nav>
+            <b-navbar-nav>
+              <b-nav-item href="#">Noticias del club</b-nav-item>
+              <b-nav-item href="#">Inscribirse como socio</b-nav-item>
+              <b-nav-item href="#">Inscribirse como jugador</b-nav-item>              
+              <b-nav-item href="#">Enviar solicitud de entrenador</b-nav-item>       
+              <b-nav-item>Registro / Iniciar sesión</b-nav-item>       
+            </b-navbar-nav>
+          </b-collapse>
+      </b-navbar>
+  </div>
+</template>
+
+
+<style>
+  body{
+    background-color: red;
+  }  
+</style>
