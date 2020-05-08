@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-      
       <b-navbar toggleable="md" type="dark" variant="primary">
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
           <b-navbar-brand >
@@ -13,13 +12,13 @@
               <b-nav-item href="#">Inscribirse como socio</b-nav-item>
               <b-nav-item href="#">Inscribirse como jugador</b-nav-item>              
               <b-nav-item href="#">Enviar solicitud de entrenador</b-nav-item>       
-              <b-nav-item href="#">Registro / Iniciar sesión</b-nav-item>       
+              <b-nav-item>Registro / Iniciar sesión</b-nav-item>       
             </b-navbar-nav>
           </b-collapse>
       </b-navbar>
- 
   </div>
 </template>
+
 
 <style>
   body{

@@ -12,10 +12,11 @@ import '../css/app.css';
 
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
-Vue.use(BootstrapVue);
 
 import App from './components/App.vue'
 import Home from './components/Home.vue'
+
+Vue.use(BootstrapVue);
 
 new Vue({
     el: "#app",
