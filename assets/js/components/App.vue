@@ -18,10 +18,3 @@
       </b-navbar>
   </div>
 </template>
-
-
-<style>
-  body{
-    background-color: red;
-  }  
-</style>

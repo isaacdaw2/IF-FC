@@ -1,5 +1,5 @@
 <template>
-    <div id="home">
+    <div id="home" class="container mt-1">
         <!-- Cabecera slides -->
     <b-carousel
         id="carousel-fade"
@@ -10,16 +10,16 @@
         img-height="480">
         <b-carousel-slide
             caption="Bienvenid@ a nuestra web"
-            img-src="/img/campo.jpg"></b-carousel-slide>
+            img-src="/img/balon-de-futbol.jpg"></b-carousel-slide>
         <b-carousel-slide
             caption="Comparte nuestra pasión"
-            img-src="https://www.granadadigital.es/wp-content/uploads/2018/04/WhatsApp-Image-2018-04-07-at-09.42.36-1.jpeg"></b-carousel-slide>
+            img-src="/img/campo.jpg"></b-carousel-slide>
         <b-carousel-slide
             caption="Aquí encontrarás las noticias del club"
-            img-src="https://est.zetaestaticos.com/mediterraneo/img/noticias/1/049/1049799_1.jpg"></b-carousel-slide>
+            img-src="/img/escuela.jpg"></b-carousel-slide>
         <b-carousel-slide
             caption="Resultados"
-            img-src="https://i.promecal.es/IMG/2020/6F8E0859-C67D-36A7-242011759A0DC7DC.JPG"></b-carousel-slide>
+            img-src="/img/futbol.jpg"></b-carousel-slide>
     </b-carousel>
 
         <!-- cards con noticias -->
@@ -89,7 +89,7 @@
                 <b-row no-gutters="no-gutters">
                     <b-col md="6">
                         <b-card-img
-                            src="https://cdn1.sefutbol.com/sites/default/files/84ef16b2-7c12-499f-b91a-d002b7c53a90.jpeg"
+                            src="/img/logo_rfef.jpg"
                             alt="logo"
                             class="rounded-0"></b-card-img>
                     </b-col>
@@ -110,7 +110,7 @@
                 <b-row no-gutters="no-gutters">
                     <b-col md="6">
                         <b-card-img
-                            src="http://www.ucamdeportes.com/ucamcf/sites/www.ucamdeportes.com.ucamcf/files/styles/panoramica-news/public/news/comunicado-oficial-18-19-1019625291.jpg?itok=4dobS1uM"
+                            src="/img/Comunicado_oficial.jpg"
                             alt="comunicado"
                             class="rounded-0"></b-card-img>
                     </b-col>
@@ -131,7 +131,7 @@
                 <b-row no-gutters="no-gutters">
                     <b-col md="6">
                         <b-card-img
-                            src="https://www.salamanca24horas.com/images/showid2/3062564?w=900"
+                            src="/img/resultados.jpg"
                             alt="resultados"
                             class="rounded-0"></b-card-img>
                     </b-col>
@@ -152,7 +152,7 @@
                 <b-row no-gutters="no-gutters">
                     <b-col md="6">
                         <b-card-img
-                            src="https://www.eldigitalcastillalamancha.es/images/carpeta_relacionados/2019/03/16/93310_sergioru.jpg"
+                            src="/img/puesto_entrenador.jpg"
                             alt="puesto_entrenador"
                             class="rounded-0"></b-card-img>
                     </b-col>
