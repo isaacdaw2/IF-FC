@@ -14,5 +14,19 @@
             </div>
     {% endfor %}
 
-    {{ form(formulario) }}
+    <div class="">
+        {{ form(formulario) }}
+    </div>  
+
+
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.getElementsByClassName("input-formulario")[1].onkeyup = () => {
+            document.getElementById("usuarios_email").value = document.getElementById("emailRegistro").value;
+        }
+
+    </script>
+{% endblock %}
+

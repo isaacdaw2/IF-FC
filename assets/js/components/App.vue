@@ -3,7 +3,7 @@
       <b-navbar toggleable="md" type="dark" variant="primary">
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
           <b-navbar-brand >
-            <img src="https://placekitten.com/g/30/30" alt="Kitten">
+            <img src="/img/balon.png" width="30" alt="Kitten">
             IF-ormáticos FC</b-navbar-brand>
 
           <b-collapse id="nav-collapse" is-nav>

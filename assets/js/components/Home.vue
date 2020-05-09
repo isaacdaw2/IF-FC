@@ -10,7 +10,7 @@
         img-height="480">
         <b-carousel-slide
             caption="Bienvenid@ a nuestra web"
-            img-src="https://www.malagahoy.es/2019/10/31/provincia/Campo-futbol-Campillos-trabajos-sustitucion_1405670131_112013217_667x375.jpg"></b-carousel-slide>
+            img-src="/img/campo.jpg"></b-carousel-slide>
         <b-carousel-slide
             caption="Comparte nuestra pasión"
             img-src="https://www.granadadigital.es/wp-content/uploads/2018/04/WhatsApp-Image-2018-04-07-at-09.42.36-1.jpeg"></b-carousel-slide>

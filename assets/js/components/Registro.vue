@@ -18,7 +18,7 @@
             <b-card-text>Nombre:</b-card-text>
           </b-col>
           <b-col>
-            <b-form-input type="text" placeholder="Introduce aquí tu nombre"></b-form-input>
+            <b-form-input type="text" placeholder="Introduce aquí tu nombre" class="input-formulario"></b-form-input>
           </b-col>
         </b-row>
 
@@ -29,6 +29,16 @@
           </b-col>
           <b-col>
             <b-form-input type="text" placeholder="Introduce aquí tus apellidos"></b-form-input>
+          </b-col>
+        </b-row>
+
+        <!-- email -->
+        <b-row class="mt-4">
+          <b-col>
+            <b-card-text>Email:</b-card-text>
+          </b-col>
+          <b-col>
+            <b-form-input type="email" id="emailRegistro" placeholder="Introduce aquí tu email" class="input-formulario"></b-form-input>
           </b-col>
         </b-row>
 
