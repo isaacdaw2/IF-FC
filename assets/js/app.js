@@ -15,6 +15,8 @@ import BootstrapVue from 'bootstrap-vue'
 
 import App from './components/App.vue'
 import Home from './components/Home.vue'
+import Registro from './components/Registro.vue'
+import Login from './components/Login.vue'
 
 Vue.use(BootstrapVue);
 
@@ -26,4 +28,14 @@ new Vue({
 new Vue({
     el: "#home",
     components: {Home}
+})
+
+new Vue({
+    el: "#registro",
+    components: {Registro}
+})
+
+new Vue({
+    el: "#login",
+    components: {Login}
 })

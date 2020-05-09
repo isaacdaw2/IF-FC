@@ -3,9 +3,16 @@
 {% block title %} {{ parent() }} - Registrarme{% endblock %}
 
 {% block body %}
-    {{ parent() }} 
     
     <div id="registro">
         <Registro />    
     </div>  
+
+    {% for message in app.flashes('registrado') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+    {% endfor %}
+
+    {{ form(formulario) }}
 {% endblock %}

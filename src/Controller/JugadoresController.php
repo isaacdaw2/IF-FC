@@ -14,7 +14,7 @@ class JugadoresController extends AbstractController
     /**
      * @Route("/jugadores", name="jugadores")
      */
-    public function index()
+    public function index(Request $request)
     {
         $jugador = new Jugadores();
         $form = $this->createForm(JugadoresType::class, $jugador);

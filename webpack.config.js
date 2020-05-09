@@ -30,8 +30,6 @@ Encore
     // .addEntry('js/app', './assets/js/app.js')
     
    .addEntry('js/app', './assets/js/app.js')
-   .addEntry('js/home', './assets/js/home.js')
-   .addEntry('js/registro', './assets/js/registro.js')
 
    .addStyleEntry('css/app', './assets/css/app.scss')
     // uncomment if you use Sass/SCSS files
