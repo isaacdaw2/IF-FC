@@ -2,7 +2,7 @@
   <div id="app">
       <b-navbar toggleable="md" type="dark" variant="primary">
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-          <b-navbar-brand >
+          <b-navbar-brand href="home">
             <img src="/img/balon.png" width="30" alt="Kitten">
             IF-ormáticos FC</b-navbar-brand>
 
