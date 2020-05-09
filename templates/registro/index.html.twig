@@ -3,18 +3,18 @@
 {% block title %} {{ parent() }} - Registrarme{% endblock %}
 
 {% block body %}
-    
-    <div id="registro">
-        <Registro />    
-    </div>  
 
     {% for message in app.flashes('registrado') %}
-            <div class="alert alert-success">
+            <div class="alert alert-success text-center">
                 {{ message }}
             </div>
     {% endfor %}
+    
+    <div id="registro">
+        <Registro />    
+    </div>      
 
-    <div class="">
+    <div class="d-none">
         {{ form(formulario) }}
     </div>  
 
@@ -23,10 +23,52 @@
 
 {% block javascripts %}
     <script>
-        document.getElementsByClassName("input-formulario")[1].onkeyup = () => {
+        document.getElementById("nombre").onkeyup = () => {
+            document.getElementById("usuarios_nombre").value = document.getElementById("nombre").value;
+        }
+
+        document.getElementById("apellidos").onkeyup = () => {
+            document.getElementById("usuarios_apellidos").value = document.getElementById("apellidos").value;
+        }
+
+        document.getElementById("emailRegistro").onkeyup = () => {
             document.getElementById("usuarios_email").value = document.getElementById("emailRegistro").value;
         }
 
+        document.getElementById("dni").onkeyup = () => {
+            document.getElementById("usuarios_dni").value = 10;
+        }
+
+        document.getElementById("fechaNacimiento").date = () => {
+            document.getElementById("usuarios_fechaNacimiento_day").value = document.getElementById("fechaNacimiento").getMonth();
+            document.getElementById("usuarios_fechaNacimiento_month").value = document.getElementById("fechaNacimiento").getMonth();
+            document.getElementById("usuarios_fechaNacimiento_year").value = document.getElementById("fechaNacimiento").getFullYear();
+        }
+
+        document.getElementById("calle").onkeyup = () => {
+            document.getElementById("usuarios_calle").value = document.getElementById("calle").value;
+        }
+
+        document.getElementById("localidad").onkeyup = () => {
+            document.getElementById("usuarios_localidad").value = document.getElementById("localidad").value;
+        }
+
+        document.getElementById("provincia").onkeyup = () => {
+            document.getElementById("usuarios_provincia").value = document.getElementById("provincia").value;
+        }
+
+        document.getElementById("cp").onkeyup = () => {
+            document.getElementById("usuarios_cp").value = document.getElementById("cp").value;
+        }
+
+        document.getElementById("pass").onkeyup = () => {
+            document.getElementById("usuarios_password").value = document.getElementById("pass").value;
+        }
+
+        document.getElementById("registrarme").onclick = () => {
+            console.log("Acabo de hacer click a registrar");
+            document.getElementById("usuarios_Registrarme").click();
+        }
     </script>
 {% endblock %}
 

@@ -1,6 +1,6 @@
 <template>
   <div id="registro">
-    <b-container class="mt-5 text-center">
+    <b-container class="mt-5 mb-5 text-center">
 
       <b-card title="¡Rellena este formulario!" header-tag="nav">
         <template v-slot:header>
@@ -18,7 +18,7 @@
             <b-card-text>Nombre:</b-card-text>
           </b-col>
           <b-col>
-            <b-form-input type="text" placeholder="Introduce aquí tu nombre" class="input-formulario"></b-form-input>
+            <b-form-input type="text" id="nombre" placeholder="Introduce aquí tu nombre" class="input-formulario" required></b-form-input>
           </b-col>
         </b-row>
 
@@ -28,7 +28,7 @@
             <b-card-text>Apellidos:</b-card-text>
           </b-col>
           <b-col>
-            <b-form-input type="text" placeholder="Introduce aquí tus apellidos"></b-form-input>
+            <b-form-input type="text" id="apellidos" placeholder="Introduce aquí tus apellidos" class="input-formulario" required></b-form-input>
           </b-col>
         </b-row>
 
@@ -38,7 +38,7 @@
             <b-card-text>Email:</b-card-text>
           </b-col>
           <b-col>
-            <b-form-input type="email" id="emailRegistro" placeholder="Introduce aquí tu email" class="input-formulario"></b-form-input>
+            <b-form-input type="email" id="emailRegistro" placeholder="Introduce aquí tu email" class="input-formulario" required></b-form-input>
           </b-col>
         </b-row>
 
@@ -48,7 +48,7 @@
             <b-card-text>Dni:</b-card-text>
           </b-col>
           <b-col>
-            <b-form-input type="text" placeholder="Introduce aquí tu dni"></b-form-input>
+            <b-form-input type="text" id="dni" placeholder="Introduce aquí tu dni" class="input-formulario" required></b-form-input>
           </b-col>
         </b-row>
 
@@ -58,7 +58,7 @@
             <b-card-text>Fecha de nacimiento:</b-card-text>
           </b-col>
           <b-col>
-            <b-form-input type="date" placeholder="Introduce aquí tu fecha de nacimiento"></b-form-input>
+            <b-form-input type="date" id="fechaNacimiento" placeholder="Introduce aquí tu fecha de nacimiento" class="input-formulario"></b-form-input>
           </b-col>
         </b-row>
 
@@ -70,7 +70,7 @@
             <b-card-text>Calle:</b-card-text>
           </b-col>
           <b-col>
-            <b-form-input type="text" placeholder="Introduce aquí el nombre de tu calle"></b-form-input>
+            <b-form-input type="text" id="calle" placeholder="Introduce aquí el nombre de tu calle" class="input-formulario" required></b-form-input>
           </b-col>
         </b-row>
 
@@ -80,7 +80,7 @@
             <b-card-text>Localidad:</b-card-text>
           </b-col>
           <b-col>
-            <b-form-input type="text" placeholder="Introduce aquí la localidad"></b-form-input>
+            <b-form-input type="text" id="localidad" placeholder="Introduce aquí la localidad" class="input-formulario" required></b-form-input>
           </b-col>
         </b-row>
 
@@ -90,7 +90,7 @@
             <b-card-text>Provincia:</b-card-text>
           </b-col>
           <b-col>
-            <b-form-input type="text" placeholder="Introduce aquí la provincia"></b-form-input>
+            <b-form-input type="text" id="provincia" placeholder="Introduce aquí la provincia" class="input-formulario" required></b-form-input>
           </b-col>
         </b-row>
 
@@ -100,7 +100,7 @@
             <b-card-text>CP:</b-card-text>
           </b-col>
           <b-col>
-            <b-form-input type="text" placeholder="Introduce aquí el código póstal"></b-form-input>
+            <b-form-input type="text" id="cp" placeholder="Introduce aquí el código póstal" class="input-formulario" required></b-form-input>
           </b-col>
         </b-row>
 
@@ -116,24 +116,14 @@
             <b-card-text>Contraseña:</b-card-text>
           </b-col>
           <b-col>
-            <b-form-input type="password" placeholder="Introduce una contraseña"></b-form-input>
-          </b-col>
-        </b-row>
-
-        <!-- Repetir contraseña -->
-        <b-row class="mt-4">
-          <b-col>
-            <b-card-text>Repite contraseña:</b-card-text>
-          </b-col>
-          <b-col>
-            <b-form-input type="password" placeholder="Repite la contraseña"></b-form-input>
+            <b-form-input type="password" id="pass" placeholder="Introduce una contraseña" class="input-formulario" required></b-form-input>
           </b-col>
         </b-row>
 
         <!-- Botón de registrar -->
         <b-row class="mt-4">
           <b-col>
-            <b-button variant="success">Registrarme</b-button>
+            <b-button variant="outline-success" type="submit" id="registrarme" class="input-formulario">Registrarme</b-button>
           </b-col>        
         </b-row>     
       </b-card>
