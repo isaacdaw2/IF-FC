@@ -1,5 +1,5 @@
 <template>
-  <div id="registro">
+  <div>
     <b-container class="mt-5 mb-5 text-center">
 
       <b-card title="¡Rellena este formulario!" header-tag="nav">

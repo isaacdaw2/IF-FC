@@ -11,31 +11,36 @@ import '../css/app.css';
 
 
 import Vue from 'vue'
+import VueRouter from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
 
 import App from './components/App.vue'
 import Home from './components/Home.vue'
 import Registro from './components/Registro.vue'
 import Login from './components/Login.vue'
+import Jugador from './components/Jugador.vue'
+import Socio from './components/Socio.vue'
+import Entrenador from './components/Entrenador.vue'
 
-Vue.use(BootstrapVue);
+Vue.use(BootstrapVue)
+Vue.use(VueRouter)
+
+const routes = [
+    { path: '', name: 'home', component: Home },
+    { path: 'registro', name: 'registro', component: Registro },
+    { path: 'login', name: 'login', component: Login },
+    { path: 'jugadores', name: 'jugador', component: Jugador },
+    { path: 'socios', name: 'socio', component: Socio },
+    { path: 'entrenadores', name: 'entrenadores', component: Entrenador }
+]
+
+const router = new VueRouter({
+    mode: 'history',
+    routes // short for `routes: routes`
+})
 
 new Vue({
     el: "#app",
-    components: {App}
-})
-
-new Vue({
-    el: "#home",
-    components: {Home}
-})
-
-new Vue({
-    el: "#registro",
-    components: {Registro}
-})
-
-new Vue({
-    el: "#login",
-    components: {Login}
+    components: {App, Home, Registro, Login, Jugador, Socio, Entrenador},
+    router
 })

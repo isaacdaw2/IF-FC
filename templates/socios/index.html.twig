@@ -4,6 +4,10 @@
 
 {% block body %}
     {{ parent() }}
+
+    <div id="app">
+        <Socio />  
+    </div>  
     
     {{ form(formularioSocios)}}
 {% endblock %}

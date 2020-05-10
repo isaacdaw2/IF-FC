@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <div>
       <b-navbar toggleable="md" type="dark" variant="primary">
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-          <b-navbar-brand href="home">
+          <b-navbar-brand :to="{name: 'home'}">
             <img src="/img/balon.png" width="30" alt="Kitten">
             IF-ormáticos FC</b-navbar-brand>
 
@@ -16,5 +16,9 @@
             </b-navbar-nav>
           </b-collapse>
       </b-navbar>
+
+      <b-container>
+        <router-view/>
+      </b-container>   
   </div>
 </template>

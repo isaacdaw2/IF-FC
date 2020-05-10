@@ -1,5 +1,5 @@
 <template>
-    <div id="login">
+    <div>
         <b-container class="mt-5 text-center">
             <b-card title="¡Bienvenid@ a IF-ORMATICOS FC!" header-tag="nav">
             <template v-slot:header>
