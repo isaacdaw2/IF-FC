@@ -8,10 +8,10 @@
 
           <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
-              <b-nav-item href="home">Noticias del club</b-nav-item>
-              <b-nav-item href="socios">Inscribirse como socio</b-nav-item>
-              <b-nav-item href="jugadores">Inscribirse como jugador</b-nav-item>              
-              <b-nav-item href="entrenadores">Enviar solicitud de entrenador</b-nav-item>       
+              <b-nav-item :to="{name: 'home'}">Noticias del club</b-nav-item>
+              <b-nav-item :to="{name: 'socio'}">Inscribirse como socio</b-nav-item>
+              <b-nav-item :to="{name: 'jugador'}">Inscribirse como jugador</b-nav-item>              
+              <b-nav-item :to="{name: 'entrenador'}">Enviar solicitud de entrenador</b-nav-item>       
               <b-nav-item href="registro">Registro / Iniciar sesión</b-nav-item>       
             </b-navbar-nav>
           </b-collapse>

@@ -31,7 +31,7 @@ const routes = [
     { path: 'login', name: 'login', component: Login },
     { path: 'jugadores', name: 'jugador', component: Jugador },
     { path: 'socios', name: 'socio', component: Socio },
-    { path: 'entrenadores', name: 'entrenadores', component: Entrenador }
+    { path: 'entrenadores', name: 'entrenador', component: Entrenador }
 ]
 
 const router = new VueRouter({
