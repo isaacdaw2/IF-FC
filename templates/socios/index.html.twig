@@ -5,9 +5,14 @@
 {% block body %}
     {{ parent() }}
 
-    <div id="app">
+    <div id="app" class="d-block">
         <Socio />  
     </div>  
     
-    {{ form(formularioSocios)}}
+    <div class="d-block">
+        {{ form(formularioSocios)}}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
 {% endblock %}

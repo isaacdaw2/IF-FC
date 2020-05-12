@@ -3,55 +3,44 @@
 {% block title %}{{parent()}} - Acceder {% endblock %}
 
 {% block body %}
-<div class="container mt-5 text-center">
-    <div class="card text-center">
-    <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
-        <li class="nav-item">
-            <a class="nav-link active" href="login">Iniciar sesión</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="registro">Registrarme</a>
-        </li>
-        </ul>
-    </div>
-    <div class="card-body">
-        <form method="post">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
 
-            {% if app.user %}
-                <div class="mb-3">
-                    Estás logueado como: {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-                </div>
-            {% endif %}
+    <div id="app">
+        <Login />    
+    </div>   
 
-            <h1 class="h3 mb-3 text-dark">¡Bienvenid@ a IF-ORMATICOS FC!</h1>
+    <form method="post" class="d-none">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-            <div class="form-group row">
-                <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-                </div>
+        {% if app.user %}
+            <div class="mb-3">
+                Estás logueado como: {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
             </div>
+        {% endif %}
 
-            <div class="form-group row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">Contraseña</label>
-                <div class="col-sm-10">
-                    <input type="password" name="password" id="inputPassword" class="form-control" required>
-                </div>
-            </div>
+        Email: <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control">
+        
+        Pass: <input type="password" name="password" id="inputPassword" class="form-control">
 
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-            <button class="btn btn-lg btn-outline-success my-3" type="submit">
-                    Acceder
-                </button>
-            </form>
+        <button class="btn btn-lg btn-outline-danger my-3" id="botonAcceder" type="submit">Acceder</button>
+    </form>
+{% endblock %}
 
-    </div>
-    </div>
-</div>
+{% block javascripts %}
+    <script>
+        document.getElementById("emailLogin").onkeyup = () => {
+                document.getElementById("inputEmail").value = document.getElementById("emailLogin").value;
+        }
 
+        document.getElementById("password").onkeyup = () => {
+                document.getElementById("inputPassword").value = document.getElementById("password").value;
+        }
+
+        document.getElementById("acceder").onclick = () => { 
+            document.getElementById("botonAcceder").click();
+        }
+    </script>
 {% endblock %}

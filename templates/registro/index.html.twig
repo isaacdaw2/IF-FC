@@ -36,13 +36,14 @@
         }
 
         document.getElementById("dni").onkeyup = () => {
-            document.getElementById("usuarios_dni").value = 10;
+            document.getElementById("usuarios_dni").value = document.getElementById("dni").value;
         }
 
-        document.getElementById("fechaNacimiento").date = () => {
-            document.getElementById("usuarios_fechaNacimiento_day").value = document.getElementById("fechaNacimiento").getMonth();
-            document.getElementById("usuarios_fechaNacimiento_month").value = document.getElementById("fechaNacimiento").getMonth();
-            document.getElementById("usuarios_fechaNacimiento_year").value = document.getElementById("fechaNacimiento").getFullYear();
+        document.getElementById("fechaNacimiento").onkeyup = () => {
+            let date = new Date(document.getElementById("fechaNacimiento").value);
+            document.getElementById("usuarios_fechaNacimiento_day").value = date.getDate();
+            document.getElementById("usuarios_fechaNacimiento_month").value = date.getMonth()+1;
+            document.getElementById("usuarios_fechaNacimiento_year").value = date.getFullYear();
         }
 
         document.getElementById("calle").onkeyup = () => {
@@ -66,7 +67,6 @@
         }
 
         document.getElementById("registrarme").onclick = () => {
-            console.log("Acabo de hacer click a registrar");
             document.getElementById("usuarios_Registrarme").click();
         }
     </script>

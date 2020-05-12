@@ -52,7 +52,7 @@ class Usuarios implements UserInterface
     private $dni;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="date")
      */
     private $fechaNacimiento;
 

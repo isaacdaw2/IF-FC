@@ -10,9 +10,14 @@ use Symfony\Component\HttpFoundation\Response;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="home")
      */
-    public function index(Request $request): Response  {
-        return $this->render('home/index.html.twig');
+    public function index() {
+        $usuario = $this->getUser();
+        if($usuario) {
+            return $this->render('home/index.html.twig');
+        } else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 }

@@ -9,13 +9,17 @@
                 </b-nav>
             </template>
 
+            <div>
+              <b-alert id="alertas" variant="danger" show>Aquí van los errores</b-alert>
+            </div>
+
             <!-- Usuario -->
             <b-row class="mt-4">
                 <b-col>
                 <b-card-text>Email:</b-card-text>
                 </b-col>
                 <b-col>
-                <b-form-input type="email" name="email" id="email" class="form-control" placeholder="Introduce aquí tu email" required autofocus></b-form-input>
+                <b-form-input type="email" name="email" id="emailLogin" class="form-control" placeholder="Introduce aquí tu email" required autofocus></b-form-input>
                 </b-col>
             </b-row>
 
@@ -32,21 +36,10 @@
             <!-- Botón de iniciar -->
             <b-row class="mt-4">
                 <b-col>
-                <b-button type="submit" variant="success">Acceder</b-button>
+                <b-button type="submit" id="acceder" variant="outline-success">Acceder</b-button>
                 </b-col>        
             </b-row>     
             </b-card>
         </b-container>
     </div>
 </template>
-
-<script>
-  export default {
-    data() {
-      return {
-        email: '',
-        password: ''
-      }
-    }
-  }
-</script>

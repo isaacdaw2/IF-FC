@@ -5,9 +5,24 @@
 {% block body %}
     {{parent()}}
 
+    <div class="js-user-rating" data-is-authenticated="{{ app.user ? 'true' : 'false' }}">
+        <!-- ... -->
+    </div>
+
+    
+    
+
     <div id="app">
         <Home />    
     </div>  
 
 {% endblock %}
 
+{% block javascripts %}
+    <script>
+        document.getElementById("salir").onclick = () => {
+            console.log("sssssss");
+            setTimeout(  function() { window.location.href = "http://localhost:8000/login";}, 5000);
+        }
+    </script>
+{% endblock %}

@@ -34,17 +34,6 @@ class JugadoresController extends AbstractController
         ]);
     }
 
-     /**
-     * @Route("/jugadores/{id}", name="verJugador")
-     */
-    public function verJugador($id){
-        $em = $this->getDoctrine()->getManager();
-        $jugador = $em->getRepository(Jugadores::class)->find($id);
-        return $this->render('jugadores/verJugador.html.twig', [
-            'jugador' => $jugador
-        ]);
-    }
-
     /**
      * @Route("/misdatos", name="misDatos")
      */

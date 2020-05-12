@@ -22,11 +22,11 @@ class UsuariosType extends AbstractType
             ->add('nombre')
             ->add('apellidos')
             ->add('dni')
-            // ->add('fechaNacimiento', BirthdayType::class, [
-            //     'placeholder' => [
-            //         'year' => 'Año', 'month' => 'Mes', 'day' => 'Día',
-            //     ]
-            // ])
+            ->add('fechaNacimiento', BirthdayType::class, [
+                'placeholder' => [
+                    'year' => 'Año', 'month' => 'Mes', 'day' => 'Día',
+                ]
+            ])
             ->add('calle')
             ->add('localidad')
             ->add('provincia')
