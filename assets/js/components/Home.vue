@@ -1,9 +1,5 @@
 <template>
     <b-container class="mt-3">
-        <div>
-            <b-alert show>Bienvenid@ <span id="nombreCompleto"></span>, <a id="salir" href="logout">Cerrar sesión</a> </b-alert>
-        </div>
-
         <!-- Cabecera slides -->
         <b-carousel
             id="carousel-fade"

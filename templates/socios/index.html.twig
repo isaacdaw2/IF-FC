@@ -5,14 +5,25 @@
 {% block body %}
     {{ parent() }}
 
-    <div id="app" class="d-block">
+    <div id="app">
         <Socio />  
     </div>  
-    
-    <div class="d-block">
+
+    <div class="">
         {{ form(formularioSocios)}}
     </div>
+    
 {% endblock %}
 
 {% block javascripts %}
+    <script>
+        document.getElementById("pagoSocios").onkeyup = () => {
+            document.getElementById("socios_metodo_pago").value = document.getElementById("pagoSocios").value;
+        }
+
+        document.getElementById("enviarSocios").onclick = () => {
+            {# document.getElementById("socios_Enviar").click(); #}
+            console.log("Click");
+        }
+    </script>
 {% endblock %}

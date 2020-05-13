@@ -8,6 +8,8 @@ use App\Form\JugadoresType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class JugadoresController extends AbstractController
 {
@@ -33,16 +35,4 @@ class JugadoresController extends AbstractController
             'formularioJugadores' => $form->createView()
         ]);
     }
-
-    /**
-     * @Route("/misdatos", name="misDatos")
-     */
-    public function misDatos(){
-        $em = $this->getDoctrine()->getManager();
-        $usuario = $this->getUser();
-        $misdatos = $em->getRepository(Jugadores::class)->findBy(['usuarios'=>$usuario]);
-        return $this->render('jugadores/misdatos.html.twig', [
-            'misdatos' => $misdatos
-        ]);
-    }   
 }

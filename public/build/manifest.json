@@ -5,5 +5,7 @@
   "build/runtime.js": "/build/runtime.js",
   "build/vendors~css/app~js/app.css": "/build/vendors~css/app~js/app.css",
   "build/vendors~css/app~js/app.js": "/build/vendors~css/app~js/app.js",
-  "build/vendors~js/app.js": "/build/vendors~js/app.js"
+  "build/vendors~js/app.js": "/build/vendors~js/app.js",
+  "build/vendors~css/app.css": "/build/vendors~css/app.css",
+  "build/vendors~css/app.js": "/build/vendors~css/app.js"
 }

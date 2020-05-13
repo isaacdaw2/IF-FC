@@ -10,7 +10,7 @@
                     <label for="categorias">Categoría:</label>
                 </b-col>
                 <b-col>
-                    <b-form-select v-model="categoria" :options="categorias"></b-form-select>
+                    <b-form-select v-model="categoria" id="categoria" :options="categorias"></b-form-select>
                 </b-col>
             </b-form-row>
 
@@ -20,7 +20,7 @@
                     <label for="tallaCamiseta">Talla de camiseta:</label>
                 </b-col>
                 <b-col>
-                    <b-form-select v-model="tallaCamiseta" :options="tallas"></b-form-select>
+                    <b-form-select v-model="tallaCamiseta" id="tallaCamiseta" :options="tallas"></b-form-select>
                 </b-col>
             </b-form-row>
 
@@ -30,7 +30,7 @@
                     <label for="tallaPantalon">Talla de pantalón:</label>
                 </b-col>
                 <b-col>
-                    <b-form-select v-model="tallaPantalon" :options="tallas"></b-form-select>
+                    <b-form-select v-model="tallaPantalon" id="tallaPantalon" :options="tallas"></b-form-select>
                 </b-col>
             </b-form-row>
 
@@ -40,7 +40,7 @@
                     <label for="tallaMedias">Talla de medias:</label>
                 </b-col>
                 <b-col>
-                    <b-form-select v-model="tallaMedias" :options="tallas"></b-form-select>
+                    <b-form-select v-model="tallaMedias" id="tallaMedias" :options="tallas"></b-form-select>
                 </b-col>
             </b-form-row>
 
@@ -50,7 +50,7 @@
                     <label for="tallaAbrigo">Talla de abrigo:</label>
                 </b-col>
                 <b-col>
-                    <b-form-select v-model="tallaAbrigo" :options="tallas"></b-form-select>
+                    <b-form-select v-model="tallaAbrigo" id="tallaAbrigo" :options="tallas"></b-form-select>
                 </b-col>
             </b-form-row>
 
@@ -60,14 +60,14 @@
                     <label for="metodoPago">Método de pago:</label>
                 </b-col>
                 <b-col>
-                    <b-form-select v-model="metodoPago" :options="pago"></b-form-select>
+                    <b-form-select v-model="metodoPago" id="metodoPago" :options="pago"></b-form-select>
                 </b-col>
             </b-form-row>
 
             <!-- línea 7: enviar -->
             <b-form-row class="mt-2">
                 <b-col>
-                    <b-button variant="primary">Enviar</b-button>                 
+                    <b-button variant="primary" id="enviarJugador">Enviar</b-button>                 
                 </b-col>                    
             </b-form-row>
         </b-container>

@@ -13,14 +13,14 @@
                                 <label for="metodoPago">Método de pago:</label>
                             </b-col>
                             <b-col>
-                                <b-form-select v-model="metodoPago" :options="pago"></b-form-select>
+                                <b-form-select v-model="metodoPago" :options="pago" id="pagoSocios"></b-form-select>
                             </b-col>
                         </b-row>
 
                           <!-- boton enviar -->
                     <b-row class="mt-3">
                         <b-col>
-                            <b-button variant="primary">Enviar</b-button>                 
+                            <b-button variant="primary" id="enviarSocios">Enviar</b-button>                 
                         </b-col>                    
                     </b-row>
                 </b-card>
