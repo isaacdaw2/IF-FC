@@ -20,7 +20,7 @@
                           <!-- boton enviar -->
                     <b-row class="mt-3">
                         <b-col>
-                            <b-button variant="primary" id="enviarSocios">Enviar</b-button>                 
+                            <b-button variant="primary" id="enviarSocios" @click="pagar(metodoPago)">Enviar</b-button>                 
                         </b-col>                    
                     </b-row>
                 </b-card>
@@ -41,6 +41,21 @@ export default {
                 {value: 'Tarjeta', text: 'Tarjeta crédito/débito'},
                 {value: 'Transferencia', text: 'Transferencia bancaria'}
             ]
+        }
+    },
+    methods:{
+        pagar(tipoPago){
+            var ruta = '/pago-socios'
+            $.ajax({
+                type: 'POST',
+                url: ruta,
+                data: ({pago: tipoPago}),
+                async: true,
+                dataType: 'json',
+                success: function (data) {
+                console.log(data)
+                }
+            })
         }
     }
 }

@@ -9,7 +9,6 @@
 import '../css/app.scss';
 import '../css/app.css';
 
-
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
@@ -36,17 +35,16 @@ Vue.use(BootstrapVue)
 Vue.use(VueRouter)
 
 const routes = [
-    { path: '', name: 'home', component: Home },
-    { path: 'registro', name: 'registro', component: Registro },
-    { path: 'login', name: 'login', component: Login },
-    { path: 'jugadores', name: 'jugador', component: Jugador },
-    { path: 'socios', name: 'socio', component: Socio },
-    { path: 'entrenadores', name: 'entrenador', component: Entrenador },
-    { path: 'miperfil', name: 'perfil', component: Perfil }
+    { path: '/', name: 'home', component: Home },
+    { path: '/registro', name: 'registro', component: Registro },
+    { path: '/login', name: 'login', component: Login },
+    { path: '/jugadores', name: 'jugador', component: Jugador },
+    { path: '/socios', name: 'socio', component: Socio },
+    { path: '/entrenadores', name: 'entrenador', component: Entrenador },
+    { path: '/miperfil', name: 'perfil', component: Perfil }
 ]
 
 const router = new VueRouter({
-    mode: 'history',
     routes // short for `routes: routes`
 });
 

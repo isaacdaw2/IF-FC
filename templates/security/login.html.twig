@@ -8,15 +8,15 @@
         <Login />    
     </div>   
 
+
+
+
+
+
+
     <form method="post" class="d-none">
         {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
-
-        {% if app.user %}
-            <div class="mb-3">
-                Estás logueado como: {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-            </div>
+            <div class="alert alert-danger" id="errors">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
         Email: <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control">
@@ -42,5 +42,16 @@
         document.getElementById("acceder").onclick = () => { 
             document.getElementById("botonAcceder").click();
         }
+
+        function validar(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla==13) {
+                document.getElementById("acceder").click();
+            }                
+        }
+
+        {# if(document.getElementById("errors").value !== null){
+            document.getElementById("alertas").innerHTML = document.getElementById("errors").innerHTML;
+        } #}
     </script>
 {% endblock %}

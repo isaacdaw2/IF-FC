@@ -7,7 +7,8 @@
 
     <div id="app">
         <Socio />  
-    </div>  
+    </div>
+    asdasdsad
 
     <div class="">
         {{ form(formularioSocios)}}
@@ -16,14 +17,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        document.getElementById("pagoSocios").onkeyup = () => {
-            document.getElementById("socios_metodo_pago").value = document.getElementById("pagoSocios").value;
-        }
 
-        document.getElementById("enviarSocios").onclick = () => {
-            {# document.getElementById("socios_Enviar").click(); #}
-            console.log("Click");
-        }
-    </script>
+
 {% endblock %}

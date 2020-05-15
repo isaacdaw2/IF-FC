@@ -10,7 +10,7 @@
             </template>
 
             <div>
-              <b-alert id="alertas" variant="danger" show>Aquí van los errores</b-alert>
+              <b-alert id="alertas" variant="danger"></b-alert>
             </div>
 
             <!-- Usuario -->
@@ -19,7 +19,7 @@
                 <b-card-text>Email:</b-card-text>
                 </b-col>
                 <b-col>
-                <b-form-input type="email" name="email" id="emailLogin" class="form-control" placeholder="Introduce aquí tu email" required autofocus></b-form-input>
+                <b-form-input type="email" name="email" id="emailLogin" onkeypress="validar(event)" class="form-control" placeholder="Introduce aquí tu email" required autofocus></b-form-input>
                 </b-col>
             </b-row>
 
@@ -29,7 +29,7 @@
                 <b-card-text>Contraseña:</b-card-text>
                 </b-col>
                 <b-col>
-                <b-form-input type="password" name="password" id="password" class="form-control" placeholder="Introduce aquí tu contraseña" required></b-form-input>                
+                <b-form-input type="password" name="password" id="password" onkeypress="validar(event)" class="form-control" placeholder="Introduce aquí tu contraseña" required></b-form-input>                
                 </b-col>
             </b-row>
 

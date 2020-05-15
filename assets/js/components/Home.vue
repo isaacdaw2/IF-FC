@@ -1,5 +1,5 @@
 <template>
-    <b-container class="mt-3">
+    <b-container class="mt-2">
         <!-- Cabecera slides -->
         <b-carousel
             id="carousel-fade"
@@ -7,7 +7,8 @@
             fade
             indicators
             img-width="1024"
-            img-height="480">
+            img-height="480"
+            >
             <b-carousel-slide
                 caption="Bienvenid@ a nuestra web"
                 img-src="/img/balon-de-futbol.jpg"></b-carousel-slide>
@@ -188,4 +189,12 @@
     }
   }
 </script>
+
+<style scoped>
+.separacion{
+        margin-top: 20%;
+    }
+</style>
+    
+
 

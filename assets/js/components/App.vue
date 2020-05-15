@@ -1,10 +1,11 @@
 <template>
   <div>
-      <b-navbar toggleable="md" type="dark" variant="primary">
+      <b-navbar sticky toggleable="md" type="dark" variant="primary">
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
           <b-navbar-brand :to="{name: 'home'}">
             <img src="/img/balon.png" width="30" alt="balon">
-            IF-ormáticos FC</b-navbar-brand>
+            IF-ormáticos FC
+          </b-navbar-brand>
 
           <b-collapse id="nav-collapse" class="text-center" is-nav>
             <b-navbar-nav>
@@ -18,8 +19,6 @@
           </b-collapse>
       </b-navbar>
 
-      <b-container>
-        <router-view/>
-      </b-container>   
+      <router-view/>
   </div>
 </template>

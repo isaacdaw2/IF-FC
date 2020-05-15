@@ -18,7 +18,7 @@
             <b-card-text>Nombre:</b-card-text>
           </b-col>
           <b-col>
-            <b-form-input type="text" id="nombre" placeholder="Introduce aquí tu nombre" class="input-formulario" required></b-form-input>
+            <b-form-input type="text" id="nombre" placeholder="Introduce aquí tu nombre" class="input-formulario" required autofocus=""></b-form-input>
           </b-col>
         </b-row>
 

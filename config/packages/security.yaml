@@ -37,3 +37,4 @@ security:
          - { path: ^/socios, roles: [ROLE_ADMIN, ROLE_USER] }
          - { path: ^/jugadores, roles: [ROLE_ADMIN, ROLE_USER] }
          - { path: ^/entrenadores, roles: [ROLE_ADMIN, ROLE_USER] }
+         - { path: ^/perfil, roles: [ROLE_ADMIN, ROLE_USER] }
