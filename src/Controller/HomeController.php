@@ -46,19 +46,4 @@ class HomeController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/miperfil/{id}", name="miperfil")
-     */
-    public function miPerfil($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $usuario = $em->getRepository(Usuarios::class)->find($id);
-        if ($this->getUser() == $usuario) {
-            return $this->render('home/miperfil.html.twig',
-                ['usuario' => $usuario]
-            );
-        } else {
-            return $this->redirectToRoute('dashboard');
-        }
-    }
 }

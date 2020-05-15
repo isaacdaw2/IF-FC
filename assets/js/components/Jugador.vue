@@ -67,7 +67,7 @@
             <!-- línea 7: enviar -->
             <b-form-row class="mt-2">
                 <b-col>
-                    <b-button variant="primary" id="enviarJugador">Enviar</b-button>                 
+                    <b-button variant="primary" id="enviarJugador" @click="inscribirJugador(metodoPago, categoria, tallaCamiseta, tallaPantalon, tallaMedias, tallaAbrigo)">Enviar</b-button>                 
                 </b-col>                    
             </b-form-row>
         </b-container>
@@ -108,6 +108,27 @@ export default {
                 {value: 'Tarjeta', text: 'Tarjeta crédito/débito'},
                 {value: 'Transferencia', text: 'Transferencia bancaria'}
             ]
+        }
+    },
+    methods:{
+        inscribirJugador(EleccionPagoJugador, EleccionCategoria, EleccionTallaCamiseta, EleccionTallaPantalon, EleccionTallaMedias, EleccionTallaAbrigo){
+            var ruta = '/pago-jugadores'
+            $.ajax({
+                type: 'POST',
+                url: ruta,
+                data: ({pagoJugador: EleccionPagoJugador, 
+                        categoria: EleccionCategoria,
+                        tallaCamiseta: EleccionTallaCamiseta,
+                        tallaPantalon: EleccionTallaPantalon,
+                        tallaMedias: EleccionTallaMedias,
+                        tallaAbrigo: EleccionTallaAbrigo
+                        }),
+                async: true,
+                dataType: 'json',
+                success: function (data) {
+                console.log(data)
+                }
+            })
         }
     }
 }

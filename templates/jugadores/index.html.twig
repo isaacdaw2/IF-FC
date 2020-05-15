@@ -9,40 +9,9 @@
         <Jugador />  
     </div>  
 
-    <div class="">
+    <div class="d-none">
         {{ form(formularioJugadores)}}
     </div>  
 {% endblock %}
 
-{% block javascripts %}
-    <script>
-        document.getElementById("categoria").onkeyup = () => {
-            document.getElementById("jugadores_categoria").value = document.getElementById("categoria").value;
-        }
-
-        document.getElementById("tallaCamiseta").onkeyup = () => {
-            document.getElementById("jugadores_talla_camiseta").value = document.getElementById("tallaCamiseta").value;
-        }
-        
-        document.getElementById("tallaPantalon").onkeyup = () => {
-            document.getElementById("jugadores_talla_pantalon").value = document.getElementById("tallaPantalon").value;
-        }
-
-        document.getElementById("tallaMedias").onkeyup = () => {
-            document.getElementById("jugadores_talla_medias").value = document.getElementById("tallaMedias").value;
-        }
-
-        document.getElementById("tallaAbrigo").onkeyup = () => {
-            document.getElementById("jugadores_talla_abrigo").value = document.getElementById("tallaAbrigo").value;
-        }
-
-        document.getElementById("metodoPago").onkeyup = () => {
-            document.getElementById("jugadores_metodo_pago").value = document.getElementById("metodoPago").value;
-        }
-
-        document.getElementById("enviaraqui").onclick = () => {
-            console.log("Estoy dando click");
-            document.getElementById("jugadores_Enviar").click();
-        }      
-   </script>
-{% endblock %}
+{% block javascripts %}{% endblock %}
