@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 text-center">
+    <div class="mt-5 mb-5 text-center container">
         <h1>Contigo seguimos creciendo</h1>
         <h2>¡Hazte socio!</h2>
 

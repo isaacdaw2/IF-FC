@@ -1,11 +1,12 @@
 <template>
     <div class="mt-5 text-center">
+        <b-container>
          <b-card
             header="Mi perfil"
             header-text-variant="white"
             header-tag="header"
             header-bg-variant="info"
-            max-width="10"
+            style="max-width: 40rem;"
             >
             <h3>{{ usuario.nombre }} {{ usuario.apellidos }}</h3>
             <b-row class="mb-2">
@@ -75,6 +76,7 @@
                 </b-col>
             </b-row>
         </b-card>
+        </b-container>
     </div>
 </template>
 

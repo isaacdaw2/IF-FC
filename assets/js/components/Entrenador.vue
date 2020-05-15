@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 text-center">
+    <div class="mt-5 text-center container">
         <h1>¿Tienes el título de entrenador?</h1>
         <h2>Envíanoslo y dirige a alguno de nuestros equipos</h2>
         
