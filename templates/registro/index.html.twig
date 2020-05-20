@@ -3,71 +3,136 @@
 {% block title %} {{ parent() }} - Registrarme{% endblock %}
 
 {% block body %}
+  
+<div class="container mt-5 mb-5 text-center justify-content-center">
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Iniciar sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active">Registrarme</a>
+                </li>
+            </ul>
+        </div> 
+        <div class="card-body">
+            <h1>¡Rellena este formulario!</h1>
 
-    {% for message in app.flashes('registrado') %}
-            <div class="alert alert-success text-center">
-                {{ message }}
-            </div>
-    {% endfor %}
-    
-    <div id="app">
-        <Registro />    
-    </div>      
+            <!-- Inicio formulario -->
+            {{ form_start(formulario) }}
 
-    <div class="d-none">
-        {{ form(formulario) }}
-    </div>  
+                <!-- Mensaje registro exitoso -->
+                {% for message in app.flashes('registrado') %}
+                    <div class="alert alert-success text-center">
+                        {{ message }}
+                    </div>
+                {% endfor %}
 
+                <!-- Nombre -->
+                <div class="row mt-4"> 
+                    <div class="col">Nombre:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.nombre, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el nombre'}}) }}
+                    </div>                        
+                </div> 
 
+                <!-- Apellidos -->
+                <div class="row mt-4"> 
+                    <div class="col">Apellidos:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.apellidos, {'attr': {'class': 'form-control', 'placeholder': 'Introduce los apellidos'}}) }}
+                    </div>                        
+                </div> 
+
+                <!-- Dni -->
+                <div class="row mt-4"> 
+                    <div class="col">Dni:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.dni, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el dni'}}) }}
+                    </div>                        
+                </div> 
+
+                <!-- Email -->
+                <div class="row mt-4"> 
+                    <div class="col">Email:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.email, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el email'}}) }}
+                    </div>                        
+                </div> 
+
+                <!-- Contraseña -->
+                <div class="row mt-4"> 
+                    <div class="col">Contraseña:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.password, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la contraseña'}}) }}
+                    </div>                        
+                </div> 
+
+                <!-- Fecha nacimiento -->
+                <div class="row mt-4"> 
+                    <div class="col">Fecha de nacimiento:</div>                        
+                    <div class="col">
+                        <input type="date" id="fechaNacimiento" class="form-control"></input>
+                        {{ form_widget(formulario.fechaNacimiento, {'attr': {'class': 'd-none form-control'}}) }}
+                    </div>                        
+                </div> 
+
+                <hr><span class="text-success">Dirección</span>
+
+                <!-- Calle -->
+                <div class="row mt-4"> 
+                    <div class="col">Calle:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.calle, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la calle'}}) }}
+                    </div>                        
+                </div> 
+
+                <!-- Localidad -->
+                <div class="row mt-4"> 
+                    <div class="col">Localidad:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.localidad, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la localidad'}}) }}
+                    </div>                        
+                </div> 
+
+                <!-- Provincia -->
+                <div class="row mt-4"> 
+                    <div class="col">Provincia:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.provincia, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la provincia'}}) }}
+                    </div>                        
+                </div> 
+
+                <!-- Código postal -->
+                <div class="row mt-4"> 
+                    <div class="col">Código postal:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.cp, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el codigo postal'}}) }}
+                    </div>                        
+                </div>
+
+                <!-- Botón de registrar --> 
+                <div class="row mt-4"> 
+                    <div class="col">
+                        {{ form_widget(formulario.Registrarme, {'attr': {'class': 'form-control, btn btn-outline-success'}}) }}
+                    </div>                       
+                </div>                 
+
+            <!-- Fin formulario -->
+            {{ form_end(formulario) }}
+        </div>   
+    </div>   
+</div> 
 {% endblock %}
 
 {% block javascripts %}
     <script>
-        document.getElementById("nombre").onkeyup = () => {
-            document.getElementById("usuarios_nombre").value = document.getElementById("nombre").value;
-        }
-
-        document.getElementById("apellidos").onkeyup = () => {
-            document.getElementById("usuarios_apellidos").value = document.getElementById("apellidos").value;
-        }
-
-        document.getElementById("emailRegistro").onkeyup = () => {
-            document.getElementById("usuarios_email").value = document.getElementById("emailRegistro").value;
-        }
-
-        document.getElementById("dni").onkeyup = () => {
-            document.getElementById("usuarios_dni").value = document.getElementById("dni").value;
-        }
-
         document.getElementById("fechaNacimiento").onkeyup = () => {
-            let date = new Date(document.getElementById("fechaNacimiento").value);
-            document.getElementById("usuarios_fechaNacimiento_day").value = date.getDate();
-            document.getElementById("usuarios_fechaNacimiento_month").value = date.getMonth()+1;
-            document.getElementById("usuarios_fechaNacimiento_year").value = date.getFullYear();
-        }
-
-        document.getElementById("calle").onkeyup = () => {
-            document.getElementById("usuarios_calle").value = document.getElementById("calle").value;
-        }
-
-        document.getElementById("localidad").onkeyup = () => {
-            document.getElementById("usuarios_localidad").value = document.getElementById("localidad").value;
-        }
-
-        document.getElementById("provincia").onkeyup = () => {
-            document.getElementById("usuarios_provincia").value = document.getElementById("provincia").value;
-        }
-
-        document.getElementById("cp").onkeyup = () => {
-            document.getElementById("usuarios_cp").value = document.getElementById("cp").value;
-        }
-
-        document.getElementById("pass").onkeyup = () => {
-            document.getElementById("usuarios_password").value = document.getElementById("pass").value;
-        }
-
-        document.getElementById("registrarme").onclick = () => {
-            document.getElementById("usuarios_Registrarme").click();
+               let date = new Date(document.getElementById("fechaNacimiento").value);
+               document.getElementById("usuarios_fechaNacimiento_day").value = date.getDate();
+               document.getElementById("usuarios_fechaNacimiento_month").value = date.getMonth()+1;
+               document.getElementById("usuarios_fechaNacimiento_year").value = date.getFullYear();
         }
     </script>
 {% endblock %}

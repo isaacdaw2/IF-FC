@@ -24,8 +24,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 import App from './components/App.vue'
 import Home from './components/Home.vue'
-import Registro from './components/Registro.vue'
-import Login from './components/Login.vue'
 import Jugador from './components/Jugador.vue'
 import Socio from './components/Socio.vue'
 import Entrenador from './components/Entrenador.vue'
@@ -36,8 +34,6 @@ Vue.use(VueRouter)
 
 const routes = [
     { path: '/', name: 'home', component: Home },
-    { path: '/registro', name: 'registro', component: Registro },
-    { path: '/login', name: 'login', component: Login },
     { path: '/jugadores', name: 'jugador', component: Jugador },
     { path: '/socios', name: 'socio', component: Socio },
     { path: '/entrenadores', name: 'entrenador', component: Entrenador },
@@ -50,6 +46,6 @@ const router = new VueRouter({
 
 new Vue({
     el: "#app",
-    components: {App, Home, Registro, Login, Jugador, Socio, Entrenador, Perfil},
+    components: {App, Home, Jugador, Socio, Entrenador, Perfil},
     router
 })

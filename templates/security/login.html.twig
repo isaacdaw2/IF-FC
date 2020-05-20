@@ -3,49 +3,102 @@
 {% block title %}{{parent()}} - Acceder {% endblock %}
 
 {% block body %}
+<div class="container mt-5 mb-5 text-center justify-content-center">
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active">Iniciar sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registro">Registrarme</a>
+                </li>
+            </ul>
+        </div> 
+        <div class="card-body">
+            <h3 class="h3 mb-3 text-dark">¡Bienvenid@ a IF-ORMATICOS FC!</h3>
 
-    <div id="app">
-        <Login />    
-    </div>
+            <!-- Inicio formulario -->
+            <form method="post">
+                <!-- Mensajes error -->
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
 
-    <form method="post" class="d-none">
-        {% if error %}
-            <div class="alert alert-danger" id="errors">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+                <!-- Email -->
+                <div class="row mt-4"> 
+                    <div class="col">Email:</div>                        
+                    <div class="col">
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus placeholder="Introduce el email">
+                    </div>                        
+                </div>
 
-        Email: <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control">
-        
-        Pass: <input type="password" name="password" id="inputPassword" class="form-control">
+                <!-- Contraseña -->
+                <div class="row mt-4"> 
+                    <div class="col">Contraseña:</div>                        
+                    <div class="col">
+                        <input type="password" name="password" id="inputPassword" placeholder="Introduce la contraseña" class="form-control" required>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    </div>                        
+                </div>
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <!-- Botón de acceder --> 
+                <div class="row mt-4"> 
+                    <div class="col">
+                        <button class="btn btn-outline-success" type="submit">Acceder</button>
+                    </div>                       
+                </div> 
 
-        <button class="btn btn-lg btn-outline-danger my-3" id="botonAcceder" type="submit">Acceder</button>
-    </form>
-{% endblock %}
+            <!-- Fin formulario -->
+            </form>
+        </div>   
+    </div>   
+</div> 
+    {# <div class="container mt-5 text-center justify-content-center">
+        <div class="card text-center">
 
-{% block javascripts %}
-    <script>
-        document.getElementById("emailLogin").onkeyup = () => {
-                document.getElementById("inputEmail").value = document.getElementById("emailLogin").value;
-        }
+            <!-- Cabecera card -->
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/login">Iniciar sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/registro">Registrarme</a>
+                    </li>
+                </ul>
+            </div>
 
-        document.getElementById("password").onkeyup = () => {
-                document.getElementById("inputPassword").value = document.getElementById("password").value;
-        }
+            <div class="card-body">
+                <form method="post">
+                    <!-- Mensajes error -->
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-        document.getElementById("acceder").onclick = () => { 
-            document.getElementById("botonAcceder").click();
-        }
+                    <center>
+                        <h1 class="h3 mb-3 text-dark">¡Bienvenid@ a IF-ORMATICOS FC!</h1>
+                        <br>
+                        <div class="form-group row justify-content-center">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-3">
+                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus placeholder="Introduce el email">
+                            </div>
+                        </div>
 
-        function validar(e) {
-            tecla = (document.all) ? e.keyCode : e.which;
-            if (tecla==13) {
-                document.getElementById("acceder").click();
-            }                
-        }
+                        <div class="form-group row justify-content-center">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Contraseña</label>
+                            <div class="col-sm-3">
+                                <input type="password" name="password" id="inputPassword" placeholder="Introduce la contraseña" class="form-control" required>
+                            </div>
+                        </div>
 
-        {# if(document.getElementById("errors").value !== null){
-            document.getElementById("alertas").innerHTML = document.getElementById("errors").innerHTML;
-        } #}
-    </script>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                        <button class="btn btn-lg btn-outline-success my-3" type="submit">Acceder</button>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div> #}
 {% endblock %}
