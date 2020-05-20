@@ -38,7 +38,7 @@ class JugadoresController extends AbstractController
             $em->persist($jugador);
             $em->flush();
 
-            return new JsonResponse('Pago completado');
+            return new JsonResponse('Inscripción jugador completada');
 
         } else {
             throw new \Exception("No autorizado");

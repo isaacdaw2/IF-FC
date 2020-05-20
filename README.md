@@ -1,8 +1,24 @@
-## npm install vue bootstrap-vue bootstrap
+# En este proyecto utilizamos: 
 
-## composer install
+ - Symfony
+ - Node.js
+ - Composer
+ - XAMPP
 
-## yarn add sass-loader@^7.0.1 --dev
+## Una vez descargado el proyecto nos ubicamos en él y ejecutamos estas líneas:
 
-Para los estilos
-/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJjc3MvYXBwLmNzcyIsInNvdXJjZVJvb3QiOiIifQ==*/
+ - npm install
+
+ - composer install
+
+ ## Esto es para descargar algunas carpetas y archivos necesarios. A continuación debemos crear la base de datos, para ello ejecutamos:
+
+ - php bin/console doctrine:database:create
+
+ ## Ahora actualizamos los valores que tenemos en la app con la base de datos creada:
+
+ - php bin/console doctrine:schema:update --force
+ 
+ ## Una vez terminado, para arrancar la aplicación introduciremos este comando:
+
+  - symfony server:start

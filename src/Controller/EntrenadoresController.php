@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class EntrenadoresController extends AbstractController
 {
@@ -55,5 +57,50 @@ class EntrenadoresController extends AbstractController
         return $this->render('entrenadores/index.html.twig', [
             'formularioEntrenadores' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/envio-titulo", name="envio-titulo")
+     */
+    public function envioTitulo(Request $request, SluggerInterface $slugger)
+    {
+        if($request->isXmlHttpRequest()){
+            $entrenador = new Entrenadores();
+
+            //$titulos = $request->request->get('titulo');
+            $titulos = $request->files->get('file');
+            
+            if ($titulos) {
+                $originalFilename = pathinfo($titulos->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$titulos->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $titulos->move(
+                        $this->getParameter('titulosEntrenador_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    throw new \Exception('Ha ocurrido un error');
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $entrenador->setTitulacion($newFilename);
+            }
+
+            $usuario = $this->getUser();
+            $entrenador->setUsuarios($usuario);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entrenador);
+            $em->flush();           
+
+            return new JsonResponse('Titulo enviado');
+
+        } else {
+            throw new \Exception("No autorizado");
+        }
     }
 }

@@ -26,7 +26,7 @@ class SociosController extends AbstractController
             $em->persist($socio);
             $em->flush();
 
-            return new JsonResponse('Pago completado');
+            return new JsonResponse('Socio abonado correctamente');
 
         } else {
             throw new \Exception("No autorizado");
