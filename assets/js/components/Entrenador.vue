@@ -6,7 +6,7 @@
         <b-img src="/img/entrenador.png" fluid></b-img>        
         
         <!-- Seleccionar archivo -->
-        <b-row class="mt-3">
+        <b-row class="mt-3" v-if="!dismissCountDown">
             <b-form-file
                 v-model="file"
                 :state="Boolean(file)"
@@ -14,7 +14,7 @@
                 drop-placeholder="Soltar archivo aquí..."
                 browse-text="Elegir"
                 id="file" name="file"
-                v-if="!dismissCountDown"
+                
             ></b-form-file>
         </b-row>
         <b-row class="mt-3 justify-content-center"> 
@@ -38,7 +38,7 @@
         <!-- Botón de enviar-->
         <b-row class="mt-3">
             <b-col>
-                <b-button variant="success" @click="enviarTitulo">Enviar</b-button>
+                <b-button variant="success" id="botonEntrenador" @click="enviarTitulo">Enviar</b-button>
             </b-col>
         </b-row>
     </div>
@@ -77,8 +77,7 @@ export default {
 
                     setTimeout( () => this.$router.push({ name: 'home'}), 3010);
                 }
-            })
-            
+            })            
         }
     }
 }
