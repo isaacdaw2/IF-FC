@@ -18,6 +18,7 @@
         </div> 
         <div class="card-body">
             <h1>¡Rellena este formulario!</h1>
+            <small class="text-success">No compartiremos ninguno de tus datos con nadie</small>                    
 
             <!-- Inicio formulario -->
             {{ form_start(formulario) }}
@@ -33,7 +34,7 @@
                 <div class="row mt-4"> 
                     <div class="col">Nombre:</div>                        
                     <div class="col">
-                        {{ form_widget(formulario.nombre, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el nombre'}}) }}
+                        {{ form_widget(formulario.nombre, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce el nombre'}}) }}
                     </div>                        
                 </div> 
 
@@ -41,7 +42,7 @@
                 <div class="row mt-4"> 
                     <div class="col">Apellidos:</div>                        
                     <div class="col">
-                        {{ form_widget(formulario.apellidos, {'attr': {'class': 'form-control', 'placeholder': 'Introduce los apellidos'}}) }}
+                        {{ form_widget(formulario.apellidos, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce los apellidos'}}) }}
                     </div>                        
                 </div> 
 
@@ -49,7 +50,7 @@
                 <div class="row mt-4"> 
                     <div class="col">Dni:</div>                        
                     <div class="col">
-                        {{ form_widget(formulario.dni, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el dni'}}) }}
+                        {{ form_widget(formulario.dni, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce el dni'}}) }}
                     </div>                        
                 </div> 
 
@@ -57,7 +58,7 @@
                 <div class="row mt-4"> 
                     <div class="col">Email:</div>                        
                     <div class="col">
-                        {{ form_widget(formulario.email, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el email'}}) }}
+                        {{ form_widget(formulario.email, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce el email'}}) }}
                     </div>                        
                 </div> 
 
@@ -65,7 +66,7 @@
                 <div class="row mt-4"> 
                     <div class="col">Contraseña:</div>                        
                     <div class="col">
-                        {{ form_widget(formulario.password, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la contraseña'}}) }}
+                        {{ form_widget(formulario.password, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce la contraseña'}}) }}
                     </div>                        
                 </div> 
 
@@ -73,7 +74,7 @@
                 <div class="row mt-4"> 
                     <div class="col">Fecha de nacimiento:</div>                        
                     <div class="col">
-                        <input type="date" id="fechaNacimiento" class="form-control"></input>
+                        <input type="date" id="fechaNacimiento" class="form-control text-center"></input>
                         {{ form_widget(formulario.fechaNacimiento, {'attr': {'class': 'd-none form-control'}}) }}
                     </div>                        
                 </div> 
@@ -84,7 +85,7 @@
                 <div class="row mt-4"> 
                     <div class="col">Calle:</div>                        
                     <div class="col">
-                        {{ form_widget(formulario.calle, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la calle'}}) }}
+                        {{ form_widget(formulario.calle, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce la calle'}}) }}
                     </div>                        
                 </div> 
 
@@ -92,7 +93,7 @@
                 <div class="row mt-4"> 
                     <div class="col">Localidad:</div>                        
                     <div class="col">
-                        {{ form_widget(formulario.localidad, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la localidad'}}) }}
+                        {{ form_widget(formulario.localidad, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce la localidad'}}) }}
                     </div>                        
                 </div> 
 
@@ -100,7 +101,7 @@
                 <div class="row mt-4"> 
                     <div class="col">Provincia:</div>                        
                     <div class="col">
-                        {{ form_widget(formulario.provincia, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la provincia'}}) }}
+                        {{ form_widget(formulario.provincia, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce la provincia'}}) }}
                     </div>                        
                 </div> 
 
@@ -108,7 +109,7 @@
                 <div class="row mt-4"> 
                     <div class="col">Código postal:</div>                        
                     <div class="col">
-                        {{ form_widget(formulario.cp, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el codigo postal'}}) }}
+                        {{ form_widget(formulario.cp, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce el codigo postal'}}) }}
                     </div>                        
                 </div>
 
