@@ -1,6 +1,12 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Registrarme{% endblock %}
+<title>{% block title %}Registrarme{% endblock %}</title>
+
+{{ encore_entry_link_tags('css/app') }}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+{% endblock %}
 
 {% block body %}
   
@@ -25,7 +31,7 @@
 
                 <!-- Mensaje registro exitoso -->
                 {% for message in app.flashes('registrado') %}
-                    <div class="alert alert-success text-center">
+                    <div class="alert alert-success text-center mt-3">
                         {{ message }}
                     </div>
                 {% endfor %}
@@ -78,7 +84,8 @@
                 <div class="row mt-4"> 
                     <div class="col">Confirmar contraseña:</div>                        
                     <div class="col">
-                        <input type="text" id="confirmPass" placeholder="Confirma la contraseña" class="form-control text-center"></input> 
+                        <input type="password" id="confirmPass" placeholder="Confirma la contraseña" class="form-control text-center"></input> 
+                        {{ form_widget(formulario.confirmPass, {'attr': {'class': 'd-none form-control'}}) }}
                         <span id="confirmPassError" class="text-danger"></span>
                     </div>                        
                 </div> 
@@ -141,8 +148,9 @@
             {{ form_end(formulario) }}
         </div>   
     </div>   
-</div> 
+</div>
 {% endblock %}
+
 
 {% block javascripts %}
     <script>
@@ -156,6 +164,7 @@
         var dni = document.getElementById("usuarios_dni");
         var email = document.getElementById("usuarios_email");
         var password = document.getElementById("usuarios_password");
+        var confirmPass2 = document.getElementById("usuarios_confirmPass");
         var confirmPass = document.getElementById("confirmPass");
         var calle = document.getElementById("usuarios_calle");
         var localidad = document.getElementById("usuarios_localidad");
@@ -174,6 +183,8 @@
         var provincia_error = document.getElementById("provinciaError");
         var cp_error = document.getElementById("cpError");
 
+        {# Puntero body #}
+        document.querySelector('body').style.cursor = "pointer";
 
         fecha_nacimiento.onkeyup = () => {
             let date = new Date(fecha_nacimiento.value);
@@ -181,26 +192,27 @@
             fecha_mes.value = date.getMonth()+1;
             fecha_year.value = date.getFullYear();
         }
-
+        
         nombre_error.innerHTML = "";
         nombre.onkeyup = () => {
             const regExpNombre =/[A-Za-z]/;
-
             if(regExpNombre.test(nombre.value)){
                 nombre_error.innerHTML = "";
                 nombre.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
                 boton_registrar.disabled = false;
             }
-
             if(!regExpNombre.test(nombre.value)){
                 nombre_error.innerHTML = "El campo debe tener una cadena de caracteres";
                 nombre.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
+                
             }
-
             if(nombre.value == ""){
                 nombre_error.innerHTML = "El campo no puede estar vacío";
                 nombre.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
         }
@@ -212,16 +224,19 @@
             if(regExpApellidos.test(apellidos.value)){
                 apellidos_error.innerHTML = "";
                 apellidos.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
                 boton_registrar.disabled = false;
             }
             if(!regExpApellidos.test(apellidos.value)){
                 apellidos_error.innerHTML = "El campo debe tener una cadena de caracteres";
                 apellidos.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
             if(apellidos.value == ""){
                 apellidos_error.innerHTML = "El campo no puede estar vacío";
                 apellidos.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
         }
@@ -229,20 +244,22 @@
         dni_error.innerHTML = "";
         dni.onkeyup = () => {
             const regExpDni =/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i;
-
             if(regExpDni.test(dni.value)){
                 dni_error.innerHTML = "";
                 dni.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
                 boton_registrar.disabled = false;
             }
             if(!regExpDni.test(dni.value)){
                 dni_error.innerHTML = "El campo debe contener 8 números y 1 letra";
                 dni.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
             if(dni.value == ""){
                 dni_error.innerHTML = "El campo no puede estar vacío";
                 dni.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
         }
@@ -250,20 +267,22 @@
         email_error.innerHTML = "";
         email.onkeyup = () => {
             const regExpEmail =/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
-
             if(regExpEmail.test(email.value)){
                 email_error.innerHTML = "";
                 email.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
                 boton_registrar.disabled = false;
             }
             if(!regExpEmail.test(email.value)){
                 email_error.innerHTML = "El campo debe tener formato email";
                 email.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
             if(email.value == ""){
                 email_error.innerHTML = "El campo no puede estar vacío";
                 email.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
         }
@@ -272,100 +291,104 @@
         confirmPass.onkeyup = () => {
             if(confirmPass.value != password.value){
                 confirmPass_error.innerHTML = "Las contraseñas no coinciden";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
                 confirmPass.style.borderColor = "red";
             }
             else{
                 confirmPass_error.innerHTML = "";
+                boton_registrar.style.cursor = "pointer";
                 boton_registrar.disabled = false;
                 confirmPass.style.borderColor = "";
             }
         }
-
-
         calle_error.innerHTML = "";
         calle.onkeyup = () => {
             const regExpCalle =/[A-Za-z]/;
-
             if(regExpCalle.test(calle.value)){
                 calle_error.innerHTML = "";
                 calle.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
                 boton_registrar.disabled = false;
             }
             if(!regExpCalle.test(calle.value)){
                 calle_error.innerHTML = "El campo debe tener una cadena de caracteres";
                 calle.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
             if(calle.value == ""){
                 calle_error.innerHTML = "El campo no puede estar vacío";
                 calle.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
         }
-
         localidad_error.innerHTML = "";
         localidad.onkeyup = () => {
             const regExpLocalidad =/[A-Za-z]/;
-
             if(regExpLocalidad.test(localidad.value)){
                 localidad_error.innerHTML = "";
                 localidad.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
                 boton_registrar.disabled = false;
             }
             if(!regExpLocalidad.test(localidad.value)){
                 localidad_error.innerHTML = "El campo debe tener una cadena de caracteres";
                 localidad.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
             if(localidad.value == ""){
                 localidad_error.innerHTML = "El campo no puede estar vacío";
                 localidad.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
         }
-
         provincia_error.innerHTML = "";
         provincia.onkeyup = () => {
             const regExpLocalidad =/[A-Za-z]/;
-
             if(regExpLocalidad.test(provincia.value)){
                 provincia_error.innerHTML = "";
                 provincia.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
                 boton_registrar.disabled = false;
             }
             if(!regExpLocalidad.test(provincia.value)){
                 provincia_error.innerHTML = "El campo debe tener una cadena de caracteres";
                 provincia.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
             if(provincia.value == ""){
                 provincia_error.innerHTML = "El campo no puede estar vacío";
                 provincia.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
         }
-
         cp_error.innerHTML = "";
         cp.onkeyup = () => {
-            const regExpCp =/^[0-5][1-9]{3}[0-9]$/;
-
+            const regExpCp =/^(?:0[1-9]\d{3}|[1-4]\d{4}|5[0-2]\d{3})$/;
             if(regExpCp.test(cp.value)){
                 cp_error.innerHTML = "";
                 cp.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
                 boton_registrar.disabled = false;
             }
             if(!regExpCp.test(cp.value)){
-                cp_error.innerHTML = "El campo debe tener 5 numeros";
+                cp_error.innerHTML = "El campo debe tener 5 numeros comprendidos entre 01000 y 52999";
                 cp.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
             if(cp.value == ""){
                 cp_error.innerHTML = "El campo no puede estar vacío";
                 cp.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
         }
     </script>
 {% endblock %}
-

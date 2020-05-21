@@ -37,7 +37,7 @@ class Usuarios implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="boolean")
      */
     private $confirmPass;
 
@@ -150,12 +150,17 @@ class Usuarios implements UserInterface
     /**
      * Get the value of confirmPass
      */ 
-    public function getConfirmPass(): string
+    public function getConfirmPass()
     {
-        return (string) $this->confirmPass;
+        return $this->confirmPass;
     }
 
-    public function setConfirmPass(string $confirmPass): self
+    /**
+     * Set the value of confirmPass
+     *
+     * @return  self
+     */ 
+    public function setConfirmPass($confirmPass)
     {
         $this->confirmPass = $confirmPass;
 
@@ -337,5 +342,5 @@ class Usuarios implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
+    }    
 }

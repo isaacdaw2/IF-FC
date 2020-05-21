@@ -23,27 +23,4 @@ class HomeController extends AbstractController
         }
     }
 
-    /**
-     * @Route("/misdatos", options={"expose"=true}, name="misdatos", methods={"GET"})
-     */
-    public function misDatos(Request $request)
-    {
-        $usuario = $this->getUser();
-
-            $data = [
-                'id'=> $usuario->getId(),
-                'email' => $usuario->getEmail(),
-                'dni' => $usuario->getDni(),
-                'nombre' => $usuario->getNombre(),
-                'apellidos' => $usuario->getApellidos(),
-                'fechaNacimiento' => $usuario->getfechaNacimiento(),
-                'calle' => $usuario->getcalle(),
-                'localidad' => $usuario->getLocalidad(),
-                'provincia' => $usuario->getProvincia(),
-                'cp' => $usuario->getCp()
-            ];
-
-        return new JsonResponse($data, Response::HTTP_OK);
-    }
-
 }

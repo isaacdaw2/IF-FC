@@ -15,7 +15,9 @@
             >
                 <h3 v-if="!editar">{{ usuario.nombre }} {{ usuario.apellidos }}</h3>
                 <h3 v-if="editar">
+                    <strong class="text-dark h5">Nombre:</strong>
                     <b-form-input v-model="usuario.nombre"></b-form-input> 
+                    <strong class="text-dark h5">Apellidos:</strong>
                     <b-form-input v-model="usuario.apellidos"></b-form-input>
                 </h3>
 
