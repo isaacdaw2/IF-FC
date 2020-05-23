@@ -14,12 +14,24 @@
                 v-if="usuario.fechaNacimiento"
             >
                 <h3 v-if="!editar">{{ usuario.nombre }} {{ usuario.apellidos }}</h3>
-                <h3 v-if="editar">
-                    <strong class="text-dark h5">Nombre:</strong>
-                    <b-form-input v-model="usuario.nombre"></b-form-input> 
-                    <strong class="text-dark h5">Apellidos:</strong>
-                    <b-form-input v-model="usuario.apellidos"></b-form-input>
-                </h3>
+
+                <b-row class="mb-2" v-if="editar">
+                    <b-col>
+                        <strong class="text-dark">Nombre:</strong>
+                    </b-col>
+                    <b-col>
+                        <b-form-input name="usuario.nombre" id="usuario.nombre" v-model="usuario.nombre"></b-form-input>
+                    </b-col>
+                </b-row>
+
+                <b-row class="mb-2" v-if="editar">
+                    <b-col>
+                        <strong class="text-dark">Apellidos:</strong>
+                    </b-col>
+                    <b-col>
+                        <b-form-input v-model="usuario.apellidos"></b-form-input>
+                    </b-col>
+                </b-row>
 
                 <b-row class="mb-2">
                     <b-col>
@@ -110,7 +122,8 @@
                 <b-row class="mt-3">
                     <b-col>
                         <b-button variant="outline-primary" v-if="!editar" @click="editarPerfil">Editar</b-button>
-                        <b-button variant="outline-success" v-if="editar" @click="guardarPerfil">Guardar</b-button>
+                        <b-button variant="outline-success" v-if="editar" @click="actualizarPerfil(usuario.nombre, usuario.apellidos, usuario.email, usuario.dni, usuario.calle, usuario.localidad, usuario.provincia, usuario.cp)">Actualizar</b-button>
+                        <b-button variant="outline-danger" v-if="editar" @click="editar = false">Cancelar</b-button>
                     </b-col>
                 </b-row>
                 
@@ -126,7 +139,7 @@
         data: () => ({
             usuario: [],
             editar: false,
-            fecha: '1950-05-15'
+            fecha: '1950-05-15',
         }),
         mounted () {
             axios
@@ -138,20 +151,28 @@
         methods: {
             editarPerfil(){
                 this.editar = true;
-
-                // var ruta = '/editar-usuario'
-                // $.ajax({
-                //     type: 'POST',
-                //     url: ruta,
-                //     data: ({pago: tipoPago}),
-                //     async: true,
-                //     dataType: 'json',
-                //     success: function (data) {
-                //         console.log(data)
-                //     }
-                // })
             },
-            guardarPerfil(){
+            actualizarPerfil(nombreEdit, apellidosEdit, emailEdit, dniEdit, calleEdit, localidadEdit, provinciaEdit, cpEdit){
+                var ruta = '/editar-datos'
+                $.ajax({
+                    type: 'PUT',
+                    url: ruta,
+                    data: ({nombre: nombreEdit,
+                            apellidos: apellidosEdit,
+                            email: emailEdit,
+                            dni: dniEdit,
+                            calle: calleEdit,
+                            localidad: localidadEdit,
+                            provincia: provinciaEdit,
+                            cp: cpEdit
+                            }),
+                    async: true,
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        this.usuario = data
+                    }
+                }) 
                 this.editar = false;
             }
         }

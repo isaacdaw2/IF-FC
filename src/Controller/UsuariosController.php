@@ -11,16 +11,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class UsuariosController extends AbstractController
 {
     /**
-     * @Route("/usuarios", name="usuarios")
-     */
-    public function index()
-    {
-        return $this->render('usuarios/index.html.twig', [
-            'controller_name' => 'UsuariosController',
-        ]);
-    }
-
-    /**
      * @Route("/misdatos", options={"expose"=true}, name="misdatos", methods={"GET"})
      */
     public function misDatos(Request $request)
@@ -41,5 +31,38 @@ class UsuariosController extends AbstractController
             ];
 
         return new JsonResponse($data, Response::HTTP_OK);
+    }
+
+    /**
+     * @Route("/editar-datos", options={"expose"=true}, name="editar-datos", methods={"PUT"})
+     */
+    public function editarDatos(Request $request)
+    {
+        if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+            $usuario = $this->getUser();
+            $nombre = $request->request->get('nombre');
+            $apellidos = $request->request->get('apellidos');
+            $email = $request->request->get('email');
+            $dni = $request->request->get('dni');
+            $calle = $request->request->get('calle');
+            $localidad = $request->request->get('localidad');
+            $provincia = $request->request->get('provincia');
+            $cp = $request->request->get('cp');
+            $usuario->setNombre($nombre);
+            $usuario->setApellidos($apellidos);
+            $usuario->setEmail($email);
+            $usuario->setDni($dni);
+            $usuario->setCalle($calle);
+            $usuario->setLocalidad($localidad);
+            $usuario->setProvincia($provincia);
+            $usuario->setCp($cp);
+            $em->persist($usuario);
+            $em->flush();
+
+            return new JsonResponse('Modificación realizada');
+        } else {
+            throw new \Exception("No autorizado");
+        }
     }
 }
