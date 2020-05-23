@@ -45,6 +45,24 @@
                     </b-col>
                 </b-row>
 
+                <b-row class="mb-2" v-if="editar">
+                    <b-col>
+                        <strong class="text-dark">Contraseña:</strong>
+                    </b-col>
+                     <b-col>
+                        <b-form-input type="password" v-model="usuario.password"></b-form-input>
+                    </b-col>
+                </b-row>
+
+                <b-row class="mb-2" v-if="editar">
+                    <b-col>
+                        <strong class="text-dark">Confirmar contraseña:</strong>
+                    </b-col>
+                     <b-col>
+                        <b-form-input type="password" v-model="confirmarPass"></b-form-input>
+                    </b-col>
+                </b-row>
+
                 <b-row class="mb-2">
                     <b-col>
                         <strong class="text-dark">Dni:</strong>
@@ -65,7 +83,7 @@
                         {{ usuario.fechaNacimiento.date.substring(0,10)}}
                     </b-col>
                      <b-col v-if="editar">
-                        <b-form-input v-model="fecha"></b-form-input>
+                        <b-form-input type="date" v-model="fecha"></b-form-input>
                     </b-col>
                 </b-row>
 
@@ -122,7 +140,7 @@
                 <b-row class="mt-3">
                     <b-col>
                         <b-button variant="outline-primary" v-if="!editar" @click="editarPerfil">Editar</b-button>
-                        <b-button variant="outline-success" v-if="editar" @click="actualizarPerfil(usuario.nombre, usuario.apellidos, usuario.email, usuario.dni, usuario.calle, usuario.localidad, usuario.provincia, usuario.cp)">Actualizar</b-button>
+                        <b-button variant="outline-success" v-if="editar" @click="actualizarPerfil(usuario.nombre, usuario.apellidos, usuario.email, usuario.password, usuario.dni, usuario.calle, usuario.localidad, usuario.provincia, usuario.cp)">Actualizar</b-button>
                         <b-button variant="outline-danger" v-if="editar" @click="editar = false">Cancelar</b-button>
                     </b-col>
                 </b-row>
@@ -139,7 +157,8 @@
         data: () => ({
             usuario: [],
             editar: false,
-            fecha: '1950-05-15',
+            fecha : '10-10-1960',
+            confirmarPass: ''
         }),
         mounted () {
             axios
@@ -152,7 +171,7 @@
             editarPerfil(){
                 this.editar = true;
             },
-            actualizarPerfil(nombreEdit, apellidosEdit, emailEdit, dniEdit, calleEdit, localidadEdit, provinciaEdit, cpEdit){
+            actualizarPerfil(nombreEdit, apellidosEdit, emailEdit, passEdit, dniEdit, calleEdit, localidadEdit, provinciaEdit, cpEdit){
                 var ruta = '/editar-datos'
                 $.ajax({
                     type: 'PUT',
@@ -160,6 +179,7 @@
                     data: ({nombre: nombreEdit,
                             apellidos: apellidosEdit,
                             email: emailEdit,
+                            pass: passEdit,
                             dni: dniEdit,
                             calle: calleEdit,
                             localidad: localidadEdit,
