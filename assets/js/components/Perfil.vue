@@ -196,8 +196,9 @@
                         this.usuario = data
                     }
                 }) 
-                location.reload(true);
-                this.editar = false;
+                if (location.reload(true)) {
+                    this.editar = false;
+                }
             }
         }
     }
