@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Constraints\Date;
 
 class UsuariosController extends AbstractController
 {
@@ -46,6 +47,8 @@ class UsuariosController extends AbstractController
             $usuario = $this->getUser();
             $nombre = $request->request->get('nombre');
             $apellidos = $request->request->get('apellidos');
+            $fechaString = $request->request->get('fecha');
+            $fechaDate = \DateTime::createFromFormat('Y-m-d', $fechaString);
             $email = $request->request->get('email');
             $pass = $request->request->get('pass');
             $confirmPass = $request->request->get('confirmPass');
@@ -56,6 +59,7 @@ class UsuariosController extends AbstractController
             $cp = $request->request->get('cp');
             $usuario->setNombre($nombre);
             $usuario->setApellidos($apellidos);
+            $usuario->setFechaNacimiento($fechaDate);
             $usuario->setEmail($email);
             $usuario->setPassword($passwordEncoder->encodePassword($usuario, $pass));
             $usuario->setDni($dni);

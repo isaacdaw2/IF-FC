@@ -80,7 +80,7 @@
                         <strong class="text-dark">Fecha de nacimiento:</strong>
                     </b-col>
                     <b-col v-if="!editar">
-                        {{ usuario.fechaNacimiento.date.substring(0,10)}}
+                        {{ usuario.fechaNacimiento.date.substring(0,10)}}                       
                     </b-col>
                      <b-col v-if="editar">
                         <b-form-input type="date" v-model="fecha"></b-form-input>
@@ -140,7 +140,7 @@
                 <b-row class="mt-3">
                     <b-col>
                         <b-button variant="outline-primary" v-if="!editar" @click="editarPerfil">Editar</b-button>
-                        <b-button variant="outline-success" v-if="editar" @click="actualizarPerfil(usuario.nombre, usuario.apellidos, usuario.email, usuario.password, usuario.dni, usuario.calle, usuario.localidad, usuario.provincia, usuario.cp)">Actualizar</b-button>
+                        <b-button variant="outline-success" v-if="editar" @click="actualizarPerfil(usuario.nombre, usuario.apellidos, usuario.email, fecha, usuario.password, usuario.dni, usuario.calle, usuario.localidad, usuario.provincia, usuario.cp)">Actualizar</b-button>
                         <b-button variant="outline-danger" v-if="editar" @click="editar = false">Cancelar</b-button>
                     </b-col>
                 </b-row>
@@ -157,7 +157,7 @@
         data: () => ({
             usuario: [],
             editar: false,
-            fecha : '10-10-1960',
+            fecha: '',
             confirmarPass: ''
         }),
         mounted () {
@@ -170,8 +170,10 @@
         methods: {
             editarPerfil(){
                 this.editar = true;
+                this.fecha = this.usuario.fechaNacimiento.date.substring(0,10)
+                console.log(this.fecha);
             },
-            actualizarPerfil(nombreEdit, apellidosEdit, emailEdit, passEdit, dniEdit, calleEdit, localidadEdit, provinciaEdit, cpEdit){
+            actualizarPerfil(nombreEdit, apellidosEdit, emailEdit, fechaedit, passEdit, dniEdit, calleEdit, localidadEdit, provinciaEdit, cpEdit){
                 var ruta = '/editar-datos'
                 $.ajax({
                     type: 'PUT',
@@ -179,6 +181,7 @@
                     data: ({nombre: nombreEdit,
                             apellidos: apellidosEdit,
                             email: emailEdit,
+                            fecha: fechaedit,
                             pass: passEdit,
                             dni: dniEdit,
                             calle: calleEdit,
@@ -193,6 +196,7 @@
                         this.usuario = data
                     }
                 }) 
+                location.reload(true);
                 this.editar = false;
             }
         }
