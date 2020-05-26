@@ -19,7 +19,7 @@ class Entrenadores
 
     /**
      * @ORM\OneToOne(targetEntity=Usuarios::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $usuarios;
 

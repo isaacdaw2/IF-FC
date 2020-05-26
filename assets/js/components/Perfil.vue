@@ -20,7 +20,7 @@
                         <strong class="text-dark">Nombre:</strong>
                     </b-col>
                     <b-col>
-                        <b-form-input name="usuario.nombre" id="usuario.nombre" v-model="usuario.nombre"></b-form-input>
+                        <b-form-input name="nombre" id="nombre" v-model="usuario.nombre" placeholder="usuario.nombre"></b-form-input>
                     </b-col>
                 </b-row>
 
@@ -140,6 +140,7 @@
                 <b-row class="mt-3">
                     <b-col>
                         <b-button variant="outline-primary" v-if="!editar" @click="editarPerfil">Editar</b-button>
+                        <b-button variant="outline-danger" v-if="!editar" @click="eliminarPerfil(usuario.id)">Eliminar cuenta</b-button>
                         <b-button variant="outline-success" v-if="editar" @click="actualizarPerfil(usuario.nombre, usuario.apellidos, usuario.email, fecha, usuario.password, usuario.dni, usuario.calle, usuario.localidad, usuario.provincia, usuario.cp)">Actualizar</b-button>
                         <b-button variant="outline-danger" v-if="editar" @click="editar = false">Cancelar</b-button>
                     </b-col>
@@ -157,6 +158,8 @@
         data: () => ({
             usuario: [],
             editar: false,
+            eliminar: '',
+            adios: '',
             fecha: '',
             confirmarPass: ''
         }),
@@ -171,8 +174,8 @@
             editarPerfil(){
                 this.editar = true;
                 this.fecha = this.usuario.fechaNacimiento.date.substring(0,10)
-                console.log(this.fecha);
-            },
+                console.log(this.fecha);   
+            },                
             actualizarPerfil(nombreEdit, apellidosEdit, emailEdit, fechaedit, passEdit, dniEdit, calleEdit, localidadEdit, provinciaEdit, cpEdit){
                 var ruta = '/editar-datos'
                 $.ajax({
@@ -199,7 +202,41 @@
                 if (location.reload(true)) {
                     this.editar = false;
                 }
-            }
+            },
+            eliminarPerfil(idUsuario) {
+                this.eliminar = ''
+                this.$bvModal.msgBoxConfirm('¿Realmente quieres eliminar tu cuenta?', {
+                title: 'Eliminar cuenta',
+                size: 'sm',
+                buttonSize: 'sm',
+                okVariant: 'danger',
+                cancelVariant: 'success',
+                okTitle: 'SI',
+                cancelTitle: 'NO',
+                footerClass: 'p-2',
+                hideHeaderClose: false,
+                centered: true
+                })
+                .then(value => {
+                    this.eliminar = value
+                    if (this.eliminar) {
+                        var ruta = '/eliminar-usuario'
+                        $.ajax({
+                            type: 'POST',
+                            url: ruta,
+                            data: ({id: idUsuario}),
+                            async: true,
+                            dataType: 'json',
+                            success: function (data) {
+                                console.log(data)                                
+                                window.location = "/login"
+                            }
+                        })
+                    } else {
+                        console.log('Usuario NO eliminado');
+                    }
+                })
+            } 
         }
     }
 </script>

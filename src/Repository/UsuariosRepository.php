@@ -22,6 +22,16 @@ class UsuariosRepository extends ServiceEntityRepository implements PasswordUpgr
         parent::__construct($registry, Usuarios::class);
     }
 
+    public function allUsers()
+    {
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT usuarios.nombre, usuarios.apellidos, usuarios.email, usuarios.dni, 
+                usuarios.fechaNacimiento, usuarios.calle, usuarios.localidad, usuarios.provincia, usuarios.cp
+                From App:Usuarios usuarios
+            ')->getResult();
+    }
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
