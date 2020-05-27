@@ -103,4 +103,25 @@ class EntrenadoresController extends AbstractController
             throw new \Exception("No autorizado");
         }
     }
+
+    /**
+     * @Route("/datos-entrenadores", options={"expose"=true}, name="datos-entrenadores", methods={"GET"})
+     */
+    public function datosEntrenador(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $this->getUser();
+        $entrenador = $em->getRepository(Entrenadores::class)->findOneBy(['usuarios' => $usuario]);
+
+        if($entrenador) {
+            $data = [
+                'id'=> $entrenador->getId(),
+                'titulo' => $entrenador->getTitulacion()
+            ];
+        
+            return new JsonResponse($data, Response::HTTP_OK);            
+        } else {
+            return new JsonResponse('Este usuario no es un entrenador');
+        }        
+    }
 }

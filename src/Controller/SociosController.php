@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class SociosController extends AbstractController
 {
@@ -31,5 +32,26 @@ class SociosController extends AbstractController
         } else {
             throw new \Exception("No autorizado");
         }
+    }
+
+    /**
+     * @Route("/datos-socios", options={"expose"=true}, name="datos-socios", methods={"GET"})
+     */
+    public function datosSocio(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $this->getUser();
+        $socio = $em->getRepository(Socios::class)->findOneBy(['usuarios' => $usuario]);
+
+        if($socio) {
+            $data = [
+                'id'=> $socio->getId(),
+                'pago' => $socio->getMetodoPago()
+            ];
+        
+            return new JsonResponse($data, Response::HTTP_OK);            
+        } else {
+            return new JsonResponse('Este usuario no es un socio');
+        }        
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 text-center">
+    <div class="mt-5 mb-5 text-center">
         <b-container>
             <b-button variant="info" disabled v-if="!usuario.fechaNacimiento">
                 <b-spinner small type="grow"></b-spinner>
@@ -136,17 +136,148 @@
                         <b-form-input v-model="usuario.cp"></b-form-input>
                     </b-col>
                 </b-row>
+                
+                <!-- Datos Jugador -->
+                <div v-if="existeJugador">
+                    <hr><span class="text-info mb-5">Jugador</span>
+                    <b-row class="mb-2">
+                        <b-col>
+                            <strong class="text-dark">Categoria:</strong>
+                        </b-col>
+                        <b-col v-if="!editar">
+                            {{ jugador.categoria }}
+                        </b-col>
+                        <b-col v-if="editar">
+                            <b-form-select v-model="jugador.categoria" :options="categorias"></b-form-select>
+                        </b-col>
+                    </b-row>
+
+                    <b-row class="mb-2">
+                        <b-col>
+                            <strong class="text-dark">Talla de Camiseta:</strong>
+                        </b-col>
+                        <b-col v-if="!editar">
+                            {{ jugador.camiseta }}
+                        </b-col>
+                        <b-col v-if="editar">
+                            <b-form-select v-model="jugador.camiseta" :options="tallas"></b-form-select>
+                        </b-col>
+                    </b-row>
+
+                    <b-row class="mb-2">
+                        <b-col>
+                            <strong class="text-dark">Talla de pantalón:</strong>
+                        </b-col>
+                        <b-col v-if="!editar">
+                            {{ jugador.pantalon }}
+                        </b-col>
+                        <b-col v-if="editar">
+                            <b-form-select v-model="jugador.pantalon" :options="tallas"></b-form-select>
+                        </b-col>
+                    </b-row>
+
+                    <b-row class="mb-2">
+                        <b-col>
+                            <strong class="text-dark">Talla de medias:</strong>
+                        </b-col>
+                        <b-col v-if="!editar">
+                            {{ jugador.medias }}
+                        </b-col>
+                        <b-col v-if="editar">
+                            <b-form-select v-model="jugador.medias" :options="tallas"></b-form-select>
+                        </b-col>
+                    </b-row>
+
+                    <b-row class="mb-2">
+                        <b-col>
+                            <strong class="text-dark">Talla de abrigo:</strong>
+                        </b-col>
+                        <b-col v-if="!editar">
+                            {{ jugador.abrigo }}
+                        </b-col>
+                        <b-col v-if="editar">
+                            <b-form-select v-model="jugador.abrigo" :options="tallas"></b-form-select>
+                        </b-col>
+                    </b-row>
+
+                    <b-row class="mb-2">
+                        <b-col>
+                            <strong class="text-dark">Método de pago:</strong>
+                        </b-col>
+                        <b-col v-if="!editar">
+                            {{ jugador.pago }}
+                        </b-col>
+                        <b-col v-if="editar">
+                            <b-form-select v-model="jugador.pago" :options="pago"></b-form-select>
+                        </b-col>
+                    </b-row>
+                    <b-row class="mb-2">
+                        <b-col>
+                            <b-button variant="outline-danger" v-if="editar">Baja jugador</b-button>
+                        </b-col>                    
+                    </b-row>
+                </div>
+
+                <!-- Datos Socio -->
+                <div v-if="existeSocio">
+                    <hr><span class="text-info mb-5">Socio</span>
+                    <b-row class="mb-2">
+                        <b-col>
+                            <strong class="text-dark">Método de pago:</strong>
+                        </b-col>
+                        <b-col v-if="!editar">
+                            {{ socio.pago }}
+                        </b-col>
+                        <b-col v-if="editar">
+                            <b-form-select v-model="socio.pago" :options="pago"></b-form-select>
+                        </b-col>
+                    </b-row>
+                    <b-row class="mb-2">
+                        <b-col>
+                            <b-button variant="outline-danger" v-if="editar">Cancelar abono socio</b-button>
+                        </b-col>                    
+                    </b-row>
+                </div>
+
+                <!-- Datos Entrenador -->
+                <div v-if="existeEntrenador">
+                    <hr><span class="text-info mb-5">Entrenador</span>
+                    <b-row class="mb-2">
+                        <b-col>
+                            <strong class="text-dark">Titulo enviado:</strong>
+                        </b-col>
+                        <b-col v-if="!editar">
+                            {{ entrenador.titulo }}
+                        </b-col>
+                        <b-col v-if="editar">
+                            <b-form-file
+                                v-on:change="entrenador.titulo"
+                                placeholder="Elija un archivo o desplácelo aquí..."
+                                drop-placeholder="Soltar archivo aquí..."
+                                browse-text="Elegir"
+                            ></b-form-file>
+                        </b-col>
+                    </b-row>
+                    <b-row class="mb-2">
+                        <b-col>
+                            <b-button variant="outline-danger" v-if="editar">Baja entrenador</b-button>
+                        </b-col>                    
+                    </b-row>
+                </div>
+
+                <hr>
 
                 <b-row class="mt-3">
                     <b-col>
                         <b-button variant="outline-primary" v-if="!editar" @click="editarPerfil">Editar</b-button>
                         <b-button variant="outline-danger" v-if="!editar" @click="eliminarPerfil(usuario.id)">Eliminar cuenta</b-button>
                         <b-button variant="outline-success" v-if="editar" @click="actualizarPerfil(usuario.nombre, usuario.apellidos, usuario.email, fecha, usuario.password, usuario.dni, usuario.calle, usuario.localidad, usuario.provincia, usuario.cp)">Actualizar</b-button>
-                        <b-button variant="outline-danger" v-if="editar" @click="editar = false">Cancelar</b-button>
+                        <b-button variant="outline-danger" v-if="editar" @click="cancelarEdicion">Cancelar</b-button>
                     </b-col>
-                </b-row>
-                
+                </b-row>                
             </b-card>
+                <small v-if="parrafo">Si eres jugador, socio o entrenador y deseas tramitar la baja, pulsa el botón editar</small>
+
         </b-container>
     </div>
 </template>
@@ -157,25 +288,84 @@
     export default {
         data: () => ({
             usuario: [],
+            jugador: [],
+            socio: [],
+            entrenador: [],
+            existeJugador: false,
+            existeSocio: false,
+            existeEntrenador: false,
             editar: false,
             eliminar: '',
-            adios: '',
             fecha: '',
-            confirmarPass: ''
+            confirmarPass: '',
+            parrafo: false,
+            categorias:[
+                {value: null, text: 'Seleccione un categoría'},
+                {value: 'Benjamin', text: 'Benjamín'},
+                {value: 'Alevin', text: 'Alevín'},
+                {value: 'Infantil', text: 'Infantil'},
+                {value: 'Cadete', text: 'Cadete'},
+                {value: 'Juvenil', text: 'Juvenil'},
+                {value: 'Aficionado', text: 'Aficionado'},
+                {value: 'Veterano', text: 'Veterano'}
+            ],
+            tallas:[
+                {value: null, text: 'Seleccione una talla'},
+                {value: 'S', text: 'S'},
+                {value: 'M', text: 'M'},
+                {value: 'L', text: 'L'},
+                {value: 'XL', text: 'XL'}
+            ],
+            pago:[
+                {value: null, text: 'Seleccione un método de pago'},
+                {value: 'Paypal', text: 'Paypal'},
+                {value: 'Tarjeta crédito/débito', text: 'Tarjeta crédito/débito'},
+                {value: 'Domiciliación bancaria', text: 'Domiciliación bancaria'}
+            ]
         }),
         mounted () {
-            axios
-                .get('/misdatos')
+            axios.get('/misdatos')
                 .then(response => (
-                    this.usuario = response.data
+                    this.usuario = response.data,
+                    this.parrafo = true
                 ))
+            
+            axios.get('/datos-jugadores')
+                .then(response => {
+                    if(response.data.id){
+                        this.jugador = response.data,
+                        this.existeJugador = true 
+                    }                                      
+                })
+
+            axios.get('/datos-socios')
+            .then(response => {
+                if(response.data.id){
+                    this.socio = response.data,
+                    this.existeSocio = true 
+                }                                      
+            })
+
+            axios.get('/datos-entrenadores')
+            .then(response => {
+                if(response.data.id){
+                    this.entrenador = response.data,
+                    this.existeEntrenador = true 
+                }                                      
+            })
         },
         methods: {
             editarPerfil(){
                 this.editar = true;
+                this.parrafo = false;
+
                 this.fecha = this.usuario.fechaNacimiento.date.substring(0,10)
-                console.log(this.fecha);   
-            },                
+                console.log(this.fecha);  
+            },  
+            cancelarEdicion(){
+                this.editar = false;
+                this.parrafo = true;
+            },          
             actualizarPerfil(nombreEdit, apellidosEdit, emailEdit, fechaedit, passEdit, dniEdit, calleEdit, localidadEdit, provinciaEdit, cpEdit){
                 var ruta = '/editar-datos'
                 $.ajax({

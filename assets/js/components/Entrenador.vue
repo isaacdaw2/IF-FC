@@ -73,11 +73,11 @@ export default {
                 cache: false,
                 success: function (data) {
                     console.log(data)
-                    this.dismissCountDown = this.dismissSecs
-
-                    setTimeout( () => this.$router.push({ name: 'home'}), 3010);
                 }
-            })            
+            })   
+            document.getElementById('botonEntrenador').style.display = 'none';
+            this.dismissCountDown = this.dismissSecs;
+            setTimeout( () => this.$router.push({ name: 'home'}), 3010);         
         }
     }
 }

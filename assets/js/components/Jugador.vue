@@ -73,7 +73,7 @@
                 @dismissed="dismissCountDown=0"
                 @dismiss-count-down="countDownChanged"
                 >
-                <p>Enviando archivo: {{ dismissCountDown }} segundos...</p>
+                <p>Enviando información: {{ dismissCountDown }} segundos...</p>
                 <b-progress
                     variant="warning"
                     :max="dismissSecs"
@@ -128,7 +128,7 @@ export default {
                 {value: null, text: 'Seleccione un método de pago'},
                 {value: 'Paypal', text: 'Paypal'},
                 {value: 'Tarjeta', text: 'Tarjeta crédito/débito'},
-                {value: 'Transferencia', text: 'Transferencia bancaria'}
+                {value: 'Domiciliación', text: 'Domiciliación bancaria'}
             ]
         }
     },
@@ -152,11 +152,11 @@ export default {
                 dataType: 'json',
                 success: function (data) {
                     console.log(data);
-                    document.getElementById('botonJugador').style.display = 'none';
-                    this.dismissCountDown = this.dismissSecs
-                    setTimeout( () => this.$router.push({ name: 'home'}), 3000);
                 }
-            })           
+            })
+            document.getElementById('botonJugador').style.display = 'none';
+            this.dismissCountDown = this.dismissSecs
+            setTimeout( () => this.$router.push({ name: 'home'}), 3000);           
         }
     }
 }
