@@ -213,7 +213,7 @@
                     </b-row>
                     <b-row class="mb-2">
                         <b-col>
-                            <b-button variant="outline-danger" v-if="editar">Baja jugador</b-button>
+                            <b-button variant="outline-danger" @click="bajaJugador" v-if="editar">Baja jugador</b-button>
                         </b-col>                    
                     </b-row>
                 </div>
@@ -234,7 +234,7 @@
                     </b-row>
                     <b-row class="mb-2">
                         <b-col>
-                            <b-button variant="outline-danger" v-if="editar">Cancelar abono socio</b-button>
+                            <b-button variant="outline-danger" @click="cancelarAbono" v-if="editar">Cancelar abono socio</b-button>
                         </b-col>                    
                     </b-row>
                 </div>
@@ -243,25 +243,28 @@
                 <div v-if="existeEntrenador">
                     <hr><span class="text-info mb-5">Entrenador</span>
                     <b-row class="mb-2">
-                        <b-col>
+                        <b-col class="mt-3">
                             <strong class="text-dark">Titulo enviado:</strong>
                         </b-col>
-                        <b-col v-if="!editar">
+                        <b-col v-if="!editar" class="mt-3">
                             {{ entrenador.titulo }}
                         </b-col>
-                        <b-col v-if="editar">
+                        <b-col v-if="editar" class="mt-3">
                             <b-form-file
-                                v-on:change="entrenador.titulo"
+                                v-model="file"
+                                :state="Boolean(file)"
                                 placeholder="Elija un archivo o desplácelo aquí..."
                                 drop-placeholder="Soltar archivo aquí..."
                                 browse-text="Elegir"
+                                id="file" name="file"
                             ></b-form-file>
                         </b-col>
                     </b-row>
-                    <b-row class="mb-2">
+                    <b-row class="mb-2 mt-3">
                         <b-col>
-                            <b-button variant="outline-danger" v-if="editar">Baja entrenador</b-button>
-                        </b-col>                    
+                            <b-button variant="outline-danger" @click="bajaEntrenador" v-if="editar">Baja entrenador</b-button>
+                            <b-button variant="outline-success" v-if="editar" @click="enviarTitulo">Enviar otro título</b-button>
+                        </b-col>  
                     </b-row>
                 </div>
 
@@ -271,12 +274,17 @@
                     <b-col>
                         <b-button variant="outline-primary" v-if="!editar" @click="editarPerfil">Editar</b-button>
                         <b-button variant="outline-danger" v-if="!editar" @click="eliminarPerfil(usuario.id)">Eliminar cuenta</b-button>
-                        <b-button variant="outline-success" v-if="editar" @click="actualizarPerfil(usuario.nombre, usuario.apellidos, usuario.email, fecha, usuario.password, usuario.dni, usuario.calle, usuario.localidad, usuario.provincia, usuario.cp)">Actualizar</b-button>
+                        <b-button variant="outline-success" v-if="editar" @click="actualizarPerfil">Actualizar</b-button>
                         <b-button variant="outline-danger" v-if="editar" @click="cancelarEdicion">Cancelar</b-button>
                     </b-col>
                 </b-row>                
             </b-card>
-                <small v-if="parrafo">Si eres jugador, socio o entrenador y deseas tramitar la baja, pulsa el botón editar</small>
+
+            <!-- Mensaje eliminación jugador, socio o entrenador -->
+            <small v-if="parrafo">Si eres jugador/a, soci@ o entrenador/a y deseas tramitar la baja, pulsa antes el botón editar.</small>
+
+            <!-- Copyright -->
+            <p class="mt-5 text-center" v-if="copyright">&copy;2020 IF-ormáticos FC</p>
 
         </b-container>
     </div>
@@ -291,14 +299,19 @@
             jugador: [],
             socio: [],
             entrenador: [],
+            file:[],
             existeJugador: false,
             existeSocio: false,
             existeEntrenador: false,
             editar: false,
+            parrafo: false,
+            copyright: false,
             eliminar: '',
+            eliminarSocio: '',
+            eliminarJugador: '',
+            eliminarEntrenador: '',
             fecha: '',
             confirmarPass: '',
-            parrafo: false,
             categorias:[
                 {value: null, text: 'Seleccione un categoría'},
                 {value: 'Benjamin', text: 'Benjamín'},
@@ -327,7 +340,8 @@
             axios.get('/misdatos')
                 .then(response => (
                     this.usuario = response.data,
-                    this.parrafo = true
+                    this.parrafo = true,
+                    this.copyright = true
                 ))
             
             axios.get('/datos-jugadores')
@@ -350,7 +364,7 @@
             .then(response => {
                 if(response.data.id){
                     this.entrenador = response.data,
-                    this.existeEntrenador = true 
+                    this.existeEntrenador = true
                 }                                      
             })
         },
@@ -365,22 +379,55 @@
             cancelarEdicion(){
                 this.editar = false;
                 this.parrafo = true;
-            },          
-            actualizarPerfil(nombreEdit, apellidosEdit, emailEdit, fechaedit, passEdit, dniEdit, calleEdit, localidadEdit, provinciaEdit, cpEdit){
+            }, 
+            enviarTitulo(){
+                var ruta = '/editar-entrenador'
+                var formData = new FormData()
+                formData.append('file', document.getElementById('file').files[0])
+                $.ajax({
+                    type: 'POST',
+                    url: ruta,
+                    data: formData,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function (data) {
+                        console.log(data)
+                    }
+                })
+                if (location.reload(true)) {
+                    this.editar = false;
+                }
+            },         
+            actualizarPerfil(){
                 var ruta = '/editar-datos'
                 $.ajax({
                     type: 'PUT',
                     url: ruta,
-                    data: ({nombre: nombreEdit,
-                            apellidos: apellidosEdit,
-                            email: emailEdit,
-                            fecha: fechaedit,
-                            pass: passEdit,
-                            dni: dniEdit,
-                            calle: calleEdit,
-                            localidad: localidadEdit,
-                            provincia: provinciaEdit,
-                            cp: cpEdit
+                    data: ({ 
+                            // Datos Usuario
+                            nombre: this.usuario.nombre,
+                            apellidos: this.usuario.apellidos,
+                            email: this.usuario.email,
+                            fecha: this.fecha,
+                            pass: this.usuario.password,
+                            dni: this.usuario.dni,
+                            calle: this.usuario.calle,
+                            localidad: this.usuario.localidad,
+                            provincia: this.usuario.provincia,
+                            cp: this.usuario.cp,
+
+                            // Datos Jugador
+                            categoria: this.jugador.categoria,
+                            camiseta: this.jugador.camiseta,
+                            pantalon: this.jugador.pantalon,
+                            medias: this.jugador.medias,
+                            abrigo: this.jugador.abrigo,
+                            pagoJugador: this.jugador.pago,
+
+                            // Datos Socio
+                            pagoSocio: this.socio.pago
                             }),
                     async: true,
                     dataType: 'json',
@@ -392,6 +439,114 @@
                 if (location.reload(true)) {
                     this.editar = false;
                 }
+            },
+            cancelarAbono() {
+                this.eliminarSocio = ''
+                this.$bvModal.msgBoxConfirm('¿Estás segur@?', {
+                    title: 'Cancelación del abono de socio',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'danger',
+                    cancelVariant: 'success',
+                    okTitle: 'SI',
+                    cancelTitle: 'NO',
+                    footerClass: 'p-2',
+                    hideHeaderClose: false,
+                    centered: true
+                })
+                .then(value => {
+                    this.eliminarSocio = value
+                    if (this.eliminarSocio) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/eliminar-socio',
+                            data: ({id: this.socio.id}),
+                            async: true,
+                            datatype: 'json',
+                            success: function (data) {
+                                console.log(data)
+                            }
+                        })
+                        console.log('Abono cancelado correctamente');
+                        if (location.reload(true)) {
+                            this.editar = false;
+                        }
+                    } else {
+                        console.log('Abono NO cancelado');
+                    }
+                })
+            },
+            bajaJugador(){
+                this.eliminarJugador = ''
+                this.$bvModal.msgBoxConfirm('¿Estás segur@?', {
+                    title: 'Baja de jugador/a',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'danger',
+                    cancelVariant: 'success',
+                    okTitle: 'SI',
+                    cancelTitle: 'NO',
+                    footerClass: 'p-2',
+                    hideHeaderClose: false,
+                    centered: true
+                })
+                .then(value => {
+                    this.eliminarJugador = value
+                    if (this.eliminarJugador) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/eliminar-jugador',
+                            data: ({id: this.jugador.id}),
+                            async: true,
+                            datatype: 'json',
+                            success: function (data) {
+                                console.log(data)
+                            }
+                        })
+                        console.log('Baja jugador tramitada correctamente');
+                        if (location.reload(true)) {
+                            this.editar = false;
+                        }
+                    } else {
+                        console.log('Baja jugador NO tramitada');
+                    }
+                })
+            },
+            bajaEntrenador(){
+                this.eliminarEntrenador = ''
+                this.$bvModal.msgBoxConfirm('¿Estás segur@?', {
+                    title: 'Baja de entrenador/a',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'danger',
+                    cancelVariant: 'success',
+                    okTitle: 'SI',
+                    cancelTitle: 'NO',
+                    footerClass: 'p-2',
+                    hideHeaderClose: false,
+                    centered: true
+                })
+                .then(value => {
+                    this.eliminarEntrenador = value
+                    if (this.eliminarEntrenador) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/eliminar-entrenador',
+                            data: ({id: this.entrenador.id}),
+                            async: true,
+                            datatype: 'json',
+                            success: function (data) {
+                                console.log(data)
+                            }
+                        })
+                        console.log('Baja entrenador tramitada correctamente');
+                        if (location.reload(true)) {
+                            this.editar = false;
+                        }
+                    } else {
+                        console.log('Baja entrenador NO tramitada');
+                    }
+                }) 
             },
             eliminarPerfil(idUsuario) {
                 this.eliminar = ''

@@ -46,6 +46,7 @@
                 </b-card>
             </b-col>            
         </b-row>
+        <p class="mt-5 text-center">&copy;2020 IF-ormáticos FC</p>
     </div>
 </template>
 
@@ -61,8 +62,8 @@ export default {
              pago:[
                 {value: null, text: 'Seleccione un método de pago'},
                 {value: 'Paypal', text: 'Paypal'},
-                {value: 'Tarjeta', text: 'Tarjeta crédito/débito'},
-                {value: 'Domiciliación', text: 'Domiciliación bancaria'}
+                {value: 'Tarjeta crédito/débito', text: 'Tarjeta crédito/débito'},
+                {value: 'Domiciliación bancaria', text: 'Domiciliación bancaria'}
             ]
         }
     },

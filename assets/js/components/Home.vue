@@ -167,7 +167,11 @@
                     </b-row>
                 </b-card>
             </div>
-        </div>    
+        </div> 
+
+        <!-- Copyright -->
+        <p class="mt-5 text-center">&copy;2020 IF-ormáticos FC</p>
+
     </b-container>
 </template>
 

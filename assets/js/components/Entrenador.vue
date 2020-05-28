@@ -13,8 +13,7 @@
                 placeholder="Elija un archivo o desplácelo aquí..."
                 drop-placeholder="Soltar archivo aquí..."
                 browse-text="Elegir"
-                id="file" name="file"
-                
+                id="file" name="file"                
             ></b-form-file>
         </b-row>
         <b-row class="mt-3 justify-content-center"> 
@@ -41,6 +40,9 @@
                 <b-button variant="success" id="botonEntrenador" @click="enviarTitulo">Enviar</b-button>
             </b-col>
         </b-row>
+
+        <!-- Copyright -->
+        <p class="mt-5 text-center">&copy;2020 IF-ormáticos FC</p>
     </div>
 </template>
 
