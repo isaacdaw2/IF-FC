@@ -84,6 +84,50 @@
                 </b-card-group>
             </div>
 
+            <!-- Recomendaciones-->
+            <div class="mt-3">
+                <b-card no-body="no-body" class="overflow-hidden">
+                    <b-row no-gutters="no-gutters">
+                        <b-col md="6">
+                            <b-card-img
+                                src="/img/recomendaciones.jpg"
+                                alt="logo"
+                                class="rounded-0"></b-card-img>
+                        </b-col>
+                        <b-col md="6">
+                            <b-card-body title="Recomendaciones para evitar los riesgos sobre la salud en la vuelta a la competición en el fútbol" sub-title="30 mayo, 2020">
+                                <b-card-text>
+                                    El Departamento Médico de la Real Federación Española de Fútbol, con la colaboración de profesionales expertos de nivel internacional, ha elaborado un Protocolo médico y de preparación física basado en recomendaciones para evitar los riesgos para la salud en la vuelta a los entrenamientos y a la competición en el fútbol.
+                                    <a href="https://cdn1.sefutbol.com/sites/default/files/pdf/recomendaciones_para_evitar_los_riegos_sobra_la_salud_en_la_vuelta_a_la_competicion_en_el_futbol.pdf">Aquí el enlace</a>
+                                </b-card-text>
+                            </b-card-body>
+                        </b-col>
+                    </b-row>
+                </b-card>
+            </div>
+
+            <!-- noticia RFEF FASE II-->
+            <div class="mt-3">
+                <b-card no-body="no-body" class="overflow-hidden">
+                    <b-row no-gutters="no-gutters">
+                        <b-col md="6">
+                            <b-card-img
+                                src="/img/fase2.jpg"
+                                alt="logo"
+                                class="rounded-0"></b-card-img>
+                        </b-col>
+                        <b-col md="6">
+                            <b-card-body title="Fase 2 de la desescalada" sub-title="27 mayo, 2020">
+                                <b-card-text>
+                                    El Consejo Superior de Deportes ha preparado un documento que da respuesta a las dudas más frecuentes de los deportistas profesionales y federados de cara a la Fase 2 de la desescalada, que esta semana ha comenzado en gran parte del país.
+                                    <a href="https://cdn1.sefutbol.com/sites/default/files/faqs_deporte_fase_2.pdf">Aquí el enlace</a>
+                                </b-card-text>
+                            </b-card-body>
+                        </b-col>
+                    </b-row>
+                </b-card>
+            </div>
+
             <!-- noticia RFEF-->
             <div class="mt-3">
                 <b-card no-body="no-body" class="overflow-hidden">
@@ -176,29 +220,31 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        slide: 0,
-        sliding: null
-      }
-    },
-    methods: {
-      onSlideStart(slide) {
-        this.sliding = true
-      },
-      onSlideEnd(slide) {
-        this.sliding = false
-      }
+    export default {
+        data() {
+            return {
+                slide: 0,
+                sliding: null
+            }
+        },
+        methods: {
+            onSlideStart(slide) {
+                this.sliding = true
+            },
+            onSlideEnd(slide) {
+                this.sliding = false
+            }
+        },
+        mounted () {
+            if (localStorage.getItem('reloaded')) {
+                // The page was just reloaded. Clear the value from local storage
+                // so that it will reload the next time this page is visited.
+                localStorage.removeItem('reloaded');
+            } else {
+                // Set a flag so that we know not to reload the page twice.
+                localStorage.setItem('reloaded', '1');
+                location.reload();
+            }
+        }
     }
-  }
 </script>
-
-<style scoped>
-.separacion{
-        margin-top: 20%;
-    }
-</style>
-    
-
-

@@ -19,11 +19,9 @@ class Jugadores
 
     /**
      * @ORM\OneToOne(targetEntity=Usuarios::class, cascade={"persist"})
-     * @ORM\JoinColumn(name="usuarios_id", nullable=false)
+     * @ORM\JoinColumn(name="usuarios_id", nullable=false, onDelete="CASCADE")
      */
     private $usuarios;
-    // @ORM\OneToOne(targetEntity=Usuarios::class, cascade={"persist", "remove"})
-    // @ORM\JoinColumn(name="usuarios_id", nullable=false, onDelete="CASCADE")
 
     /**
      * @ORM\Column(type="string", length=255)

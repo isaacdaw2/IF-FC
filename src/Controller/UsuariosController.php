@@ -53,14 +53,14 @@ class UsuariosController extends AbstractController
             $usuario = $this->getUser();
             $jugador = $em->getRepository(Jugadores::class)->findOneBy(['usuarios' => $usuario]);
             $socio = $em->getRepository(Socios::class)->findOneBy(['usuarios' => $usuario]);
-
+            
             // Modificación Usuario
             $nombre = $request->request->get('nombre');
             $apellidos = $request->request->get('apellidos');
             $fechaString = $request->request->get('fecha');
             $fechaDate = \DateTime::createFromFormat('Y-m-d', $fechaString);
             $email = $request->request->get('email');
-            //$pass = $request->request->get('pass');
+            $pass = $request->request->get('pass');
             $confirmPass = $request->request->get('confirmPass');
             $dni = $request->request->get('dni');
             $calle = $request->request->get('calle');
@@ -71,7 +71,9 @@ class UsuariosController extends AbstractController
             $usuario->setApellidos($apellidos);
             $usuario->setFechaNacimiento($fechaDate);
             $usuario->setEmail($email);
-            //$usuario->setPassword($passwordEncoder->encodePassword($usuario, $pass));
+            if($pass != null){
+                $usuario->setPassword($passwordEncoder->encodePassword($usuario, $pass));
+            }
             $usuario->setDni($dni);
             $usuario->setCalle($calle);
             $usuario->setLocalidad($localidad);

@@ -19,7 +19,7 @@ class Socios
 
     /**
      * @ORM\OneToOne(targetEntity=Usuarios::class, cascade={"persist"})
-     * @ORM\JoinColumn(name="usuarios_id", nullable=false)
+     * @ORM\JoinColumn(name="usuarios_id", nullable=false, onDelete="CASCADE")
      */
     private $usuarios;
 

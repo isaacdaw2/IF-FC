@@ -265,7 +265,7 @@
         }
                 
         email_error.innerHTML = "";
-        email.onkeyup = () => {
+        if(false){
             const regExpEmail =/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
             if(regExpEmail.test(email.value)){
                 email_error.innerHTML = "";
@@ -286,7 +286,32 @@
                 boton_registrar.disabled = true;
             }
         }
-                      
+
+        email.onkeyup = () => {
+            var ruta = '/comprobar-email'
+            console.log(email.value)
+            $.ajax({
+                type: 'POST',
+                url: ruta,
+                data: ({email: email.value.toString()}),
+                async: true,
+                dataType: 'json',
+                success: function (data) {
+                    comprobarEmail(data)
+                }
+            })
+        }
+
+        function comprobarEmail(valor) {
+            // email
+            if (valor) {
+                console.log('email repetido')
+
+            } else {
+                console.log('email correcto')
+            }
+        }
+
         confirmPass_error.innerHTML = "";
         confirmPass.onkeyup = () => {
             if(confirmPass.value != password.value){

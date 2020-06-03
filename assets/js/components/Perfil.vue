@@ -1,10 +1,13 @@
 <template>
     <div class="mt-5 mb-5 text-center">
         <b-container>
+            <!-- Botón animado mientras se carga el ajax -->
             <b-button variant="info" disabled v-if="!usuario.fechaNacimiento">
                 <b-spinner small type="grow"></b-spinner>
                 Cargando...
             </b-button>
+
+            <!-- Card con todo el contenido de Mi perfil -->
             <b-card
                 header="Mi perfil"
                 header-text-variant="white"
@@ -13,26 +16,32 @@
                 style="max-width: 40rem;"
                 v-if="usuario.fechaNacimiento"
             >
+                <!-- Nombre y apellidos del usuario -->
                 <h3 v-if="!editar">{{ usuario.nombre }} {{ usuario.apellidos }}</h3>
 
+                <!-- Edición y validación Nombre del usuario -->
                 <b-row class="mb-2" v-if="editar">
                     <b-col>
                         <strong class="text-dark">Nombre:</strong>
                     </b-col>
                     <b-col>
-                        <b-form-input name="nombre" id="nombre" v-model="usuario.nombre" placeholder="usuario.nombre"></b-form-input>
+                        <b-form-input name="nombre" id="nombre" ref="usuarioNombre" v-model="usuario.nombre" placeholder="Introduce aquí tu nombre"></b-form-input>
+                        <span id="nombreError"></span>
                     </b-col>
                 </b-row>
 
+                <!-- Edición y validación Apellidos del usuario -->
                 <b-row class="mb-2" v-if="editar">
                     <b-col>
                         <strong class="text-dark">Apellidos:</strong>
                     </b-col>
                     <b-col>
-                        <b-form-input v-model="usuario.apellidos"></b-form-input>
+                        <b-form-input v-model="usuario.apellidos" id="usuarioApellidos" placeholder="Introduce aquí tus apellidos"></b-form-input>
+                        <span id="apellidosError"></span>
                     </b-col>
                 </b-row>
 
+                <!-- Edición y validación Email del usuario -->
                 <b-row class="mb-2">
                     <b-col>
                         <strong class="text-dark">Email:</strong>
@@ -41,28 +50,43 @@
                         {{ usuario.email }}
                     </b-col>
                      <b-col v-if="editar">
-                        <b-form-input v-model="usuario.email"></b-form-input>
+                        <b-form-input v-model="usuario.email" id="usuarioEmail" placeholder="Introduce aquí tu email"></b-form-input>
+                        <span id="emailError"></span>
                     </b-col>
                 </b-row>
 
+                <!-- Edición y validación Contraseña del usuario -->
                 <b-row class="mb-2" v-if="editar">
                     <b-col>
                         <strong class="text-dark">Contraseña:</strong>
                     </b-col>
                      <b-col>
-                        <b-form-input type="password" v-model="usuario.password"></b-form-input>
+                        <b-form-input type="password" v-model="usuario.password" id="usuarioPassword" placeholder="Introduce aquí una contraseña"></b-form-input>
+                        <span id="passwordError"></span>
                     </b-col>
                 </b-row>
 
+                <!-- Edición y validación Confirmar contraseña del usuario -->
                 <b-row class="mb-2" v-if="editar">
                     <b-col>
                         <strong class="text-dark">Confirmar contraseña:</strong>
                     </b-col>
                      <b-col>
-                        <b-form-input type="password" v-model="confirmarPass"></b-form-input>
+                        <b-form-input type="password" id="confirmPass" placeholder="Repite la contraseña"></b-form-input>
+                        <span id="confirmPasswordError"></span>
                     </b-col>
                 </b-row>
 
+                <!-- Mostrar/ocultar contraseña -->
+                <b-row class="mb-2" v-if="editar">
+                    <b-col></b-col>
+                     <b-col>
+                        <strong class="text-dark">Ver contraseñas</strong>
+                        <b-form-checkbox id="showPasswords"></b-form-checkbox>
+                    </b-col>
+                </b-row>
+
+                <!-- Edición y validación Dni del usuario -->
                 <b-row class="mb-2">
                     <b-col>
                         <strong class="text-dark">Dni:</strong>
@@ -71,10 +95,12 @@
                         {{ usuario.dni }}
                     </b-col>
                      <b-col v-if="editar">
-                        <b-form-input v-model="usuario.dni"></b-form-input>
+                        <b-form-input v-model="usuario.dni" id="usuarioDni" maxlength="9" placeholder="Introduce aquí tu dni"></b-form-input>
+                        <span id="dniError"></span>
                     </b-col>
                 </b-row>
 
+                <!-- Edición y validación Fecha de nacimiento del usuario -->
                 <b-row class="mb-2">
                     <b-col>
                         <strong class="text-dark">Fecha de nacimiento:</strong>
@@ -83,12 +109,13 @@
                         {{ usuario.fechaNacimiento.date.substring(0,10)}}                       
                     </b-col>
                      <b-col v-if="editar">
-                        <b-form-input type="date" v-model="fecha"></b-form-input>
+                        <b-form-input type="date" v-model="fecha" id="date" placeholder="Introduce aquí tu fecha de nacimiento"></b-form-input>
                     </b-col>
                 </b-row>
 
                 <hr><span class="text-info mb-5">Dirección</span>
 
+                <!-- Edición y validación Calle del usuario -->
                 <b-row class="mb-2 mt-2">
                     <b-col>
                         <strong class="text-dark">Calle:</strong>
@@ -97,10 +124,12 @@
                         {{ usuario.calle }}
                     </b-col>
                      <b-col v-if="editar">
-                        <b-form-input v-model="usuario.calle"></b-form-input>
+                        <b-form-input v-model="usuario.calle" id="usuarioCalle" placeholder="Introduce aquí tu calle"></b-form-input>
+                        <span id="calleError"></span>
                     </b-col>
                 </b-row>
 
+                <!-- Edición y validación Localidad del usuario -->
                 <b-row class="mb-2">
                     <b-col>
                         <strong class="text-dark">Localidad:</strong>
@@ -109,10 +138,12 @@
                         {{ usuario.localidad }}
                     </b-col>
                      <b-col v-if="editar">
-                        <b-form-input v-model="usuario.localidad"></b-form-input>
+                        <b-form-input v-model="usuario.localidad" id="usuarioLocalidad" placeholder="Introduce aquí tu localidad"></b-form-input>
+                        <span id="localidadError"></span>
                     </b-col>
                 </b-row>
 
+                <!-- Edición y validación Provincia del usuario -->
                 <b-row class="mb-2">
                     <b-col>
                         <strong class="text-dark">Provincia:</strong>
@@ -121,10 +152,12 @@
                         {{ usuario.provincia }}
                     </b-col>
                     <b-col v-if="editar">
-                        <b-form-input v-model="usuario.provincia"></b-form-input>
+                        <b-form-input v-model="usuario.provincia" id="usuarioProvincia" placeholder="Introduce aquí tu provincia"></b-form-input>
+                        <span id="provinciaError"></span>
                     </b-col>
                 </b-row>
 
+                <!-- Edición y validación Código postal del usuario -->
                 <b-row class="mb-2">
                     <b-col>
                         <strong class="text-dark">Código postal:</strong>
@@ -133,7 +166,8 @@
                         {{ usuario.cp }}
                     </b-col>
                     <b-col v-if="editar">
-                        <b-form-input v-model="usuario.cp"></b-form-input>
+                        <b-form-input v-model="usuario.cp" id="usuarioCp" maxlength="5" placeholder="Introduce aquí tu código postal"></b-form-input>
+                        <span id="cpError"></span>
                     </b-col>
                 </b-row>
                 
@@ -272,9 +306,9 @@
 
                 <b-row class="mt-3">
                     <b-col>
-                        <b-button variant="outline-primary" v-if="!editar" @click="editarPerfil">Editar</b-button>
+                        <b-button variant="outline-primary" v-if="!editar" id="edicion" @click="editarPerfil">Editar</b-button>
                         <b-button variant="outline-danger" v-if="!editar" @click="eliminarPerfil(usuario.id)">Eliminar cuenta</b-button>
-                        <b-button variant="outline-success" v-if="editar" @click="actualizarPerfil">Actualizar</b-button>
+                        <b-button variant="outline-success" v-if="editar" id="saveChanges" @click="actualizarPerfil">Actualizar</b-button>
                         <b-button variant="outline-danger" v-if="editar" @click="cancelarEdicion">Cancelar</b-button>
                     </b-col>
                 </b-row>                
@@ -284,11 +318,15 @@
             <small v-if="parrafo">Si eres jugador/a, soci@ o entrenador/a y deseas tramitar la baja, pulsa antes el botón editar.</small>
 
             <!-- Copyright -->
-            <p class="mt-5 text-center" v-if="copyright">&copy;2020 IF-ormáticos FC</p>
 
         </b-container>
+            <div class="footer">
+                <p class="mt-5 text-center" v-if="copyright">&copy;2020 IF-ormáticos FC</p>
+            </div>
     </div>
 </template>
+
+
 
 <script>
     import axios from "axios";
@@ -312,6 +350,7 @@
             eliminarEntrenador: '',
             fecha: '',
             confirmarPass: '',
+            contraseñaGuardada: '',
             categorias:[
                 {value: null, text: 'Seleccione un categoría'},
                 {value: 'Benjamin', text: 'Benjamín'},
@@ -372,13 +411,300 @@
             editarPerfil(){
                 this.editar = true;
                 this.parrafo = false;
+                this.fecha = this.usuario.fechaNacimiento.date.substring(0,10);                
 
-                this.fecha = this.usuario.fechaNacimiento.date.substring(0,10)
-                console.log(this.fecha);  
+                this.$nextTick(function () {
+                    // Puntero body
+                    document.querySelector('body').style.cursor = "pointer";
+
+                    // Variables del formulario
+                    const usuarioNombre = document.getElementById("nombre");
+                    const usuarioApellidos = document.getElementById("usuarioApellidos");
+                    const usuarioEmail = document.getElementById("usuarioEmail");
+                    const usuarioPassword = document.getElementById("usuarioPassword");
+                    const confirmarPassword = document.getElementById("confirmPass");
+                    const usuarioDni = document.getElementById("usuarioDni");
+                    const usuarioCalle = document.getElementById("usuarioCalle");
+                    const usuarioLocalidad = document.getElementById("usuarioLocalidad");
+                    const usuarioProvincia = document.getElementById("usuarioProvincia");
+                    const usuarioCp = document.getElementById("usuarioCp");
+                    const showPasswords = document.getElementById("showPasswords");
+                    const botonSave = document.getElementById("saveChanges");
+
+                    // Errores de las variables
+                    const nombreError = document.getElementById("nombreError");
+                    const apellidosError = document.getElementById("apellidosError");
+                    const emailError = document.getElementById("emailError");
+                    const passwordError = document.getElementById("passwordError");
+                    const confirmPasswordError = document.getElementById("confirmPasswordError");
+                    const dniError = document.getElementById("dniError");
+                    const calleError = document.getElementById("calleError");
+                    const localidadError = document.getElementById("localidadError");
+                    const provinciaError = document.getElementById("provinciaError");
+                    const cpError = document.getElementById("cpError");
+
+                    console.log(this.usuario.password);
+                    this.usuario.password = null;
+                    console.log(this.usuario.password);
+
+                    // Validación: mostrar contraseña
+                    if(confirmarPassword.value == "") {
+                        saveChanges.style.cursor = "not-allowed";
+                        saveChanges.disabled = true;
+                    } else {
+                        saveChanges.style.cursor = "pointer";
+                        saveChanges.disabled = false;
+                    }
+                    showPasswords.onclick = () => {
+                        if(showPasswords.checked) {
+                            console.log('checked');
+                            usuarioPassword.type = "text";
+                            confirmarPassword.type = "text";
+                        } else {
+                            console.log('not checked');
+                            usuarioPassword.type = "password";
+                            confirmarPassword.type = "password";
+                        }
+                    }
+                    
+                    // Validación: Nombre
+                    nombreError.innerHTML = "";
+                    usuarioNombre.onkeyup = () => {
+                        const regExpNombre =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
+
+                        if(regExpNombre.test(usuarioNombre.value)){
+                            nombreError.innerHTML = "";
+                            usuarioNombre.style.borderColor = "";
+                            saveChanges.style.cursor = "pointer";
+                            saveChanges.disabled = false;
+                        }
+                        if(!regExpNombre.test(usuarioNombre.value)){
+                            nombreError.style.color = "red";
+                            nombreError.innerHTML = "El campo debe tener una cadena de caracteres";
+                            usuarioNombre.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                            
+                        }
+                        if(usuarioNombre.value == ""){
+                            nombreError.style.color = "red";
+                            nombreError.innerHTML = "El campo no puede estar vacío";
+                            usuarioNombre.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                    }
+
+                    // Validación: Apellidos
+                    apellidosError.innerHTML = "";
+                    usuarioApellidos.onkeyup = () => {
+                        const regExpApellidos =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
+                                    
+                        if(regExpApellidos.test(usuarioApellidos.value)){
+                            apellidosError.innerHTML = "";
+                            usuarioApellidos.style.borderColor = "";
+                            saveChanges.style.cursor = "pointer";
+                            saveChanges.disabled = false;
+                        }
+                        if(!regExpApellidos.test(usuarioApellidos.value)){
+                            apellidosError.style.color = "red";
+                            apellidosError.innerHTML = "El campo debe tener una cadena de caracteres";
+                            usuarioApellidos.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                        if(usuarioApellidos.value == ""){
+                            apellidosError.style.color = "red";
+                            apellidosError.innerHTML = "El campo no puede estar vacío";
+                            usuarioApellidos.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                    }
+
+                    // Validación: Dni                        
+                    dniError.innerHTML = "";
+                    usuarioDni.onkeyup = () => {
+                        const regExpDni =/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i;
+                        if(regExpDni.test(usuarioDni.value)){
+                            dniError.innerHTML = "";
+                            usuarioDni.style.borderColor = "";
+                            saveChanges.style.cursor = "pointer";
+                            saveChanges.disabled = false;
+                        }
+                        if(!regExpDni.test(usuarioDni.value)){
+                            dniError.style.color = "red";
+                            dniError.innerHTML = "El campo debe contener 8 números y 1 letra";
+                            usuarioDni.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                        if(usuarioDni.value == ""){
+                            dniError.style.color = "red";
+                            dniError.innerHTML = "El campo no puede estar vacío";
+                            usuarioDni.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                    }
+                    
+                    // Validación: Email
+                    emailError.innerHTML = "";
+                    usuarioEmail.onkeyup = () => {
+                        const regExpEmail =/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
+                        if(regExpEmail.test(usuarioEmail.value)){
+                            emailError.innerHTML = "";
+                            usuarioEmail.style.borderColor = "";
+                            saveChanges.style.cursor = "pointer";
+                            saveChanges.disabled = false;
+                        }
+                        if(!regExpEmail.test(usuarioEmail.value)){
+                            emailError.style.color = "red";
+                            emailError.innerHTML = "El campo debe tener formato email";
+                            usuarioEmail.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                        if(usuarioEmail.value == ""){
+                            emailError.style.color = "red";
+                            emailError.innerHTML = "El campo no puede estar vacío";
+                            usuarioEmail.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                    }
+                     
+                    // Validación: Confirmar contraseña 
+                    confirmPasswordError.innerHTML = "";
+                    confirmarPassword.onkeyup = () => {
+                        if(confirmarPassword.value != usuarioPassword.value){
+                            confirmPasswordError.style.color = "red";
+                            confirmPasswordError.innerHTML = "Las contraseñas no coinciden";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                            confirmarPassword.style.borderColor = "red";
+                        } else {
+                            confirmPasswordError.innerHTML = "";
+                            saveChanges.style.cursor = "pointer";
+                            saveChanges.disabled = false;
+                            confirmarPassword.style.borderColor = "";
+                        }
+                    }
+
+                    // Validación: Calle
+                    calleError.innerHTML = "";
+                    usuarioCalle.onkeyup = () => {
+                        const regExpCalle =/^[A-Za-z]/;
+                        if(regExpCalle.test(usuarioCalle.value)){
+                            calleError.innerHTML = "";
+                            usuarioCalle.style.borderColor = "";
+                            saveChanges.style.cursor = "pointer";
+                            saveChanges.disabled = false;
+                        }
+                        if(!regExpCalle.test(usuarioCalle.value)){
+                            calleError.style.color = "red";
+                            calleError.innerHTML = "El campo debe tener una cadena de caracteres";
+                            usuarioCalle.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                        if(usuarioCalle.value == ""){
+                            calleError.style.color = "red";
+                            calleError.innerHTML = "El campo no puede estar vacío";
+                            usuarioCalle.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                    }
+
+                    // Validación: Localidad
+                    localidadError.innerHTML = "";
+                    usuarioLocalidad.onkeyup = () => {
+                        const regExpLocalidad =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
+                        if(regExpLocalidad.test(usuarioLocalidad.value)){
+                            localidadError.innerHTML = "";
+                            usuarioLocalidad.style.borderColor = "";
+                            saveChanges.style.cursor = "pointer";
+                            saveChanges.disabled = false;
+                        }
+                        if(!regExpLocalidad.test(usuarioLocalidad.value)){
+                            localidadError.style.color = "red";
+                            localidadError.innerHTML = "El campo debe tener una cadena de caracteres";
+                            usuarioLocalidad.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                        if(usuarioLocalidad.value == ""){
+                            localidadError.style.color = "red";
+                            localidadError.innerHTML = "El campo no puede estar vacío";
+                            usuarioLocalidad.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                    }
+
+                    // Validación: Provincia
+                    provinciaError.innerHTML = "";
+                    usuarioProvincia.onkeyup = () => {
+                        const regExpLocalidad =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
+                        if(regExpLocalidad.test(usuarioProvincia.value)){
+                            provinciaError.innerHTML = "";
+                            usuarioProvincia.style.borderColor = "";
+                            saveChanges.style.cursor = "pointer";
+                            saveChanges.disabled = false;
+                        }
+                        if(!regExpLocalidad.test(usuarioProvincia.value)){
+                            provinciaError.style.color = "red";
+                            provinciaError.innerHTML = "El campo debe tener una cadena de caracteres";
+                            usuarioProvincia.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                        if(usuarioProvincia.value == ""){
+                            provinciaError.style.color = "red";
+                            provinciaError.innerHTML = "El campo no puede estar vacío";
+                            usuarioProvincia.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                    }
+                            
+                    // Validación: CP
+                    cpError.innerHTML = "";
+                    usuarioCp.onkeyup = () => {
+                        const regExpCp =/^(?:0[1-9]\d{3}|[1-4]\d{4}|5[0-2]\d{3})$/;
+                        if(regExpCp.test(usuarioCp.value)){
+                            cpError.innerHTML = "";
+                            usuarioCp.style.borderColor = "";
+                            saveChanges.style.cursor = "pointer";
+                            saveChanges.disabled = false;
+                        }
+                        if(!regExpCp.test(usuarioCp.value)){
+                            cpError.style.color = "red";
+                            cpError.innerHTML = "El campo debe tener 5 numeros comprendidos entre 01000 y 52999";
+                            usuarioCp.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                        if(usuarioCp.value == ""){
+                            cpError.style.color = "red";
+                            cpError.innerHTML = "El campo no puede estar vacío";
+                            usuarioCp.style.borderColor = "red";
+                            saveChanges.style.cursor = "not-allowed";
+                            saveChanges.disabled = true;
+                        }
+                    }
+                })
+
             },  
             cancelarEdicion(){
                 this.editar = false;
                 this.parrafo = true;
+
+                this.$nextTick(function () {
+                    document.getElementById('edicion').disabled = false;
+                    document.getElementById('edicion').style.cursor = 'pointer';
+                })
             }, 
             enviarTitulo(){
                 var ruta = '/editar-entrenador'
