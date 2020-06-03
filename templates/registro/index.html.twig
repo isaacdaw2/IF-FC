@@ -1,4 +1,3 @@
-
 <title>{% block title %}Registrarme{% endblock %}</title>
 
 {{ encore_entry_link_tags('css/app') }}
@@ -58,7 +57,7 @@
                 <div class="row mt-4"> 
                     <div class="col">Dni:</div>                        
                     <div class="col">
-                        {{ form_widget(formulario.dni, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce el dni'}}) }}
+                        {{ form_widget(formulario.dni, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce el dni', 'maxlength': '9'}}) }}
                         <span id="dniError" class="text-danger"></span>
                     </div>                        
                 </div> 
@@ -89,6 +88,17 @@
                         <span id="confirmPassError" class="text-danger"></span>
                     </div>                        
                 </div> 
+
+
+            <!-- Ver contraseñas -->
+                <div class="row mt-4"> 
+                    <div class="col"></div>                        
+                    <div class="col">
+                        Ver contraseñas
+                        <input type="checkbox" id="showPass"></input> 
+                    </div>                        
+                </div> 
+                
 
                 <!-- Fecha nacimiento -->
                 <div class="row mt-4"> 
@@ -132,7 +142,7 @@
                 <div class="row mt-4"> 
                     <div class="col">Código postal:</div>                        
                     <div class="col">
-                        {{ form_widget(formulario.cp, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce el codigo postal'}}) }}
+                        {{ form_widget(formulario.cp, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce el codigo postal', 'maxlength': '5'}}) }}
                         <span id="cpError" class="text-danger"></span>
                     </div>                        
                 </div>
@@ -182,20 +192,43 @@
         var localidad_error = document.getElementById("localidadError");
         var provincia_error = document.getElementById("provinciaError");
         var cp_error = document.getElementById("cpError");
+        var showPass = document.getElementById("showPass");
 
         {# Puntero body #}
         document.querySelector('body').style.cursor = "pointer";
 
-        fecha_nacimiento.onkeyup = () => {
+        {# Validaciones #}
+        boton_registrar.disabled = true;
+        boton_registrar.style.cursor = "not-allowed";
+
+        fecha_nacimiento.onclick = () => {
             let date = new Date(fecha_nacimiento.value);
+
             fecha_dia.value = date.getDate();
             fecha_mes.value = date.getMonth()+1;
             fecha_year.value = date.getFullYear();
+        
+            if(fecha_dia.value !== '' && fecha_mes.value !== '' && fecha_year.value !== ''){
+                boton_registrar.style.cursor = "pointer";
+                boton_registrar.disabled = false;
+            }
+            console.log('Hoy es: '+fecha_dia.value);
+        }
+
+        showPass.onclick = () => {
+            if(showPass.checked) {
+                password.type = "text";
+                confirmPass.type = "text";
+            }
+            else{
+                password.type = "password";
+                confirmPass.type = "password";
+            }
         }
         
         nombre_error.innerHTML = "";
         nombre.onkeyup = () => {
-            const regExpNombre =/[A-Za-z]/;
+            const regExpNombre =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
             if(regExpNombre.test(nombre.value)){
                 nombre_error.innerHTML = "";
                 nombre.style.borderColor = "";
@@ -219,7 +252,7 @@
         
         apellidos_error.innerHTML = "";
         apellidos.onkeyup = () => {
-            const regExpApellidos =/[A-Za-z]/;
+            const regExpApellidos =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
             
             if(regExpApellidos.test(apellidos.value)){
                 apellidos_error.innerHTML = "";
@@ -243,12 +276,21 @@
                 
         dni_error.innerHTML = "";
         dni.onkeyup = () => {
-            const regExpDni =/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i;
+            const regExpDni =/^[0-9]{8}[A-Za-z]$/i;
+            var ruta = '/comprobar-dni'
+
             if(regExpDni.test(dni.value)){
-                dni_error.innerHTML = "";
-                dni.style.borderColor = "";
-                boton_registrar.style.cursor = "pointer";
-                boton_registrar.disabled = false;
+                console.log(dni.value)
+                $.ajax({
+                    type: 'POST',
+                    url: ruta,
+                    data: ({dni: dni.value.toString()}),
+                    async: true,
+                    dataType: 'json',
+                    success: function (data) {
+                        comprobarDni(data)
+                    }
+                })
             }
             if(!regExpDni.test(dni.value)){
                 dni_error.innerHTML = "El campo debe contener 8 números y 1 letra";
@@ -263,15 +305,41 @@
                 boton_registrar.disabled = true;
             }
         }
-                
-        email_error.innerHTML = "";
-        if(false){
-            const regExpEmail =/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
-            if(regExpEmail.test(email.value)){
-                email_error.innerHTML = "";
-                email.style.borderColor = "";
+
+        function comprobarDni(valor) {
+            // dni
+            if (valor) {
+                console.log('DNI repetido');
+                dni_error.innerHTML = "Este DNI ya existe, introduce otro";
+                dni.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            } else {
+                console.log('DNI correcto');
+                dni_error.innerHTML = "";
+                dni.style.borderColor = "";
                 boton_registrar.style.cursor = "pointer";
                 boton_registrar.disabled = false;
+            }
+        }
+                
+        email_error.innerHTML = "";
+        email.onkeyup = () => {
+            const regExpEmail =/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
+            var ruta = '/comprobar-email'
+
+            if(regExpEmail.test(email.value)){
+                console.log(email.value)
+                $.ajax({
+                    type: 'POST',
+                    url: ruta,
+                    data: ({email: email.value.toString()}),
+                    async: true,
+                    dataType: 'json',
+                    success: function (data) {
+                        comprobarEmail(data)
+                    }
+                })
             }
             if(!regExpEmail.test(email.value)){
                 email_error.innerHTML = "El campo debe tener formato email";
@@ -285,33 +353,26 @@
                 boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
             }
-        }
-
-        email.onkeyup = () => {
-            var ruta = '/comprobar-email'
-            console.log(email.value)
-            $.ajax({
-                type: 'POST',
-                url: ruta,
-                data: ({email: email.value.toString()}),
-                async: true,
-                dataType: 'json',
-                success: function (data) {
-                    comprobarEmail(data)
-                }
-            })
+            
         }
 
         function comprobarEmail(valor) {
             // email
             if (valor) {
-                console.log('email repetido')
-
+                console.log('email repetido');
+                email_error.innerHTML = "Este email ya existe, introduce otro";
+                email.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
             } else {
-                console.log('email correcto')
+                console.log('email correcto');
+                email_error.innerHTML = "";
+                email.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
+                boton_registrar.disabled = false;
             }
         }
-
+                      
         confirmPass_error.innerHTML = "";
         confirmPass.onkeyup = () => {
             if(confirmPass.value != password.value){
@@ -329,7 +390,7 @@
         }
         calle_error.innerHTML = "";
         calle.onkeyup = () => {
-            const regExpCalle =/[A-Za-z]/;
+            const regExpCalle =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+[0-9]$/;
             if(regExpCalle.test(calle.value)){
                 calle_error.innerHTML = "";
                 calle.style.borderColor = "";
@@ -337,7 +398,7 @@
                 boton_registrar.disabled = false;
             }
             if(!regExpCalle.test(calle.value)){
-                calle_error.innerHTML = "El campo debe tener una cadena de caracteres";
+                calle_error.innerHTML = "El campo debe tener una cadena de caracteres y un número";
                 calle.style.borderColor = "red";
                 boton_registrar.style.cursor = "not-allowed";
                 boton_registrar.disabled = true;
@@ -351,7 +412,7 @@
         }
         localidad_error.innerHTML = "";
         localidad.onkeyup = () => {
-            const regExpLocalidad =/[A-Za-z]/;
+            const regExpLocalidad =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
             if(regExpLocalidad.test(localidad.value)){
                 localidad_error.innerHTML = "";
                 localidad.style.borderColor = "";
@@ -373,7 +434,7 @@
         }
         provincia_error.innerHTML = "";
         provincia.onkeyup = () => {
-            const regExpLocalidad =/[A-Za-z]/;
+            const regExpLocalidad =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
             if(regExpLocalidad.test(provincia.value)){
                 provincia_error.innerHTML = "";
                 provincia.style.borderColor = "";

@@ -7,14 +7,17 @@
         
         <!-- Seleccionar archivo -->
         <b-row class="mt-3" v-if="!dismissCountDown">
-            <b-form-file
-                v-model="file"
-                :state="Boolean(file)"
-                placeholder="Elija un archivo o desplácelo aquí..."
-                drop-placeholder="Soltar archivo aquí..."
-                browse-text="Elegir"
-                id="file" name="file"                
-            ></b-form-file>
+            <b-col>
+                <b-form-file
+                    v-model="file"
+                    :state="Boolean(file)"
+                    placeholder="Elija un archivo o desplácelo aquí..."
+                    drop-placeholder="Soltar archivo aquí..."
+                    browse-text="Elegir"
+                    id="file" name="file"                
+                ></b-form-file>
+                <span id="entrenadorError"></span>
+            </b-col>
         </b-row>
         <b-row class="mt-3 justify-content-center"> 
             <b-alert
@@ -52,34 +55,52 @@ export default {
     data() {
       return {
         file: [],
+        okEntrenador: false,
         dismissSecs: 3,
         dismissCountDown: 0,
         showDismissibleAlert: false
       }
+    },
+    computed: {
+        
     },
     methods:{
         countDownChanged(dismissCountDown) {
             this.dismissCountDown = dismissCountDown
         },
         enviarTitulo(){
-            var ruta = '/envio-titulo'
-            var formData = new FormData()
-            formData.append('file', document.getElementById('file').files[0])
-            $.ajax({
-                type: 'POST',
-                url: ruta,
-                data: formData,
-                enctype: 'multipart/form-data',
-                processData: false,
-                contentType: false,
-                cache: false,
-                success: function (data) {
-                    console.log(data)
-                }
-            })   
-            document.getElementById('botonEntrenador').style.display = 'none';
-            this.dismissCountDown = this.dismissSecs;
-            setTimeout( () => this.$router.push({ name: 'home'}), 3010);         
+            var entrenadorError = document.getElementById("entrenadorError");
+            var enviar = document.getElementById("botonEntrenador");
+            var file = document.getElementById("file");
+
+            if(document.getElementById('file').files[0]){
+                entrenadorError.innerHTML = "";
+                var ruta = '/envio-titulo'
+                var formData = new FormData()
+                formData.append('file', document.getElementById('file').files[0])
+                $.ajax({
+                    type: 'POST',
+                    url: ruta,
+                    data: formData,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function (data) {
+                        console.log(data)
+                    }
+                })   
+                document.getElementById('botonEntrenador').style.display = 'none';
+                this.dismissCountDown = this.dismissSecs;
+                setTimeout( () => this.$router.push({ name: 'home'}), 3010); 
+            } else {
+                file.style.borderColor = "red";
+                entrenadorError.style.color = "red";
+                entrenadorError.innerHTML = "Debes seleccionar un archivo";
+
+                console.log('NO Existe');
+            }
+                    
         }
     }
 }

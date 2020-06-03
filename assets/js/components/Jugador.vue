@@ -146,7 +146,6 @@ export default {
             this.dismissCountDown = dismissCountDown
         },
         inscribirJugador(EleccionPagoJugador, EleccionCategoria, EleccionTallaCamiseta, EleccionTallaPantalon, EleccionTallaMedias, EleccionTallaAbrigo){
-            var ruta = '/pago-jugadores'
 
             // Variables del formulario
             var categoria = document.getElementById("validarCategoria");
@@ -179,6 +178,8 @@ export default {
                 categoria.style.borderColor = "red";
                 categoriaError.style.color = "red";
                 categoriaError.innerHTML = "Debes seleccionar una categoría";
+            } else {
+                    okCategoria = true;
             }
             categoria.onchange = () => {
                 if(categoria.value !== ''){
@@ -195,6 +196,8 @@ export default {
                 camiseta.style.borderColor = "red";
                 camisetaError.style.color = "red";
                 camisetaError.innerHTML = "Debes seleccionar una talla de camiseta";
+            } else {
+                okCamiseta = true;
             }
             camiseta.onchange = () => {
                 if(camiseta.value !== ''){
@@ -211,6 +214,8 @@ export default {
                 pantalon.style.borderColor = "red";
                 pantalonError.style.color = "red";
                 pantalonError.innerHTML = "Debes seleccionar una talla de pantalón";
+            } else {
+                okPantalon = true;
             }
             pantalon.onchange = () => {
                 if(pantalon.value !== ''){
@@ -227,6 +232,8 @@ export default {
                 medias.style.borderColor = "red";
                 mediasError.style.color = "red";
                 mediasError.innerHTML = "Debes seleccionar una talla de medias";
+            } else {
+                okMedias = true;
             }
             medias.onchange = () => {
                 if(medias.value !== ''){
@@ -243,6 +250,8 @@ export default {
                 abrigo.style.borderColor = "red";
                 abrigoError.style.color = "red";
                 abrigoError.innerHTML = "Debes seleccionar una talla de abrigo";
+            } else {
+                okAbrigo = true;
             }
             abrigo.onchange = () => {
                 if(abrigo.value !== ''){
@@ -259,6 +268,8 @@ export default {
                 pago.style.borderColor = "red";
                 pagoError.style.color = "red";
                 pagoError.innerHTML = "Debes seleccionar un método de pago";
+            } else {
+                okPago = true;
             }
             pago.onchange = () => {
                 if(pago.value !== ''){
@@ -273,7 +284,7 @@ export default {
             if(okCategoria && okCamiseta && okPantalon && okMedias && okAbrigo && okPago){
                 $.ajax({
                     type: 'POST',
-                    url: ruta,
+                    url: '/pago-jugadores',
                     data: ({pagoJugador: EleccionPagoJugador, 
                             categoria: EleccionCategoria,
                             tallaCamiseta: EleccionTallaCamiseta,

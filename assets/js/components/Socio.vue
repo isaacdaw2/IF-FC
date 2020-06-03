@@ -14,7 +14,8 @@
                             <label for="metodoPago">Método de pago:</label>
                         </b-col>
                         <b-col>
-                            <b-form-select v-model="metodoPago" :options="pago" id="pagoSocios"></b-form-select>
+                            <b-form-select v-model="metodoPago" :options="pago" id="validarPagoSocio"></b-form-select>
+                            <span id="pagoSocioError"></span>
                         </b-col>
                     </b-row>
                     
@@ -72,20 +73,47 @@ export default {
             this.dismissCountDown = dismissCountDown
         },
         pagar(tipoPago){
-            var ruta = '/pago-socios'
-            $.ajax({
-                type: 'POST',
-                url: ruta,
-                data: ({pago: tipoPago}),
-                async: true,
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data)
+            var pago = document.getElementById("validarPagoSocio");
+            var pagoError = document.getElementById("pagoSocioError");
+            var enviar = document.getElementById("botonSocios");
+            var okPagoSocio = false;
+
+            // Validación Método de pago
+            if(!pago.value ){
+                pago.style.borderColor = "red";
+                pagoError.style.color = "red";
+                pagoError.innerHTML = "Debes seleccionar un método de pago";
+            } else {
+                okPagoSocio = true;
+            }
+            pago.onchange = () => {
+                if(pago.value !== ''){
+                    pago.style.borderColor = "green";
+                    pagoError.innerHTML = "";
+                    okPagoSocio = true;
+                } else {
+                    okPagoSocio = false;
                 }
-            }) 
-            document.getElementById('botonSocios').style.display = 'none';
-            this.dismissCountDown = this.dismissSecs
-            setTimeout( () => this.$router.push({ name: 'home'}), 3000);           
+            }
+
+            if(okPagoSocio){
+                var ruta = '/pago-socios'
+                $.ajax({
+                    type: 'POST',
+                    url: ruta,
+                    data: ({pago: tipoPago}),
+                    async: true,
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data)
+                    }
+                }) 
+                document.getElementById('botonSocios').style.display = 'none';
+                this.dismissCountDown = this.dismissSecs
+                setTimeout( () => this.$router.push({ name: 'home'}), 3000);           
+            } else {
+                console.log('No puedo ejecutame porque el pago está: '+okPagoSocio);
+            }
         }
     }
 }

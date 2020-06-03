@@ -525,7 +525,7 @@
                     // Validación: Dni                        
                     dniError.innerHTML = "";
                     usuarioDni.onkeyup = () => {
-                        const regExpDni =/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i;
+                        const regExpDni =/^[0-9]{8}[A-Za-z]$/i;
                         if(regExpDni.test(usuarioDni.value)){
                             dniError.innerHTML = "";
                             usuarioDni.style.borderColor = "";
@@ -594,7 +594,7 @@
                     // Validación: Calle
                     calleError.innerHTML = "";
                     usuarioCalle.onkeyup = () => {
-                        const regExpCalle =/^[A-Za-z]/;
+                        const regExpCalle =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+[0-9]$/;
                         if(regExpCalle.test(usuarioCalle.value)){
                             calleError.innerHTML = "";
                             usuarioCalle.style.borderColor = "";
@@ -603,7 +603,7 @@
                         }
                         if(!regExpCalle.test(usuarioCalle.value)){
                             calleError.style.color = "red";
-                            calleError.innerHTML = "El campo debe tener una cadena de caracteres";
+                            calleError.innerHTML = "El campo debe tener una cadena de caracteres y un número";
                             usuarioCalle.style.borderColor = "red";
                             saveChanges.style.cursor = "not-allowed";
                             saveChanges.disabled = true;
