@@ -594,7 +594,7 @@
                     // Validación: Calle
                     calleError.innerHTML = "";
                     usuarioCalle.onkeyup = () => {
-                        const regExpCalle =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+[0-9]$/;
+                        const regExpCalle =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+[0-9]+$/;
                         if(regExpCalle.test(usuarioCalle.value)){
                             calleError.innerHTML = "";
                             usuarioCalle.style.borderColor = "";
