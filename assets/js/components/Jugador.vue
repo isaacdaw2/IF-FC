@@ -95,9 +95,6 @@
                     <b-button variant="primary" id="botonJugador" @click="inscribirJugador(metodoPago, categoria, tallaCamiseta, tallaPantalon, tallaMedias, tallaAbrigo)">Enviar</b-button>                 
                 </b-col>                    
             </b-form-row>
-
-            <!-- Copyright -->
-            <p class="mt-5 text-center">&copy;2020 IF-ormáticos FC</p>
         </b-container>
     </div>
 </template>

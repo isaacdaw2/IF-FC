@@ -1,6 +1,6 @@
 <template>
     <div class="mt-5 mb-5 text-center">
-        <b-container>
+        <b-container class="text-center d-flex justify-content-center align-items-center">
             <!-- Botón animado mientras se carga el ajax -->
             <b-button variant="info" disabled v-if="!usuario.fechaNacimiento">
                 <b-spinner small type="grow"></b-spinner>
@@ -13,8 +13,9 @@
                 header-text-variant="white"
                 header-tag="header"
                 header-bg-variant="info"
-                style="max-width: 40rem;"
+                style="max-width: 60rem;"
                 v-if="usuario.fechaNacimiento"
+                
             >
                 <!-- Nombre y apellidos del usuario -->
                 <h3 v-if="!editar">{{ usuario.nombre }} {{ usuario.apellidos }}</h3>
@@ -314,15 +315,12 @@
                 </b-row>                
             </b-card>
 
-            <!-- Mensaje eliminación jugador, socio o entrenador -->
-            <small v-if="parrafo">Si eres jugador/a, soci@ o entrenador/a y deseas tramitar la baja, pulsa antes el botón editar.</small>
 
-            <!-- Copyright -->
 
         </b-container>
-            <div class="footer">
-                <p class="mt-5 text-center" v-if="copyright">&copy;2020 IF-ormáticos FC</p>
-            </div>
+
+        <!-- Mensaje eliminación jugador, socio o entrenador -->
+        <small v-if="parrafo">Si eres jugador/a, soci@ o entrenador/a y deseas tramitar la baja, pulsa antes el botón editar.</small>
     </div>
 </template>
 

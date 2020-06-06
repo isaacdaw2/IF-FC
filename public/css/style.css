@@ -1,3 +1,15 @@
 body {
     background-color: papayawhip;
+} 
+
+#copyright1 {
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
+
+#copyright2 {
+    position: relative;
+    width: 100%;
+    bottom: 0;
 }

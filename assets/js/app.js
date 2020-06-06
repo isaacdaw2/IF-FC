@@ -28,6 +28,7 @@ import Jugador from './components/Jugador.vue'
 import Socio from './components/Socio.vue'
 import Entrenador from './components/Entrenador.vue'
 import Perfil from './components/Perfil.vue'
+import PoliticaCookies from './components/PoliticaCookies.vue'
 
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
@@ -37,7 +38,8 @@ const routes = [
     { path: '/jugadores', name: 'jugador', component: Jugador },
     { path: '/socios', name: 'socio', component: Socio },
     { path: '/entrenadores', name: 'entrenador', component: Entrenador },
-    { path: '/miperfil', name: 'perfil', component: Perfil }
+    { path: '/miperfil', name: 'perfil', component: Perfil },
+    { path: '/politicaCookies', name: 'politicaCookies', component: PoliticaCookies }
 ]
 
 const router = new VueRouter({
@@ -46,6 +48,6 @@ const router = new VueRouter({
 
 new Vue({
     el: "#app",
-    components: {App, Home, Jugador, Socio, Entrenador, Perfil},
+    components: {App, Home, Jugador, Socio, Entrenador, Perfil, PoliticaCookies},
     router
 })

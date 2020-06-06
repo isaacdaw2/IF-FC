@@ -43,9 +43,6 @@
                 <b-button variant="success" id="botonEntrenador" @click="enviarTitulo">Enviar</b-button>
             </b-col>
         </b-row>
-
-        <!-- Copyright -->
-        <p class="mt-5 text-center">&copy;2020 IF-ormáticos FC</p>
     </div>
 </template>
 

@@ -47,7 +47,6 @@
                 </b-card>
             </b-col>            
         </b-row>
-        <p class="mt-5 text-center">&copy;2020 IF-ormáticos FC</p>
     </div>
 </template>
 

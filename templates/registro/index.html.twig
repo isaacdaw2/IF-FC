@@ -399,7 +399,6 @@
                 emailFill = false;
                 console.log('email: '+emailFill);
             }
-           
         }
 
         function comprobarEmail(valor) {
@@ -427,15 +426,27 @@
                 password.style.borderColor = "red";
                 contraseñaFill = false;
                 console.log('Contraseña: '+contraseñaFill);
-            } else {
-                console.log('Valor pass: '+password.value);
-                password.style.borderColor = "";
-                password_error.innerHTML = "";
-                confirmPass_error.innerHTML = "";
-                confirmPass.value = '';
-                confirmPass.style.borderColor = "";
-                contraseñaFill = true;
-                console.log('Contraseña: '+contraseñaFill);
+                confirmPass_error.innerHTML = "El campo no puede estar vacío";
+                confirmPass.style.borderColor = "red";
+                confirmarContraseñaFill = false;
+                console.log('Confirmar Contraseña: '+confirmarContraseñaFill);
+            } 
+            if(password.value) {
+                if(confirmPass.value) {
+                    console.log('Valor pass: '+password.value);
+                    password.style.borderColor = "";
+                    password_error.innerHTML = "";
+                    confirmPass_error.innerHTML = "";
+                    confirmPass.value = '';
+                    confirmPass.style.borderColor = "";
+                    contraseñaFill = true;
+                    console.log('Contraseña: '+contraseñaFill);
+                } else {
+                    confirmPass_error.innerHTML = "Las contraseñas no coinciden";
+                    confirmPass.style.borderColor = "red";
+                    confirmarContraseñaFill = false;
+                    console.log('Confirmar Contraseña: '+confirmarContraseñaFill);
+                }
             }
         }
 
@@ -571,6 +582,8 @@
                 boton_error.innerHTML = "";
                 console.log('Comprobación de todo: OK');
             } else {
+                boton_registrar.className="btn btn-outline-danger";
+                boton_registrar.style.cursor = "not-allowed";
                 console.log('Comprobación de todo: KO');
                 boton_registrar.disabled = true;
             }
@@ -642,9 +655,9 @@
                 fecha_error.innerHTML = "";
                 fechaNacimientoFill = true;
             } else {
-                fecha_dia.value = '1';
-                fecha_mes.value = '1';
-                fecha_year.value = '1900';
+                fecha_dia.value = 1;
+                fecha_mes.value = 1;
+                fecha_year.value = 1900;
                 fecha_nacimiento.style.borderColor = "red";
                 fecha_error.innerHTML = "Debes introducir una fecha";
             }
