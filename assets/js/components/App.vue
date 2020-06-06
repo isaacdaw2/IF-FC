@@ -1,4 +1,5 @@
 <template>
+<div>
   <div>
       <b-navbar v-if="cargaEnProceso" sticky toggleable="md" type="dark" variant="primary" class="text-center d-flex justify-content-center align-items-center">
         <div>
@@ -15,12 +16,12 @@
 
           <b-collapse id="nav-collapse" class="text-center" is-nav>
             <b-navbar-nav>
-              <b-nav-item :to="{name: 'home'}">Noticias del club</b-nav-item>
+              <b-nav-item :to="{name: 'home'}" >Noticias del club</b-nav-item>
               <b-nav-item :to="{name: 'socio'}" v-show="mostrarSocio">Inscribirse como socio</b-nav-item>
               <b-nav-item :to="{name: 'jugador'}" v-show="mostrarJugador">Inscribirse como jugador</b-nav-item>              
               <b-nav-item :to="{name: 'entrenador'}" v-show="mostrarEntrenador">Enviar solicitud de entrenador</b-nav-item>       
               <b-nav-item :to="{name: 'perfil'}" class="pr-5"><b-spinner type="grow" small variant="success"></b-spinner> Mi perfil</b-nav-item>       
-              <b-nav-item @click="eliminarCookies" href="/logout"><font-awesome-icon icon="sign-out-alt" :style="{ color: '#CD5C5C' }" size="lg"/></b-nav-item>       
+              <b-nav-item @click="eliminarCookies" href="/logout"><font-awesome-icon icon="sign-out-alt" :style="{ color: '#CD5C5C' }" size="lg"/></b-nav-item>    
             </b-navbar-nav>
           </b-collapse>
       </b-navbar>
@@ -37,9 +38,12 @@
       </section>
 
       <router-view/>
-        <!-- Copyright -->
-        <p class="text-center" v-if="relative" id="copyright1">&copy;2020 IF-ormáticos FC</p>
-        <p class="text-center" v-if="absolute" id="copyright2">&copy;2020 IF-ormáticos FC</p>
+  </div>
+    
+    <footer class="footer sticky-bottom container text-center">
+        <hr>
+        <span class="text-muted">&copy; 2020 IF-ormáticos FC</span>
+    </footer>
   </div>
 </template>
 
@@ -54,9 +58,7 @@
             mostrarEntrenador: true,
             cargaEnProceso: true,
             cargaCompletada: false,
-            contador: 0,
-            relative: false,
-            absolute: false
+            contador: 0
         }),
         methods: {
             aceptarCookies() {
@@ -68,11 +70,7 @@
               document.cookie = "CookieAceptada=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
             }
         },
-        mounted () {
-          if (to.path === '/socios') {
-            console.log('Estoy en socios');
-          }
-          
+        mounted () { 
           if(document.cookie){
             document.getElementById('cookiesSection').style.display = 'none';
           } 
