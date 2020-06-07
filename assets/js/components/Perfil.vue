@@ -27,7 +27,7 @@
                     </b-col>
                     <b-col>
                         <b-form-input name="nombre" id="nombre" ref="usuarioNombre" v-model="usuario.nombre" placeholder="Introduce aquí tu nombre"></b-form-input>
-                        <span id="nombreError"></span>
+                        <span id="nombreError" class="text-danger"></span>
                     </b-col>
                 </b-row>
 
@@ -38,7 +38,7 @@
                     </b-col>
                     <b-col>
                         <b-form-input v-model="usuario.apellidos" id="usuarioApellidos" placeholder="Introduce aquí tus apellidos"></b-form-input>
-                        <span id="apellidosError"></span>
+                        <span id="apellidosError" class="text-danger"></span>
                     </b-col>
                 </b-row>
 
@@ -52,7 +52,7 @@
                     </b-col>
                      <b-col v-if="editar">
                         <b-form-input v-model="usuario.email" id="usuarioEmail" placeholder="Introduce aquí tu email"></b-form-input>
-                        <span id="emailError"></span>
+                        <span id="emailError" class="text-danger"></span>
                     </b-col>
                 </b-row>
 
@@ -63,7 +63,7 @@
                     </b-col>
                      <b-col>
                         <b-form-input type="password" v-model="usuario.password" id="usuarioPassword" placeholder="Introduce aquí una contraseña"></b-form-input>
-                        <span id="passwordError"></span>
+                        <span id="passwordError" class="text-danger"></span>
                     </b-col>
                 </b-row>
 
@@ -74,9 +74,10 @@
                     </b-col>
                      <b-col>
                         <b-form-input type="password" id="confirmPass" placeholder="Repite la contraseña"></b-form-input>
-                        <span id="confirmPasswordError"></span>
+                        <span id="confirmPasswordError" class="text-danger"></span>
                     </b-col>
                 </b-row>
+
 
                 <!-- Mostrar/ocultar contraseña -->
                 <b-row class="mb-2" v-if="editar">
@@ -86,6 +87,7 @@
                         <b-form-checkbox id="showPasswords"></b-form-checkbox>
                     </b-col>
                 </b-row>
+
 
                 <!-- Edición y validación Dni del usuario -->
                 <b-row class="mb-2">
@@ -97,7 +99,7 @@
                     </b-col>
                      <b-col v-if="editar">
                         <b-form-input v-model="usuario.dni" id="usuarioDni" maxlength="9" placeholder="Introduce aquí tu dni"></b-form-input>
-                        <span id="dniError"></span>
+                        <span id="dniError" class="text-danger"></span>
                     </b-col>
                 </b-row>
 
@@ -126,7 +128,7 @@
                     </b-col>
                      <b-col v-if="editar">
                         <b-form-input v-model="usuario.calle" id="usuarioCalle" placeholder="Introduce aquí tu calle"></b-form-input>
-                        <span id="calleError"></span>
+                        <span id="calleError" class="text-danger"></span>
                     </b-col>
                 </b-row>
 
@@ -140,7 +142,7 @@
                     </b-col>
                      <b-col v-if="editar">
                         <b-form-input v-model="usuario.localidad" id="usuarioLocalidad" placeholder="Introduce aquí tu localidad"></b-form-input>
-                        <span id="localidadError"></span>
+                        <span id="localidadError" class="text-danger"></span>
                     </b-col>
                 </b-row>
 
@@ -154,7 +156,7 @@
                     </b-col>
                     <b-col v-if="editar">
                         <b-form-input v-model="usuario.provincia" id="usuarioProvincia" placeholder="Introduce aquí tu provincia"></b-form-input>
-                        <span id="provinciaError"></span>
+                        <span id="provinciaError" class="text-danger"></span>
                     </b-col>
                 </b-row>
 
@@ -168,7 +170,7 @@
                     </b-col>
                     <b-col v-if="editar">
                         <b-form-input v-model="usuario.cp" id="usuarioCp" maxlength="5" placeholder="Introduce aquí tu código postal"></b-form-input>
-                        <span id="cpError"></span>
+                        <span id="cpError" class="text-danger"></span>
                     </b-col>
                 </b-row>
                 
@@ -183,7 +185,8 @@
                             {{ jugador.categoria }}
                         </b-col>
                         <b-col v-if="editar">
-                            <b-form-select v-model="jugador.categoria" :options="categorias"></b-form-select>
+                            <b-form-select v-model="jugador.categoria" :options="categorias" id="validarCategoria"></b-form-select>
+                            <span id="categoriaError" class="text-danger"></span>
                         </b-col>
                     </b-row>
 
@@ -195,7 +198,9 @@
                             {{ jugador.camiseta }}
                         </b-col>
                         <b-col v-if="editar">
-                            <b-form-select v-model="jugador.camiseta" :options="tallas"></b-form-select>
+                            <b-form-select v-model="jugador.camiseta" :options="tallas" id="validarCamiseta"></b-form-select>
+                            <span id="camisetaError" class="text-danger"></span>
+
                         </b-col>
                     </b-row>
 
@@ -207,7 +212,9 @@
                             {{ jugador.pantalon }}
                         </b-col>
                         <b-col v-if="editar">
-                            <b-form-select v-model="jugador.pantalon" :options="tallas"></b-form-select>
+                            <b-form-select v-model="jugador.pantalon" :options="tallas" id="validarPantalon"></b-form-select>
+                            <span id="pantalonError" class="text-danger"></span>
+
                         </b-col>
                     </b-row>
 
@@ -219,7 +226,9 @@
                             {{ jugador.medias }}
                         </b-col>
                         <b-col v-if="editar">
-                            <b-form-select v-model="jugador.medias" :options="tallas"></b-form-select>
+                            <b-form-select v-model="jugador.medias" :options="tallas" id="validarMedias"></b-form-select>
+                            <span id="mediasError" class="text-danger"></span>
+
                         </b-col>
                     </b-row>
 
@@ -231,7 +240,8 @@
                             {{ jugador.abrigo }}
                         </b-col>
                         <b-col v-if="editar">
-                            <b-form-select v-model="jugador.abrigo" :options="tallas"></b-form-select>
+                            <b-form-select v-model="jugador.abrigo" :options="tallas" id="validarAbrigo"></b-form-select>
+                            <span id="abrigoError" class="text-danger"></span>
                         </b-col>
                     </b-row>
 
@@ -243,7 +253,9 @@
                             {{ jugador.pago }}
                         </b-col>
                         <b-col v-if="editar">
-                            <b-form-select v-model="jugador.pago" :options="pago"></b-form-select>
+                            <b-form-select v-model="jugador.pago" :options="pago" id="validarPagoJugador"></b-form-select>
+                            <span id="pagoJugadorError" class="text-danger"></span>
+
                         </b-col>
                     </b-row>
                     <b-row class="mb-2">
@@ -264,7 +276,7 @@
                             {{ socio.pago }}
                         </b-col>
                         <b-col v-if="editar">
-                            <b-form-select v-model="socio.pago" :options="pago"></b-form-select>
+                            <b-form-select v-model="socio.pago" id="validarPagoSocio" :options="pago"></b-form-select>
                         </b-col>
                     </b-row>
                     <b-row class="mb-2">
@@ -298,7 +310,7 @@
                     <b-row class="mb-2 mt-3">
                         <b-col>
                             <b-button variant="outline-danger" @click="bajaEntrenador" v-if="editar">Baja entrenador</b-button>
-                            <b-button variant="outline-success" v-if="editar" @click="enviarTitulo">Enviar otro título</b-button>
+                            <b-button variant="outline-success" id="botonEntrenador" v-if="editar" @click="enviarTitulo">Enviar otro título</b-button>
                         </b-col>  
                     </b-row>
                 </div>
@@ -321,6 +333,8 @@
 
         <!-- Mensaje eliminación jugador, socio o entrenador -->
         <small v-if="parrafo">Si eres jugador/a, soci@ o entrenador/a y deseas tramitar la baja, pulsa antes el botón editar.</small>
+        <small v-if="mensajeContraseña">Si no quieres modificar las contraseñas, deja el campo vacío</small>
+
     </div>
 </template>
 
@@ -328,7 +342,6 @@
 
 <script>
     import axios from "axios";
-
     export default {
         data: () => ({
             usuario: [],
@@ -341,6 +354,7 @@
             existeEntrenador: false,
             editar: false,
             parrafo: false,
+            mensajeContraseña: false,
             copyright: false,
             eliminar: '',
             eliminarSocio: '',
@@ -350,7 +364,6 @@
             confirmarPass: '',
             contraseñaGuardada: '',
             categorias:[
-                {value: null, text: 'Seleccione un categoría'},
                 {value: 'Benjamin', text: 'Benjamín'},
                 {value: 'Alevin', text: 'Alevín'},
                 {value: 'Infantil', text: 'Infantil'},
@@ -360,14 +373,12 @@
                 {value: 'Veterano', text: 'Veterano'}
             ],
             tallas:[
-                {value: null, text: 'Seleccione una talla'},
                 {value: 'S', text: 'S'},
                 {value: 'M', text: 'M'},
                 {value: 'L', text: 'L'},
                 {value: 'XL', text: 'XL'}
             ],
             pago:[
-                {value: null, text: 'Seleccione un método de pago'},
                 {value: 'Paypal', text: 'Paypal'},
                 {value: 'Tarjeta crédito/débito', text: 'Tarjeta crédito/débito'},
                 {value: 'Domiciliación bancaria', text: 'Domiciliación bancaria'}
@@ -378,7 +389,8 @@
                 .then(response => (
                     this.usuario = response.data,
                     this.parrafo = true,
-                    this.copyright = true
+                    this.copyright = true,
+                    this.mensajeContraseña = false
                 ))
             
             axios.get('/datos-jugadores')
@@ -388,7 +400,6 @@
                         this.existeJugador = true 
                     }                                      
                 })
-
             axios.get('/datos-socios')
             .then(response => {
                 if(response.data.id){
@@ -396,7 +407,6 @@
                     this.existeSocio = true 
                 }                                      
             })
-
             axios.get('/datos-entrenadores')
             .then(response => {
                 if(response.data.id){
@@ -409,71 +419,240 @@
             editarPerfil(){
                 this.editar = true;
                 this.parrafo = false;
-                this.fecha = this.usuario.fechaNacimiento.date.substring(0,10);                
+                this.mensajeContraseña = true;            
+                this.fecha = this.usuario.fechaNacimiento.date.substring(0,10);   
 
                 this.$nextTick(function () {
+
                     // Puntero body
                     document.querySelector('body').style.cursor = "pointer";
 
-                    // Variables del formulario
-                    const usuarioNombre = document.getElementById("nombre");
-                    const usuarioApellidos = document.getElementById("usuarioApellidos");
-                    const usuarioEmail = document.getElementById("usuarioEmail");
-                    const usuarioPassword = document.getElementById("usuarioPassword");
-                    const confirmarPassword = document.getElementById("confirmPass");
-                    const usuarioDni = document.getElementById("usuarioDni");
-                    const usuarioCalle = document.getElementById("usuarioCalle");
-                    const usuarioLocalidad = document.getElementById("usuarioLocalidad");
-                    const usuarioProvincia = document.getElementById("usuarioProvincia");
-                    const usuarioCp = document.getElementById("usuarioCp");
-                    const showPasswords = document.getElementById("showPasswords");
-                    const botonSave = document.getElementById("saveChanges");
+                    // Variables del usuario
+                    var usuarioNombre = document.getElementById("nombre");
+                    var usuarioApellidos = document.getElementById("usuarioApellidos");
+                    var usuarioEmail = document.getElementById("usuarioEmail");
+                    var usuarioPassword = document.getElementById("usuarioPassword");
+                    var confirmarPassword = document.getElementById("confirmPass");
+                    var usuarioDni = document.getElementById("usuarioDni");
+                    var usuarioCalle = document.getElementById("usuarioCalle");
+                    var usuarioLocalidad = document.getElementById("usuarioLocalidad");
+                    var usuarioProvincia = document.getElementById("usuarioProvincia");
+                    var usuarioCp = document.getElementById("usuarioCp");
+                    var showPasswords = document.getElementById("showPasswords");
+                    var botonSave = document.getElementById("saveChanges");
 
-                    // Errores de las variables
-                    const nombreError = document.getElementById("nombreError");
-                    const apellidosError = document.getElementById("apellidosError");
-                    const emailError = document.getElementById("emailError");
-                    const passwordError = document.getElementById("passwordError");
-                    const confirmPasswordError = document.getElementById("confirmPasswordError");
-                    const dniError = document.getElementById("dniError");
-                    const calleError = document.getElementById("calleError");
-                    const localidadError = document.getElementById("localidadError");
-                    const provinciaError = document.getElementById("provinciaError");
-                    const cpError = document.getElementById("cpError");
+                    // Variables del usuario Jugador
+                    var categoria = document.getElementById("validarCategoria");
+                    var camiseta = document.getElementById("validarCamiseta");
+                    var pantalon = document.getElementById("validarPantalon");
+                    var medias = document.getElementById("validarMedias");
+                    var abrigo = document.getElementById("validarAbrigo");
+                    var pagoJugador = document.getElementById("validarPagoJugador");
+
+                    // Variable del usuario Socio
+                    var pagoSocio = document.getElementById("validarPagoSocio");
+
+                    // Variable del usuario Entrenador
+                    var entrenador = document.getElementById("file");
+                    var botonEntrenador = document.getElementById("botonEntrenador");
+                    
+                    // Errores de usuario
+                    var nombreError = document.getElementById("nombreError");
+                    var apellidosError = document.getElementById("apellidosError");
+                    var emailError = document.getElementById("emailError");
+                    var passwordError = document.getElementById("passwordError");
+                    var confirmPasswordError = document.getElementById("confirmPasswordError");
+                    var dniError = document.getElementById("dniError");
+                    var calleError = document.getElementById("calleError");
+                    var localidadError = document.getElementById("localidadError");
+                    var provinciaError = document.getElementById("provinciaError");
+                    var cpError = document.getElementById("cpError");
 
                     // Ok validaciones Usuario
-                    var nombreFill = false;
-                    var apellidosFill = false;
-                    var dniFill = false;
-                    var emailFill = false;
-                    var contraseñaFill = false;
-                    var confirmarContraseñaFill = false;
-                    var fechaNacimientoFill = false;
-                    var calleFill = false;
-                    var localidadFill = false;
-                    var provinciaFill = false;
-                    var cpFill = false;
+                    var nombreFill = true;
+                    var apellidosFill = true;
+                    var dniFill = true;
+                    var emailFill = true;
+                    var contraseñaFill = true;
+                    var confirmarContraseñaFill = true;
+                    var fechaNacimientoFill = true;
+                    var calleFill = true;
+                    var localidadFill = true;
+                    var provinciaFill = true;
+                    var cpFill = true;
+                    var modificacionesUsuario = false;
 
-                    // Ok validaciones
-                    var okCategoria = false;
-                    var okCamiseta = false;
-                    var okPantalon = false;
-                    var okMedias = false;
-                    var okAbrigo = false;
-                    var okPagoJugador = false;
+                    // Ok validaciones Usuario Jugador
+                    var okCategoria = true;
+                    var okCamiseta = true;
+                    var okPantalon = true;
+                    var okMedias = true;
+                    var okAbrigo = true;
+                    var okPagoJugador = true;  
 
-                    console.log(this.usuario.password);
-                    this.usuario.password = null;
-                    console.log(this.usuario.password);
+                    // Ok validación Usuario Socio                    
+                    var okPagoSocio = true;
 
-                    // Validación: mostrar contraseña
-                    if(confirmarPassword.value == "") {
-                        saveChanges.style.cursor = "not-allowed";
-                        saveChanges.disabled = true;
-                    } else {
-                        saveChanges.style.cursor = "pointer";
-                        saveChanges.disabled = false;
+                    // Ok validación Usuario Entrenador                    
+                    var okEntrenador = true;
+                    
+
+                    // FUNCION COMPROBACION EDITAR PERFIL
+                    function comprobacion(){
+                        if(nombreFill && apellidosFill && dniFill && emailFill && fechaNacimientoFill
+                            && calleFill && localidadFill && provinciaFill && cpFill) {
+                            if((contraseñaFill && confirmarContraseñaFill) || (!contraseñaFill && !confirmarContraseñaFill)){
+                                
+                                // Comprobación de existencia de usuario Jugador + Socio + Entrenador
+                                if(categoria && pagoSocio && entrenador) {
+                                    if(okCategoria && okCamiseta && okPantalon && okAbrigo && okMedias && okPagoJugador && okPagoSocio && okEntrenador) {
+                                        saveChanges.disabled = false;
+                                        botonSave.style.cursor = "pointer";
+                                        botonSave.className = "btn btn-outline-success";
+                                    } else {
+                                         if (modificacionesUsuario) {
+                                            saveChanges.disabled = false;
+                                            botonSave.style.cursor = "pointer";
+                                            botonSave.className = "btn btn-outline-success";
+                                        } else {
+                                            saveChanges.disabled = true;
+                                            botonSave.style.cursor = "not-allowed";
+                                            botonSave.className = "btn btn-outline-danger";
+                                        }
+                                    }
+                                } else {
+                                    // Comprobación de existencia de usuario Jugador + Socio
+                                    if(categoria && pagoSocio) {
+                                        if(okCategoria && okCamiseta && okPantalon && okAbrigo && okMedias && okPagoJugador && okPagoSocio) {
+                                            saveChanges.disabled = false;
+                                            botonSave.style.cursor = "pointer";
+                                            botonSave.className = "btn btn-outline-success";
+                                        } else {
+                                             if (modificacionesUsuario) {
+                                                saveChanges.disabled = false;
+                                                botonSave.style.cursor = "pointer";
+                                                botonSave.className = "btn btn-outline-success";
+                                            } else {
+                                                saveChanges.disabled = true;
+                                                botonSave.style.cursor = "not-allowed";
+                                                botonSave.className = "btn btn-outline-danger";
+                                            }
+                                        }
+                                    }
+
+                                    // Comprobación de existencia de usuario Jugador + Entrenador
+                                    if(categoria && entrenador) {
+                                        if(okCategoria && okCamiseta && okPantalon && okAbrigo && okMedias && okPagoJugador && okEntrenador) {
+                                            saveChanges.disabled = false;
+                                            botonSave.style.cursor = "pointer";
+                                            botonSave.className = "btn btn-outline-success";
+                                        } else {
+                                            if (modificacionesUsuario) {
+                                                saveChanges.disabled = false;
+                                                botonSave.style.cursor = "pointer";
+                                                botonSave.className = "btn btn-outline-success";
+                                            } else {
+                                                saveChanges.disabled = true;
+                                                botonSave.style.cursor = "not-allowed";
+                                                botonSave.className = "btn btn-outline-danger";
+                                            }
+                                        }
+                                    }
+
+                                    // Comprobación de existencia de usuario Socio + Entrenador
+                                    if(pagoSocio && entrenador) {
+                                        if(okPagoSocio && okEntrenador) {
+                                            saveChanges.disabled = false;
+                                            botonSave.style.cursor = "pointer";
+                                            botonSave.className = "btn btn-outline-success";
+                                        } else {
+                                            if (modificacionesUsuario) {
+                                                saveChanges.disabled = false;
+                                                botonSave.style.cursor = "pointer";
+                                                botonSave.className = "btn btn-outline-success";
+                                            } else {
+                                                saveChanges.disabled = true;
+                                                botonSave.style.cursor = "not-allowed";
+                                                botonSave.className = "btn btn-outline-danger";
+                                            }
+                                        }
+
+                                    }
+
+                                    // Comprobación de existencia de usuario Jugdor
+                                    if(categoria && !pagoSocio && !entrenador) {
+                                        if(okCategoria){
+                                            saveChanges.disabled = false;
+                                            botonSave.style.cursor = "pointer";
+                                            botonSave.className = "btn btn-outline-success";
+                                        } else {
+                                            if (modificacionesUsuario) {
+                                                saveChanges.disabled = false;
+                                                botonSave.style.cursor = "pointer";
+                                                botonSave.className = "btn btn-outline-success";
+                                            } else {
+                                                saveChanges.disabled = true;
+                                                botonSave.style.cursor = "not-allowed";
+                                                botonSave.className = "btn btn-outline-danger";
+                                            }
+                                        }
+                                    }
+
+                                    // Comprobación de existencia de usuario Socio
+                                    if(pagoSocio && !categoria && !entrenador) {
+                                        if(okPagoSocio){
+                                            saveChanges.disabled = false;
+                                            botonSave.style.cursor = "pointer";
+                                            botonSave.className = "btn btn-outline-success";
+                                        } else {
+                                            if (modificacionesUsuario) {
+                                                saveChanges.disabled = false;
+                                                botonSave.style.cursor = "pointer";
+                                                botonSave.className = "btn btn-outline-success";
+                                            } else {
+                                                saveChanges.disabled = true;
+                                                botonSave.style.cursor = "not-allowed";
+                                                botonSave.className = "btn btn-outline-danger";
+                                            }
+                                        }
+                                    }
+
+                                    // Comprobación de existencia de usuario Entrenador
+                                    if(entrenador && !categoria && !pagoSocio) {
+                                        if(okEntrenador){
+                                            saveChanges.disabled = false;
+                                            botonSave.style.cursor = "pointer";
+                                            botonSave.className = "btn btn-outline-success";
+                                        } else {
+                                            if (modificacionesUsuario) {
+                                                saveChanges.disabled = false;
+                                                botonSave.style.cursor = "pointer";
+                                                botonSave.className = "btn btn-outline-success";
+                                            } else {
+                                                saveChanges.disabled = true;
+                                                botonSave.style.cursor = "not-allowed";
+                                                botonSave.className = "btn btn-outline-danger";
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                saveChanges.disabled = true;
+                                botonSave.style.cursor = "not-allowed";
+                                botonSave.className = "btn btn-outline-danger";
+                            }
+                        } else {
+                            saveChanges.disabled = true;
+                            botonSave.style.cursor = "not-allowed";
+                            botonSave.className = "btn btn-outline-danger";
+                        }                    
                     }
+                    // Cierre de función conprobación
+
+                    botonSave.disabled = true;
+                    botonSave.style.cursor = "not-allowed";
+                    botonSave.className = "btn btn-outline-danger";
+
                     showPasswords.onclick = () => {
                         if(showPasswords.checked) {
                             console.log('checked');
@@ -485,32 +664,32 @@
                             confirmarPassword.type = "password";
                         }
                     }
+
+                    /* VALIDACIONES USUARIO */
                     
                     // Validación: Nombre
                     nombreError.innerHTML = "";
                     usuarioNombre.onkeyup = () => {
                         const regExpNombre =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
-
                         if(regExpNombre.test(usuarioNombre.value)){
                             nombreError.innerHTML = "";
                             usuarioNombre.style.borderColor = "";
-                            saveChanges.style.cursor = "pointer";
-                            saveChanges.disabled = false;
+                            modificacionesUsuario = true;
+                            nombreFill = true;
+                            comprobacion();
                         }
                         if(!regExpNombre.test(usuarioNombre.value)){
-                            nombreError.style.color = "red";
                             nombreError.innerHTML = "El campo debe tener una cadena de caracteres";
                             usuarioNombre.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
-                            
+                            nombreFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
                         }
                         if(usuarioNombre.value == ""){
-                            nombreError.style.color = "red";
                             nombreError.innerHTML = "El campo no puede estar vacío";
                             usuarioNombre.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            nombreFill = false;
+                            modificacionesUsuario = false;
                         }
                     }
 
@@ -522,22 +701,23 @@
                         if(regExpApellidos.test(usuarioApellidos.value)){
                             apellidosError.innerHTML = "";
                             usuarioApellidos.style.borderColor = "";
-                            saveChanges.style.cursor = "pointer";
-                            saveChanges.disabled = false;
+                            apellidosFill = true;
+                            modificacionesUsuario = true;
+                            comprobacion();
                         }
                         if(!regExpApellidos.test(usuarioApellidos.value)){
-                            apellidosError.style.color = "red";
                             apellidosError.innerHTML = "El campo debe tener una cadena de caracteres";
                             usuarioApellidos.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            apellidosFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
                         }
                         if(usuarioApellidos.value == ""){
-                            apellidosError.style.color = "red";
                             apellidosError.innerHTML = "El campo no puede estar vacío";
                             usuarioApellidos.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            apellidosFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
                         }
                     }
 
@@ -553,25 +733,57 @@
                         if(regExpDni.test(usuarioDni.value)){ 
                             dniError.innerHTML = "";
                             usuarioDni.style.borderColor = "";
-                            saveChanges.style.cursor = "pointer";
-                            saveChanges.disabled = false;
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/comprobar-dni',
+                                    data: ({dni: usuarioDni.value.toString()}),
+                                    async: true,
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        comprobarDni(data)
+                                }
+                            })
+                            dniFill = true;
+                            modificacionesUsuario = true;
+                            comprobacion();
                         }
                         if(!regExpDni.test(usuarioDni.value)){
-                            dniError.style.color = "red";
                             dniError.innerHTML = "El campo debe contener 8 números y 1 letra válida";
                             usuarioDni.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            dniFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
                         }
                         if(usuarioDni.value == ""){
-                            dniError.style.color = "red";
                             dniError.innerHTML = "El campo no puede estar vacío";
                             usuarioDni.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            dniFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
                         }
                     }
-                    
+
+                    function comprobarDni(valor) {
+                        // dni
+                        if (valor) {
+                            console.log('DNI repetido');
+                            dniError.innerHTML = "Este DNI ya existe, introduce otro";
+                            usuarioDni.style.borderColor = "red";
+                            dniFill = false;
+                            modificacionesUsuario = false;
+                            console.log('DNI: '+dniFill);
+                            comprobacion();
+                        } else {
+                            console.log('DNI correcto');
+                            dniError.innerHTML = "";
+                            usuarioDni.style.borderColor = "";
+                            dniFill = true;
+                            modificacionesUsuario = true;
+                            console.log('DNI: '+dniFill);
+                            comprobacion();
+                        }
+                    }
+ 
                     // Validación: Email
                     emailError.innerHTML = "";
                     usuarioEmail.onkeyup = () => {
@@ -579,42 +791,146 @@
                         if(regExpEmail.test(usuarioEmail.value)){
                             emailError.innerHTML = "";
                             usuarioEmail.style.borderColor = "";
-                            saveChanges.style.cursor = "pointer";
-                            saveChanges.disabled = false;
+                            const ruta = '/comprobar-email';
+                            $.ajax({
+                                type: 'POST',
+                                url:  ruta,
+                                data: ({email: usuarioEmail.value.toString()}),
+                                async: true,
+                                dataType: 'json',
+                                success: function (data) {
+                                    comprobarEmail(data)
+                                }
+                            })
                         }
                         if(!regExpEmail.test(usuarioEmail.value)){
-                            emailError.style.color = "red";
                             emailError.innerHTML = "El campo debe tener formato email";
                             usuarioEmail.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            emailFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
                         }
                         if(usuarioEmail.value == ""){
-                            emailError.style.color = "red";
                             emailError.innerHTML = "El campo no puede estar vacío";
                             usuarioEmail.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            emailFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
+                        }
+                    }
+            
+                    function comprobarEmail(valor) {
+                        // email
+                        if (valor) {
+                            console.log('email repetido');
+                            emailError.innerHTML = "Este email ya existe, introduce otro";
+                            usuarioEmail.style.borderColor = "red";
+                            emailFill = false;
+                            modificacionesUsuario = false;
+                            console.log('email: '+emailFill);
+                            comprobacion();
+                        } else {
+                            console.log('email correcto');
+                            emailError.innerHTML = "";
+                            usuarioEmail.style.borderColor = "";
+                            emailFill = true;
+                            modificacionesUsuario = true;
+                            console.log('email: '+emailFill);
+                            comprobacion();
                         }
                     }
                      
-                    // Validación: Confirmar contraseña 
-                    confirmPasswordError.innerHTML = "";
-                    confirmarPassword.onkeyup = () => {
-                        if(confirmarPassword.value != usuarioPassword.value){
-                            confirmPasswordError.style.color = "red";
-                            confirmPasswordError.innerHTML = "Las contraseñas no coinciden";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
-                            confirmarPassword.style.borderColor = "red";
-                        } else {
-                            confirmPasswordError.innerHTML = "";
-                            saveChanges.style.cursor = "pointer";
-                            saveChanges.disabled = false;
-                            confirmarPassword.style.borderColor = "";
+                // Validación Contraseña
+                    this.usuario.password = null;
+                    passwordError.innerHTML = "";
+                    usuarioPassword.onkeyup = () => {
+                        if(usuarioPassword.value === ''){
+                            if(confirmarPassword.value === ''){
+                                confirmPasswordError.innerHTML = "";
+                                confirmarPassword.style.borderColor = "";
+                                contraseñaFill = true;
+                                confirmarContraseñaFill = true;
+                                modificacionesUsuario = true;
+                                comprobacion();
+                            }
+                            else{
+                                contraseñaFill = false;
+                                modificacionesUsuario = false;
+                                console.log('Contraseña: '+contraseñaFill);
+                                confirmarContraseñaFill = false;
+                                console.log('Confirmar Contraseña: '+confirmarContraseñaFill);
+                                comprobacion();
+                            }
+                        } 
+                        else {
+                            passwordError.innerHTML = "";
+                            usuarioPassword.style.borderColor = "";
+                        }
+                        if(usuarioPassword.value) {
+                            contraseñaFill = true;
+                            modificacionesUsuario = true;
+                            if(confirmarPassword.value) {
+                                console.log('Valor pass: '+usuarioPassword.value);
+                                usuarioPassword.style.borderColor = "";
+                                passwordError.innerHTML = "";
+                                confirmPasswordError.innerHTML = "";
+                                confirmarPassword.value = '';
+                                confirmarPassword.style.borderColor = "";
+                                contraseñaFill = true;
+                                modificacionesUsuario = true;
+                                confirmarContraseñaFill = true;
+                                console.log('Contraseña: '+contraseñaFill);
+                                console.log('Confirmar Contraseña: '+confirmarContraseñaFill);
+                                comprobacion();
+                            } else {
+                                confirmPasswordError.innerHTML = "Las contraseñas no coinciden";
+                                confirmarPassword.style.borderColor = "red";
+                                confirmarContraseñaFill = false;
+                                modificacionesUsuario = false;
+                                console.log('Contraseña: ' + contraseñaFill);
+                                console.log('Confirmar Contraseña: '+confirmarContraseñaFill);
+                                comprobacion();
+                            }
                         }
                     }
 
+                        // Validación Confirmar contraseña 
+                        confirmPasswordError.innerHTML = "";   
+                        confirmarPassword.onkeyup = () => {
+                            if(usuarioPassword.value){
+                                if(confirmarPassword.value === '') {
+                                    modificacionesUsuario = false;
+                                    confirmarContraseñaFill = false;
+                                    console.log('Contraseña: ' + contraseñaFill);
+                                    console.log('Confirmar Contraseña: '+confirmarContraseñaFill);
+                                    comprobacion();
+                                }
+                                if(confirmarPassword.value != usuarioPassword.value){
+                                    confirmPasswordError.innerHTML = "Las contraseñas no coinciden";
+                                    confirmarPassword.style.borderColor = "red";
+                                    confirmarContraseñaFill = false;
+                                    modificacionesUsuario = false;
+                                    console.log('Contraseña: ' + contraseñaFill);
+                                    console.log('Confirmar Contraseña: '+confirmarContraseñaFill);
+                                    comprobacion();
+                                }
+                                if(confirmarPassword.value == usuarioPassword.value) {
+                                    confirmPasswordError.innerHTML = "";
+                                    confirmarPassword.style.borderColor = "";
+                                    confirmarContraseñaFill = true;
+                                    modificacionesUsuario = false;
+                                    console.log('Contraseña: ' + contraseñaFill);
+                                    console.log('Confirmar Contraseña: '+confirmarContraseñaFill);
+                                    comprobacion();
+                                }
+                            } else {
+                                confirmPasswordError.innerHTML = "Primero debes ingresar la contraseña";
+                                confirmarPassword.style.borderColor = "red";
+                                confirmarContraseñaFill = false;
+                                modificacionesUsuario = false;
+                                comprobacion();
+                            }
+                        } 
                     // Validación: Calle
                     calleError.innerHTML = "";
                     usuarioCalle.onkeyup = () => {
@@ -622,25 +938,27 @@
                         if(regExpCalle.test(usuarioCalle.value)){
                             calleError.innerHTML = "";
                             usuarioCalle.style.borderColor = "";
-                            saveChanges.style.cursor = "pointer";
-                            saveChanges.disabled = false;
+                            calleFill = true;
+                            modificacionesUsuario = true;
+                            comprobacion();
                         }
                         if(!regExpCalle.test(usuarioCalle.value)){
                             calleError.style.color = "red";
                             calleError.innerHTML = "El campo debe tener una cadena de caracteres y un número";
                             usuarioCalle.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            calleFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
                         }
                         if(usuarioCalle.value == ""){
                             calleError.style.color = "red";
                             calleError.innerHTML = "El campo no puede estar vacío";
                             usuarioCalle.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            calleFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
                         }
                     }
-
                     // Validación: Localidad
                     localidadError.innerHTML = "";
                     usuarioLocalidad.onkeyup = () => {
@@ -648,25 +966,27 @@
                         if(regExpLocalidad.test(usuarioLocalidad.value)){
                             localidadError.innerHTML = "";
                             usuarioLocalidad.style.borderColor = "";
-                            saveChanges.style.cursor = "pointer";
-                            saveChanges.disabled = false;
+                            localidadFill = true;
+                            modificacionesUsuario = true;
+                            comprobacion();
                         }
                         if(!regExpLocalidad.test(usuarioLocalidad.value)){
                             localidadError.style.color = "red";
                             localidadError.innerHTML = "El campo debe tener una cadena de caracteres";
                             usuarioLocalidad.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            localidadFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
                         }
                         if(usuarioLocalidad.value == ""){
                             localidadError.style.color = "red";
                             localidadError.innerHTML = "El campo no puede estar vacío";
                             usuarioLocalidad.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            localidadFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
                         }
                     }
-
                     // Validación: Provincia
                     provinciaError.innerHTML = "";
                     usuarioProvincia.onkeyup = () => {
@@ -674,22 +994,25 @@
                         if(regExpLocalidad.test(usuarioProvincia.value)){
                             provinciaError.innerHTML = "";
                             usuarioProvincia.style.borderColor = "";
-                            saveChanges.style.cursor = "pointer";
-                            saveChanges.disabled = false;
+                            provinciaFill = true;
+                            modificacionesUsuario = true;
+                            comprobacion();
                         }
                         if(!regExpLocalidad.test(usuarioProvincia.value)){
                             provinciaError.style.color = "red";
                             provinciaError.innerHTML = "El campo debe tener una cadena de caracteres";
                             usuarioProvincia.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            provinciaFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
                         }
                         if(usuarioProvincia.value == ""){
                             provinciaError.style.color = "red";
                             provinciaError.innerHTML = "El campo no puede estar vacío";
                             usuarioProvincia.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            provinciaFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
                         }
                     }
                             
@@ -700,35 +1023,165 @@
                         if(regExpCp.test(usuarioCp.value)){
                             cpError.innerHTML = "";
                             usuarioCp.style.borderColor = "";
-                            saveChanges.style.cursor = "pointer";
-                            saveChanges.disabled = false;
+                            cpFill = true;
+                            modificacionesUsuario = true;
+                            comprobacion();
                         }
                         if(!regExpCp.test(usuarioCp.value)){
                             cpError.style.color = "red";
                             cpError.innerHTML = "El campo debe tener 5 numeros comprendidos entre 01000 y 52999";
                             usuarioCp.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            cpFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
                         }
                         if(usuarioCp.value == ""){
                             cpError.style.color = "red";
                             cpError.innerHTML = "El campo no puede estar vacío";
                             usuarioCp.style.borderColor = "red";
-                            saveChanges.style.cursor = "not-allowed";
-                            saveChanges.disabled = true;
+                            cpFill = false;
+                            modificacionesUsuario = false;
+                            comprobacion();
                         }
                     }
-                })
 
+                    /* VALIDACIONES USUARIO JUGADOR */
+
+                    // Validación Categoría
+                    if(categoria) {
+                        var valorCategoria = categoria.value; 
+                    
+                        categoria.onchange = () => {
+                            if(categoria.value === valorCategoria){
+                                okCategoria = false;
+                                comprobacion();
+                            } else {
+                                okCategoria = true;
+                                comprobacion();
+                            }
+                        }
+                    }
+
+                    // Validación Camiseta
+                    if(camiseta) {
+                        var valorCamiseta = camiseta.value; 
+
+                        camiseta.onchange = () => {
+                            if(camiseta.value === valorCamiseta){
+                                okCamiseta = false;
+                                comprobacion();
+                            } else {
+                                okCamiseta = true;
+                                comprobacion();
+                            }
+                        }
+                    }
+
+                    // Validación Pantalon
+                    if(pantalon) {
+                        var valorPantalon = pantalon.value; 
+                    
+                        pantalon.onchange = () => {
+                            if(pantalon.value === valorPantalon){
+                                okPantalon = false;
+                                comprobacion();
+                            } else {
+                                okPantalon = true;
+                                comprobacion();
+                            }
+                        }
+                    }
+
+                    // Validación Medias
+                    if(medias) {
+                        var valorMedias = medias.value; 
+                    
+                        medias.onchange = () => {
+                            if(medias.value === valorMedias){
+                                okMedias = false;
+                                comprobacion();
+                            } else {
+                                okMedias = true;
+                                comprobacion();
+                            }
+                        }
+                    }
+
+                    // Validación Abrigo
+                    if(abrigo) {
+                        var valorAbrigo = abrigo.value; 
+                    
+                        abrigo.onchange = () => {
+                            if(abrigo.value === valorAbrigo){
+                                okAbrigo = false;
+                                comprobacion();
+                            } else {
+                                okAbrigo = true;
+                                comprobacion();
+                            }
+                        }
+                    }
+
+                    // Validación Pago jugador
+                    if(pagoJugador) {
+                        var jugadorPago = pagoJugador.value; 
+                    
+                        pagoJugador.onchange = () => {
+                            if(pagoJugador.value === jugadorPago){
+                                okPagoJugador = false;
+                                comprobacion();
+                            } else {
+                                okPagoJugador = true;
+                                comprobacion();
+                            }
+                        }
+                    }
+
+                    /* VALIDACIONES USUARIO SOCIO */
+
+                    // Validación Pago Socio
+                    if(pagoSocio) {
+                        var socioPago = pagoSocio.value; 
+                    
+                        pagoSocio.onchange = () => {
+                            if(pagoSocio.value === socioPago){
+                                okPagoSocio = false;
+                                comprobacion();
+                            } else {
+                                okPagoSocio = true;
+                                comprobacion();
+                            }
+                        }
+                    }
+
+                    /* VALIDACIONES USUARIO ENTRENADOR */
+
+                    if(entrenador){
+                        botonEntrenador.disabled = true;
+
+                        entrenador.onchange = () =>{
+                            if(entrenador.value){
+                                console.log('existe');
+                                botonEntrenador.disabled = false;
+                            } else {
+                                botonEntrenador.disabled = true;
+                                console.log('No existe');
+                            }
+                        }
+
+                    }
+
+
+
+                })
             },  
             cancelarEdicion(){
-                this.editar = false;
-                this.parrafo = true;
+                if (location.reload(true)) {
+                    this.editar = false;
+                    this.parrafo = true;
+                    this.mensajeContraseña = false;
+                }
 
-                this.$nextTick(function () {
-                    document.getElementById('edicion').disabled = false;
-                    document.getElementById('edicion').style.cursor = 'pointer';
-                })
             }, 
             enviarTitulo(){
                 var ruta = '/editar-entrenador'
@@ -751,7 +1204,7 @@
                 }
             },         
             actualizarPerfil(){
-                if(this.nombreFill && this.apellidosFill && this.dniFill && this.emailFill && this.contraseñaFill && this.confirmarContraseñaFill && this.fechaNacimientoFill && this.calleFill && this.localidadFill && this.provinciaFill && this.cpFill){
+                
                     var ruta = '/editar-datos'
                     $.ajax({
                         type: 'PUT',
@@ -790,7 +1243,7 @@
                     if (location.reload(true)) {
                         this.editar = false;
                     }
-                }
+                
             },
             cancelarAbono() {
                 this.eliminarSocio = ''

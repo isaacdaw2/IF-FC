@@ -14,7 +14,8 @@
                     placeholder="Elija un archivo o desplácelo aquí..."
                     drop-placeholder="Soltar archivo aquí..."
                     browse-text="Elegir"
-                    id="file" name="file"                
+                    id="file" name="file"
+                    @change="archivo"                
                 ></b-form-file>
                 <span id="entrenadorError"></span>
             </b-col>
@@ -51,27 +52,22 @@ export default {
     name: 'Entrenador',
     data() {
       return {
-        file: [],
+        file: undefined,
         okEntrenador: false,
         dismissSecs: 3,
         dismissCountDown: 0,
         showDismissibleAlert: false
       }
     },
-    computed: {
-        
-    },
     methods:{
         countDownChanged(dismissCountDown) {
             this.dismissCountDown = dismissCountDown
         },
         enviarTitulo(){
-            var entrenadorError = document.getElementById("entrenadorError");
-            var enviar = document.getElementById("botonEntrenador");
+            
             var file = document.getElementById("file");
 
             if(document.getElementById('file').files[0]){
-                entrenadorError.innerHTML = "";
                 var ruta = '/envio-titulo'
                 var formData = new FormData()
                 formData.append('file', document.getElementById('file').files[0])
@@ -87,17 +83,25 @@ export default {
                         console.log(data)
                     }
                 })   
-                document.getElementById('botonEntrenador').style.display = 'none';
                 this.dismissCountDown = this.dismissSecs;
                 setTimeout( () => this.$router.push({ name: 'home'}), 3010); 
-            } else {
-                file.style.borderColor = "red";
-                entrenadorError.style.color = "red";
-                entrenadorError.innerHTML = "Debes seleccionar un archivo";
-
-                console.log('NO Existe');
+                document.getElementById('botonEntrenador').style.display = 'none';
             }
                     
+        },
+        archivo() {
+            var enviar = document.getElementById("botonEntrenador");
+            var entrenadorError = document.getElementById("entrenadorError");
+                if (!Boolean(this.file)) {
+                entrenadorError.style.color = "green";
+                entrenadorError.innerHTML = "Archivo adjuntado correctamente";
+            } else {
+                entrenadorError.style.color = "red";
+                entrenadorError.innerHTML = "Debes seleccionar un archivo";
+                console.log('NO Existe');
+            }
+            console.log(this.file);
+            console.log(Boolean(this.file));
         }
     }
 }

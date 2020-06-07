@@ -430,7 +430,10 @@
                 confirmPass.style.borderColor = "red";
                 confirmarContraseñaFill = false;
                 console.log('Confirmar Contraseña: '+confirmarContraseñaFill);
-            } 
+            } else {
+                password_error.innerHTML = "";
+                password.style.borderColor = "";
+            }
             if(password.value) {
                 if(confirmPass.value) {
                     console.log('Valor pass: '+password.value);
@@ -481,7 +484,7 @@
         {# Validación Calle #}
         calle_error.innerHTML = "";
         calle.onkeyup = () => {
-            const regExpCalle =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+[0-9]$/;
+            const regExpCalle =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+[0-9]+$/;
             if(regExpCalle.test(calle.value)){
                 calle_error.innerHTML = "";
                 calle.style.borderColor = "";
