@@ -13,7 +13,7 @@
                 header-text-variant="white"
                 header-tag="header"
                 header-bg-variant="info"
-                style="max-width: 60rem;"
+                style="width: 50em;"
                 v-if="usuario.fechaNacimiento"
                 
             >
@@ -441,6 +441,27 @@
                     const provinciaError = document.getElementById("provinciaError");
                     const cpError = document.getElementById("cpError");
 
+                    // Ok validaciones Usuario
+                    var nombreFill = false;
+                    var apellidosFill = false;
+                    var dniFill = false;
+                    var emailFill = false;
+                    var contraseñaFill = false;
+                    var confirmarContraseñaFill = false;
+                    var fechaNacimientoFill = false;
+                    var calleFill = false;
+                    var localidadFill = false;
+                    var provinciaFill = false;
+                    var cpFill = false;
+
+                    // Ok validaciones
+                    var okCategoria = false;
+                    var okCamiseta = false;
+                    var okPantalon = false;
+                    var okMedias = false;
+                    var okAbrigo = false;
+                    var okPagoJugador = false;
+
                     console.log(this.usuario.password);
                     this.usuario.password = null;
                     console.log(this.usuario.password);
@@ -523,8 +544,13 @@
                     // Validación: Dni                        
                     dniError.innerHTML = "";
                     usuarioDni.onkeyup = () => {
-                        const regExpDni =/^[0-9]{8}[A-Za-z]$/i;
-                        if(regExpDni.test(usuarioDni.value)){
+                        var numero = usuarioDni.value.substr(0,usuarioDni.value.length-1);
+                        var letra = usuarioDni.value.substr(usuarioDni.value.length-1,1);
+                        var letraMayuscula = letra.toUpperCase();
+                        usuarioDni.value = numero+letraMayuscula;
+                        
+                        const regExpDni =/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
+                        if(regExpDni.test(usuarioDni.value)){ 
                             dniError.innerHTML = "";
                             usuarioDni.style.borderColor = "";
                             saveChanges.style.cursor = "pointer";
@@ -532,7 +558,7 @@
                         }
                         if(!regExpDni.test(usuarioDni.value)){
                             dniError.style.color = "red";
-                            dniError.innerHTML = "El campo debe contener 8 números y 1 letra";
+                            dniError.innerHTML = "El campo debe contener 8 números y 1 letra válida";
                             usuarioDni.style.borderColor = "red";
                             saveChanges.style.cursor = "not-allowed";
                             saveChanges.disabled = true;
@@ -725,43 +751,45 @@
                 }
             },         
             actualizarPerfil(){
-                var ruta = '/editar-datos'
-                $.ajax({
-                    type: 'PUT',
-                    url: ruta,
-                    data: ({ 
-                            // Datos Usuario
-                            nombre: this.usuario.nombre,
-                            apellidos: this.usuario.apellidos,
-                            email: this.usuario.email,
-                            fecha: this.fecha,
-                            pass: this.usuario.password,
-                            dni: this.usuario.dni,
-                            calle: this.usuario.calle,
-                            localidad: this.usuario.localidad,
-                            provincia: this.usuario.provincia,
-                            cp: this.usuario.cp,
-
-                            // Datos Jugador
-                            categoria: this.jugador.categoria,
-                            camiseta: this.jugador.camiseta,
-                            pantalon: this.jugador.pantalon,
-                            medias: this.jugador.medias,
-                            abrigo: this.jugador.abrigo,
-                            pagoJugador: this.jugador.pago,
-
-                            // Datos Socio
-                            pagoSocio: this.socio.pago
-                            }),
-                    async: true,
-                    dataType: 'json',
-                    success: function (data) {
-                        console.log(data);
-                        this.usuario = data
+                if(this.nombreFill && this.apellidosFill && this.dniFill && this.emailFill && this.contraseñaFill && this.confirmarContraseñaFill && this.fechaNacimientoFill && this.calleFill && this.localidadFill && this.provinciaFill && this.cpFill){
+                    var ruta = '/editar-datos'
+                    $.ajax({
+                        type: 'PUT',
+                        url: ruta,
+                        data: ({ 
+                                // Datos Usuario
+                                nombre: this.usuario.nombre,
+                                apellidos: this.usuario.apellidos,
+                                email: this.usuario.email,
+                                fecha: this.fecha,
+                                pass: this.usuario.password,
+                                dni: this.usuario.dni,
+                                calle: this.usuario.calle,
+                                localidad: this.usuario.localidad,
+                                provincia: this.usuario.provincia,
+                                cp: this.usuario.cp,
+    
+                                // Datos Jugador
+                                categoria: this.jugador.categoria,
+                                camiseta: this.jugador.camiseta,
+                                pantalon: this.jugador.pantalon,
+                                medias: this.jugador.medias,
+                                abrigo: this.jugador.abrigo,
+                                pagoJugador: this.jugador.pago,
+    
+                                // Datos Socio
+                                pagoSocio: this.socio.pago
+                                }),
+                        async: true,
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log(data);
+                            this.usuario = data
+                        }
+                    }) 
+                    if (location.reload(true)) {
+                        this.editar = false;
                     }
-                }) 
-                if (location.reload(true)) {
-                    this.editar = false;
                 }
             },
             cancelarAbono() {
