@@ -5,11 +5,17 @@
  - Composer
  - XAMPP
 
+## Descargamos el proyecto y lo ubicamos dentro de XAMPP, en la carpeta llamada htdocs. Igualmente podemos abrir un terminal, ubicarnos en XAMPP > htdocs y ejecutamos el comando:
+
+- git clone https://github.com/isaacdaw2/IF-FC.git
+
 ## Una vez descargado el proyecto nos ubicamos en él y ejecutamos estas líneas:
 
  - npm install
 
  - composer install
+
+ ## Abrimos XAMPP e iniciamos Apache y MySQL
 
  ## Esto es para descargar algunas carpetas y archivos necesarios. A continuación debemos crear la base de datos, para ello ejecutamos:
 
@@ -22,3 +28,7 @@
  ## Una vez terminado, para arrancar la aplicación introduciremos este comando:
 
   - symfony server:start
+
+  ## Hecho esto, vamos al navegador y escribimos:
+  
+  - https://localhost:8000/

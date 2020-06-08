@@ -41,14 +41,18 @@ class RegistroController extends AbstractController
      */
     public function comprobarEmail(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $email = $request->request->get('email');
-        $existe = $em->getRepository(Usuarios::class)->findOneBy(['email'=> $email]);
+        if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+            $email = $request->request->get('email');
+            $existe = $em->getRepository(Usuarios::class)->findOneBy(['email'=> $email]);
 
-        if ($existe) {
-            return new JsonResponse(true, Response::HTTP_OK);
+            if ($existe) {
+                return new JsonResponse(true, Response::HTTP_OK);
+            } else {
+                return new JsonResponse(false, Response::HTTP_OK);
+            }
         } else {
-            return new JsonResponse(false, Response::HTTP_OK);
+            throw new \Exception("No autorizado");
         }
     }
 
@@ -57,14 +61,18 @@ class RegistroController extends AbstractController
      */
     public function comprobarDni(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $dni = $request->request->get('dni');
-        $exist = $em->getRepository(Usuarios::class)->findOneBy(['dni'=> $dni]);
+        if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+            $dni = $request->request->get('dni');
+            $exist = $em->getRepository(Usuarios::class)->findOneBy(['dni'=> $dni]);
 
-        if ($exist) {
-            return new JsonResponse(true, Response::HTTP_OK);
+            if ($exist) {
+                return new JsonResponse(true, Response::HTTP_OK);
+            } else {
+                return new JsonResponse(false, Response::HTTP_OK);
+            }
         } else {
-            return new JsonResponse(false, Response::HTTP_OK);
+            throw new \Exception("No autorizado");
         }
     }
 }

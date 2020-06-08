@@ -39,19 +39,23 @@ class SociosController extends AbstractController
      */
     public function datosSocio(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $usuario = $this->getUser();
-        $socio = $em->getRepository(Socios::class)->findOneBy(['usuarios' => $usuario]);
+        if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+            $usuario = $this->getUser();
+            $socio = $em->getRepository(Socios::class)->findOneBy(['usuarios' => $usuario]);
 
-        if($socio) {
-            $data = [
-                'id'=> $socio->getId(),
-                'pago' => $socio->getMetodoPago()
-            ];
-        
-            return new JsonResponse($data, Response::HTTP_OK);            
+            if($socio) {
+                $data = [
+                    'id'=> $socio->getId(),
+                    'pago' => $socio->getMetodoPago()
+                ];
+            
+                return new JsonResponse($data, Response::HTTP_OK);            
+            } else {
+                return new JsonResponse('Este usuario no es un socio');
+            } 
         } else {
-            return new JsonResponse('Este usuario no es un socio');
-        }        
+            throw new \Exception("No autorizado");
+        }       
     }
 }

@@ -23,24 +23,28 @@ class UsuariosController extends AbstractController
      */
     public function misDatos(Request $request)
     {
-        $usuario = $this->getUser();
+        if($request->isXmlHttpRequest()){
+            $usuario = $this->getUser();
 
-            $data = [
-                'id'=> $usuario->getId(),
-                'email' => $usuario->getEmail(),
-                'dni' => $usuario->getDni(),
-                'password' => $usuario->getPassword(),
-                'confirmPass' => $usuario->getConfirmPass(),
-                'nombre' => $usuario->getNombre(),
-                'apellidos' => $usuario->getApellidos(),
-                'fechaNacimiento' => $usuario->getfechaNacimiento(),
-                'calle' => $usuario->getcalle(),
-                'localidad' => $usuario->getLocalidad(),
-                'provincia' => $usuario->getProvincia(),
-                'cp' => $usuario->getCp()
-            ];
+                $data = [
+                    'id'=> $usuario->getId(),
+                    'email' => $usuario->getEmail(),
+                    'dni' => $usuario->getDni(),
+                    'password' => $usuario->getPassword(),
+                    'confirmPass' => $usuario->getConfirmPass(),
+                    'nombre' => $usuario->getNombre(),
+                    'apellidos' => $usuario->getApellidos(),
+                    'fechaNacimiento' => $usuario->getfechaNacimiento(),
+                    'calle' => $usuario->getcalle(),
+                    'localidad' => $usuario->getLocalidad(),
+                    'provincia' => $usuario->getProvincia(),
+                    'cp' => $usuario->getCp()
+                ];
 
-        return new JsonResponse($data, Response::HTTP_OK);
+            return new JsonResponse($data, Response::HTTP_OK);
+        } else {
+            throw new \Exception("No autorizado");
+        }
     }
 
     /**
@@ -125,37 +129,41 @@ class UsuariosController extends AbstractController
      */
     public function editarEntrenador(Request $request, SluggerInterface $slugger)
     {
-        $em = $this->getDoctrine()->getManager();
-        $usuario = $this->getUser();
-        $entrenador = $em->getRepository(Entrenadores::class)->findOneBy(['usuarios' => $usuario]);
+        if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+            $usuario = $this->getUser();
+            $entrenador = $em->getRepository(Entrenadores::class)->findOneBy(['usuarios' => $usuario]);
 
-        $titulos = $request->files->get('file');
+            $titulos = $request->files->get('file');
 
-        if ($titulos) {
-            $originalFilename = pathinfo($titulos->getClientOriginalName(), PATHINFO_FILENAME);
-            // this is needed to safely include the file name as part of the URL
-            $safeFilename = $slugger->slug($originalFilename);
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$titulos->guessExtension();
+            if ($titulos) {
+                $originalFilename = pathinfo($titulos->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$titulos->guessExtension();
 
-            // Move the file to the directory where brochures are stored
-            try {
-                $titulos->move(
-                    $this->getParameter('titulosEntrenador_directory'),
-                    $newFilename
-                );
-            } catch (FileException $e) {
-                throw new \Exception('Ha ocurrido un error');
-            }
+                // Move the file to the directory where brochures are stored
+                try {
+                    $titulos->move(
+                        $this->getParameter('titulosEntrenador_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    throw new \Exception('Ha ocurrido un error');
+                }
 
-            // updates the 'brochureFilename' property to store the PDF file name
-            // instead of its contents
-        } 
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+            } 
 
-        $entrenador->setTitulacion($newFilename);
-        $em->persist($entrenador);      
-        $em->flush();
+            $entrenador->setTitulacion($newFilename);
+            $em->persist($entrenador);      
+            $em->flush();
 
-        return new JsonResponse('Modificación realizada: titulo enviado');        
+            return new JsonResponse('Modificación realizada: titulo enviado');  
+        } else {
+            throw new \Exception("No autorizado");
+        }      
     }
 
     /**
@@ -163,25 +171,29 @@ class UsuariosController extends AbstractController
      */
     public function usuariosId($id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $usuario = $em->getRepository(Usuarios::class)->find($id);
+        if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+            $usuario = $em->getRepository(Usuarios::class)->find($id);
 
-        $data = [
-            'id'=> $usuario->getId(),
-            'email' => $usuario->getEmail(),
-            'dni' => $usuario->getDni(),
-            'password' => $usuario->getPassword(),
-            'confirmPass' => $usuario->getConfirmPass(),
-            'nombre' => $usuario->getNombre(),
-            'apellidos' => $usuario->getApellidos(),
-            'fechaNacimiento' => $usuario->getfechaNacimiento(),
-            'calle' => $usuario->getcalle(),
-            'localidad' => $usuario->getLocalidad(),
-            'provincia' => $usuario->getProvincia(),
-            'cp' => $usuario->getCp()
-        ];
+            $data = [
+                'id'=> $usuario->getId(),
+                'email' => $usuario->getEmail(),
+                'dni' => $usuario->getDni(),
+                'password' => $usuario->getPassword(),
+                'confirmPass' => $usuario->getConfirmPass(),
+                'nombre' => $usuario->getNombre(),
+                'apellidos' => $usuario->getApellidos(),
+                'fechaNacimiento' => $usuario->getfechaNacimiento(),
+                'calle' => $usuario->getcalle(),
+                'localidad' => $usuario->getLocalidad(),
+                'provincia' => $usuario->getProvincia(),
+                'cp' => $usuario->getCp()
+            ];
 
-        return new JsonResponse($data, Response::HTTP_OK);
+            return new JsonResponse($data, Response::HTTP_OK);
+        } else {
+            throw new \Exception("No autorizado");
+        }
     }
 
     /**
@@ -189,29 +201,33 @@ class UsuariosController extends AbstractController
      */
     public function todosUsuarios(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $usuarios = $em->getRepository(Usuarios::class)->findAll();
-
-        for ($i = 0; $i < count($usuarios); $i++) {
-            
-            $data[$i] = [
-                'id'=> $usuarios[$i]->getId(),
-                'email' => $usuarios[$i]->getEmail(),
-                'role' => $usuarios[$i]->getRoles(),
-                'dni' => $usuarios[$i]->getDni(),
-                'password' => $usuarios[$i]->getPassword(),
-                'confirmPass' => $usuarios[$i]->getConfirmPass(),
-                'nombre' => $usuarios[$i]->getNombre(),
-                'apellidos' => $usuarios[$i]->getApellidos(),
-                'fechaNacimiento' => $usuarios[$i]->getfechaNacimiento(),
-                'calle' => $usuarios[$i]->getcalle(),
-                'localidad' => $usuarios[$i]->getLocalidad(),
-                'provincia' => $usuarios[$i]->getProvincia(),
-                'cp' => $usuarios[$i]->getCp()
-            ];
-        }    
-
-        return new JsonResponse($data, Response::HTTP_OK);
+        if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+            $usuarios = $em->getRepository(Usuarios::class)->findAll();
+    
+            for ($i = 0; $i < count($usuarios); $i++) {
+                
+                $data[$i] = [
+                    'id'=> $usuarios[$i]->getId(),
+                    'email' => $usuarios[$i]->getEmail(),
+                    'role' => $usuarios[$i]->getRoles(),
+                    'dni' => $usuarios[$i]->getDni(),
+                    'password' => $usuarios[$i]->getPassword(),
+                    'confirmPass' => $usuarios[$i]->getConfirmPass(),
+                    'nombre' => $usuarios[$i]->getNombre(),
+                    'apellidos' => $usuarios[$i]->getApellidos(),
+                    'fechaNacimiento' => $usuarios[$i]->getfechaNacimiento(),
+                    'calle' => $usuarios[$i]->getcalle(),
+                    'localidad' => $usuarios[$i]->getLocalidad(),
+                    'provincia' => $usuarios[$i]->getProvincia(),
+                    'cp' => $usuarios[$i]->getCp()
+                ];
+            }    
+    
+            return new JsonResponse($data, Response::HTTP_OK);
+        } else {
+            throw new \Exception("No autorizado");
+        }
     }
 
     /**
