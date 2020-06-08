@@ -65,24 +65,20 @@ class EntrenadoresController extends AbstractController
      */
     public function datosEntrenador(Request $request)
     {
-        if($request->isXmlHttpRequest()){
-            $em = $this->getDoctrine()->getManager();
-            $usuario = $this->getUser();
-            $entrenador = $em->getRepository(Entrenadores::class)->findOneBy(['usuarios' => $usuario]);
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $this->getUser();
+        $entrenador = $em->getRepository(Entrenadores::class)->findOneBy(['usuarios' => $usuario]);
 
-            if($entrenador) {
-                $data = [
-                    'id'=> $entrenador->getId(),
-                    'titulo' => $entrenador->getTitulacion()
-                ];
-            
-                return new JsonResponse($data, Response::HTTP_OK);            
-            } else {
-                return new JsonResponse('Este usuario no es un entrenador');
-            }  
+        if($entrenador) {
+            $data = [
+                'id'=> $entrenador->getId(),
+                'titulo' => $entrenador->getTitulacion()
+            ];
+        
+            return new JsonResponse($data, Response::HTTP_OK);            
         } else {
-            throw new \Exception("No autorizado");
-        }      
+            return new JsonResponse('Este usuario no es un entrenador');
+        }        
     }
 
         // /**

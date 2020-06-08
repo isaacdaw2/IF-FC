@@ -50,28 +50,24 @@ class JugadoresController extends AbstractController
      */
     public function datosJugador(Request $request)
     {
-        if($request->isXmlHttpRequest()){
-            $em = $this->getDoctrine()->getManager();
-            $usuario = $this->getUser();
-            $jugador = $em->getRepository(Jugadores::class)->findOneBy(['usuarios' => $usuario]);
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $this->getUser();
+        $jugador = $em->getRepository(Jugadores::class)->findOneBy(['usuarios' => $usuario]);
 
-            if($jugador) {
-                $data = [
-                    'id'=> $jugador->getId(),
-                    'categoria' => $jugador->getCategoria(),
-                    'camiseta' => $jugador->getTallaCamiseta(),
-                    'pantalon' => $jugador->getTallaPantalon(),
-                    'medias' => $jugador->getTallaMedias(),
-                    'abrigo' => $jugador->getTallaAbrigo(),
-                    'pago' => $jugador->getMetodoPago()
-                ];
-            
-                return new JsonResponse($data, Response::HTTP_OK);            
-            } else {
-                return new JsonResponse('Este usuario no es un jugador');
-            }    
+        if($jugador) {
+            $data = [
+                'id'=> $jugador->getId(),
+                'categoria' => $jugador->getCategoria(),
+                'camiseta' => $jugador->getTallaCamiseta(),
+                'pantalon' => $jugador->getTallaPantalon(),
+                'medias' => $jugador->getTallaMedias(),
+                'abrigo' => $jugador->getTallaAbrigo(),
+                'pago' => $jugador->getMetodoPago()
+            ];
+        
+            return new JsonResponse($data, Response::HTTP_OK);            
         } else {
-            throw new \Exception("No autorizado");
-        }    
+            return new JsonResponse('Este usuario no es un jugador');
+        }        
     }
 }

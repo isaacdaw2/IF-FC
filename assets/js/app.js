@@ -29,6 +29,8 @@ import Socio from './components/Socio.vue'
 import Entrenador from './components/Entrenador.vue'
 import Perfil from './components/Perfil.vue'
 import PoliticaCookies from './components/PoliticaCookies.vue'
+import axios from "axios";
+
 
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
@@ -45,6 +47,28 @@ const routes = [
 const router = new VueRouter({
     routes // short for `routes: routes`
 });
+
+router.beforeEach((to, from, next) => {
+
+    axios.get('/datos-jugadores')
+        .then(response => {  
+                                                           
+            if(response.data.id){
+                if(to.path === '/jugadores'){
+                    next('/') 
+                    console.log('Estoy en home porque ya estoy inscrito como jugador') 
+                }  else {
+                    console.log('Soy jugador pero me dirijo a otra página') 
+                    next() 
+                }                
+            } else {
+                next() 
+                console.log('No soy jugador, desvio con éxito hacia la página elegida')                                                     
+            }
+        })
+})
+
+export default router;
 
 new Vue({
     el: "#app",
