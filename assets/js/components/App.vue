@@ -39,26 +39,140 @@
 
       <router-view/>
   </div>
-    
-    <footer class="footer sticky-bottom text-center" id="footer">
+
+    <!-- Footer -->
+    <footer class="page-footer font-small mdb-color pt-4"  id="footer">
+
+      <!-- Footer Links -->
+      <div class="container text-center text-md-left">
+
+        <!-- Footer links -->
+        <div class="row text-center text-md-left mt-3 pb-3">
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">IF-ormáticos FC <font-awesome-icon icon="futbol"/></h6>
+            <p>Si te apasionan el fútbol y la informática este es tu club predilecto. Acompañanos en nuestros partidos y comparte tus conocimientos informáticos con nosotros</p>
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none">
+
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Herramientas</h6>
+            <p>
+              <a href="https://getbootstrap.com/">Bootstrap</a>
+            </p>
+            <p>
+              <a href="https://vuejs.org/">Vue</a>
+            </p>
+            <p>
+              <a href="https://symfony.com/">Symfony</a>
+            </p>
+            <p>
+              <a href="https://bootstrap-vue.org/">Bootstrap + Vue</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none">
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Enlaces útiles</h6>
+            <p>
+              <a href="https://codepen.io/">Codepen</a>
+            </p>
+            <p>
+              <a href="https://github.com/">Github</a>
+            </p>
+            <p>
+              <a href="#!">Tienda</a>
+            </p>
+            <p>
+              <a href="#!">Ayuda</a>
+            </p>
+          </div>
+
+          <!-- Grid column -->
+          <hr class="w-100 clearfix d-md-none">
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Contacto <font-awesome-icon icon="envelope"/>  &nbsp; <font-awesome-icon icon="phone-square-alt"/></h6>
+            <p>
+              <i class="fas fa-home mr-3"></i> Madrid, 28700, ESP</p>
+            <p>
+              <i class="fas fa-envelope mr-3"></i> if-ormaticosfc@gmail.com</p>
+            <p>
+              <i class="fas fa-phone mr-3"></i> + 34 912 111 111 </p>
+            <p>
+              <i class="fas fa-print mr-3"></i> + 34 611 222 333 </p>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Footer links -->
+
         <hr>
-        <b-row>
-          <b-col>
-            <span class="text-muted">Síguenos en nuestras redes sociales: &nbsp; <a href="" class="text-muted"> <font-awesome-icon :icon="['fab', 'facebook']"/></a> &nbsp; <a href="" class="text-muted"> <font-awesome-icon :icon="['fab', 'twitter']"/></a> &nbsp; <a href="" class="text-muted"> <font-awesome-icon :icon="['fab', 'instagram']"/></a> </span>
-          </b-col>
-          <b-col>
-            <span class="text-muted">&copy; 2020 IF-ormáticos FC <font-awesome-icon icon="futbol"/></span>
-          </b-col>
-          <b-col>
-            <span class="text-muted">Contáctanos: &nbsp; <a href="" class="text-muted"><font-awesome-icon icon="envelope"/></a> &nbsp; <a href="" class="text-muted"><font-awesome-icon icon="phone-square-alt"/></a> </span>
-          </b-col>
-        </b-row>
-        <b-row class="mt-3">
-          <b-col>
-            <span class="text-muted">Hecho con <font-awesome-icon icon="heart"/> y mucho <font-awesome-icon icon="coffee"/> en San Sebastián de los reyes y Alcobendas, Madrid.</span>
-          </b-col>
-        </b-row>        
+
+        <!-- Grid row -->
+        <div class="row d-flex align-items-center">
+
+          <!-- Grid column -->
+          <div class="col-md-7 col-lg-8">
+
+            <!--Copyright-->
+            <p class="text-center text-muted text-md-left">© 2020 Copyright:
+              <a href="#" class="text-muted">
+                <strong>www.if-ormaticosfc.com</strong> 
+              </a>
+            </p>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-5 col-lg-4 ml-lg-0">
+
+            <!-- Social buttons -->
+            <div class="text-center text-md-right">
+              <ul class="list-unstyled list-inline">
+                <li class="list-inline-item">
+                  <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                    <i><font-awesome-icon :icon="['fab', 'facebook']"/></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                    <i><font-awesome-icon :icon="['fab', 'twitter']"/></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                    <i><font-awesome-icon :icon="['fab', 'instagram']"/></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                    <i class="fab fa-linkedin-in"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </div>
+      <!-- Footer Links -->
+
     </footer>
+    <!-- Footer -->
   </div>
 </template>
 

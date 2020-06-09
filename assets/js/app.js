@@ -26,16 +26,7 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 
-library.add(faUserSecret)
-library.add(faSignOutAlt)
-library.add(faFutbol)
-library.add(faHeart)
-library.add(faCoffee)
-library.add(faEnvelope)
-library.add(faPhoneSquareAlt)
-library.add(faFacebook)
-library.add(faTwitter)
-library.add(faInstagram)
+library.add(faUserSecret, faSignOutAlt, faFutbol, faHeart, faCoffee, faEnvelope, faPhoneSquareAlt, faFacebook, faTwitter, faInstagram)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
