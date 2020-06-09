@@ -67,8 +67,7 @@ export default {
         countDownChanged(dismissCountDown) {
             this.dismissCountDown = dismissCountDown
         },
-        enviarTitulo(){
-            
+        enviarTitulo() {
             var file = document.getElementById("file");
 
             if(document.getElementById('file').files[0]){
@@ -88,15 +87,19 @@ export default {
                     }
                 })   
                 this.dismissCountDown = this.dismissSecs;
-                setTimeout( () => this.$router.push({ name: 'home'}), 3010); 
+                setTimeout( () => this.$router.push({ name: 'home'}), 2000); 
                 document.getElementById('botonEntrenador').style.display = 'none';
+            } else {
+                document.getElementById("entrenadorError").innerHTML = "Debes seleccionar un archivo";
+                document.getElementById("entrenadorError").style.color = "red";
             }
                     
         },
         archivo() {
             var enviar = document.getElementById("botonEntrenador");
             var entrenadorError = document.getElementById("entrenadorError");
-                if (!Boolean(this.file)) {
+            
+            if (!Boolean(this.file)) {
                 entrenadorError.style.color = "green";
                 entrenadorError.innerHTML = "Archivo adjuntado correctamente";
             } else {

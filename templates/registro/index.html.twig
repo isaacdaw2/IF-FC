@@ -236,16 +236,19 @@
                 if(fecha_year.value === '2020'){
                     fechaNacimientoFill = false;
                     fecha_nacimiento.style.borderColor = "red";
-                    fecha_error.innerHTML = "Comprueba bien el año elegido";                
+                    fecha_error.innerHTML = "Comprueba bien el año elegido"; 
+                    comprobacion();               
                 } else {
                     fechaNacimientoFill = true;
                     console.log('Fecha: '+fechaNacimientoFill);
                     fecha_nacimiento.style.borderColor = "";
                     fecha_error.innerHTML = "";
+                    comprobacion();
                 }                
             } else {
                 fechaNacimientoFill = false;
                 console.log('Fecha: '+fechaNacimientoFill);
+                comprobacion();
             }
             console.log('Fecha: '+fechaNacimientoFill);
         }
@@ -264,60 +267,72 @@
         {# Validación Nombre #}
         nombre_error.innerHTML = "";
         nombre.onkeyup = () => {
-            const regExpNombre =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
+            const regExpNombre = /^[A-Za-zÁÉÍÓÚáéíóúñÑ]+[ ]?[A-Za-zÁÉÍÓÚáéíóúñÑ ]*$/;
             if(regExpNombre.test(nombre.value)){
                 nombre_error.innerHTML = "";
                 nombre.style.borderColor = "";
                 nombreFill = true;
                 console.log('Nombre: '+nombreFill);
+                comprobacion();
             }
             if(!regExpNombre.test(nombre.value)){
                 nombre_error.innerHTML = "El campo debe tener una cadena de caracteres";
                 nombre.style.borderColor = "red";
                 nombreFill = false;
-                console.log('Nombre: '+nombreFill);               
+                console.log('Nombre: '+nombreFill); 
+                comprobacion();              
             }
             if(nombre.value == ""){
                 nombre_error.innerHTML = "El campo no puede estar vacío";
                 nombre.style.borderColor = "red";
                 nombreFill = false;
                 console.log('Nombre: '+nombreFill);
+                comprobacion();
             }
         }
        
         {# Validación Apellidos #}
         apellidos_error.innerHTML = "";
         apellidos.onkeyup = () => {
-            const regExpApellidos =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
+            const regExpApellidos = /^[A-Za-zÁÉÍÓÚáéíóúñÑ]+[ ]?[A-Za-zÁÉÍÓÚáéíóúñÑ ]*$/;
            
             if(regExpApellidos.test(apellidos.value)){
                 apellidos_error.innerHTML = "";
                 apellidos.style.borderColor = "";
                 apellidosFill = true;
                 console.log('Apellidos: '+apellidosFill);
+                comprobacion();
             }
             if(!regExpApellidos.test(apellidos.value)){
                 apellidos_error.innerHTML = "El campo debe tener una cadena de caracteres";
                 apellidos.style.borderColor = "red";
                 apellidosFill = false;
                 console.log('Apellidos: '+apellidosFill);
+                comprobacion();
             }
             if(apellidos.value == ""){
                 apellidos_error.innerHTML = "El campo no puede estar vacío";
                 apellidos.style.borderColor = "red";
                 apellidosFill = false;
                 console.log('Apellidos: '+apellidosFill);
+                comprobacion();
             }
         }
                
         {# Validación DNI #}
         dni_error.innerHTML = "";
         dni.onkeyup = () => {
-            const regExpDni =/^[0-9]{8}[A-Za-z]$/i;
+            var numero = dni.value.substr(0,dni.value.length-1);
+            var letra = dni.value.substr(dni.value.length-1,1);
+            var letraMayuscula = letra.toUpperCase();
+            dni.value = numero+letraMayuscula;
+
+            const regExpDni = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
             var ruta = '/comprobar-dni'
 
             if(regExpDni.test(dni.value)){
                 dniFill = true;
+                comprobacion();
                 console.log('DNI: '+dniFill);
                 console.log(dni.value)
                 $.ajax({
@@ -334,16 +349,18 @@
                 dni.style.borderColor = "";
             }
             if(!regExpDni.test(dni.value)){
-                dni_error.innerHTML = "El campo debe contener 8 números y 1 letra";
+                dni_error.innerHTML = "El campo debe contener 8 números y 1 letra válida";
                 dni.style.borderColor = "red";
                 dniFill = true;
                 console.log('DNI: '+dniFill);
+                comprobacion();
             }
             if(dni.value == ""){
                 dni_error.innerHTML = "El campo no puede estar vacío";
                 dni.style.borderColor = "red";
                 dniFill = false;
                 console.log('DNI: '+dniFill);
+                comprobacion();
             }
         }
 
@@ -355,12 +372,14 @@
                 dni.style.borderColor = "red";
                 dniFill = false;
                 console.log('DNI: '+dniFill);
+                comprobacion();
             } else {
                 console.log('DNI correcto');
                 dni_error.innerHTML = "";
                 dni.style.borderColor = "";
                 dniFill = true;
                 console.log('DNI: '+dniFill);
+                comprobacion();
             }
         }
                
@@ -373,6 +392,7 @@
             if(regExpEmail.test(email.value)){
                 console.log(email.value)
                 emailFill = true;
+                comprobacion();
                 console.log('email: '+emailFill);
                 $.ajax({
                     type: 'POST',
@@ -392,12 +412,14 @@
                 email.style.borderColor = "red";
                 emailFill = false;
                 console.log('email: '+emailFill);
+                comprobacion();
             }
             if(email.value == ""){
                 email_error.innerHTML = "El campo no puede estar vacío";
                 email.style.borderColor = "red";
                 emailFill = false;
                 console.log('email: '+emailFill);
+                comprobacion();
             }
         }
 
@@ -409,12 +431,14 @@
                 email.style.borderColor = "red";
                 emailFill = false;
                 console.log('email: '+emailFill);
+                comprobacion();
             } else {
                 console.log('email correcto');
                 email_error.innerHTML = "";
                 email.style.borderColor = "";
                 emailFill = true;
                 console.log('email: '+emailFill);
+                comprobacion();
             }
         }
 
@@ -426,13 +450,16 @@
                 password.style.borderColor = "red";
                 contraseñaFill = false;
                 console.log('Contraseña: '+contraseñaFill);
-                confirmPass_error.innerHTML = "El campo no puede estar vacío";
-                confirmPass.style.borderColor = "red";
+             //   confirmPass_error.innerHTML = "El campo no puede estar vacío";
+             //   confirmPass.style.borderColor = "red";
                 confirmarContraseñaFill = false;
                 console.log('Confirmar Contraseña: '+confirmarContraseñaFill);
+                comprobacion();
             } else {
                 password_error.innerHTML = "";
                 password.style.borderColor = "";
+                contraseñaFill = true;
+                comprobacion();
             }
             if(password.value) {
                 if(confirmPass.value) {
@@ -443,13 +470,21 @@
                     confirmPass.value = '';
                     confirmPass.style.borderColor = "";
                     contraseñaFill = true;
+                    confirmarContraseñaFill = true;
                     console.log('Contraseña: '+contraseñaFill);
+                    comprobacion();
                 } else {
                     confirmPass_error.innerHTML = "Las contraseñas no coinciden";
                     confirmPass.style.borderColor = "red";
                     confirmarContraseñaFill = false;
+                    contraseñaFill = true;
                     console.log('Confirmar Contraseña: '+confirmarContraseñaFill);
+                    comprobacion();
                 }
+            } else {
+                contraseñaFill = false;
+                confirmarContraseñaFill = false;
+                comprobacion();
             }
         }
 
@@ -461,95 +496,113 @@
                     confirmPass_error.innerHTML = "El campo no puede estar vacío";
                     confirmPass.style.borderColor = "red";
                     confirmarContraseñaFill = false;
+                    contraseñaFill = true;
                     console.log('Confirmar Contraseña: '+confirmarContraseñaFill);
+                    comprobacion();
                 }
                 if(confirmPass.value != password.value){
                     confirmPass_error.innerHTML = "Las contraseñas no coinciden";
                     confirmPass.style.borderColor = "red";
                     confirmarContraseñaFill = false;
+                    contraseñaFill = true;
                     console.log('Confirmar Contraseña: '+confirmarContraseñaFill);
+                    comprobacion();
                 }
                 if(confirmPass.value == password.value) {
                     confirmPass_error.innerHTML = "";
                     confirmPass.style.borderColor = "";
                     confirmarContraseñaFill = true;
+                    contraseñaFill = true;
                     console.log('Confirmar Contraseña: '+confirmarContraseñaFill);
+                    comprobacion();
                 }
             } else {
                 confirmPass_error.innerHTML = "Primero debes ingresar la contraseña";
                 confirmPass.style.borderColor = "red";
+                confirmarContraseñaFill = false;
+                contraseñaFill = false;
+                comprobacion();
             }
         }       
 
         {# Validación Calle #}
         calle_error.innerHTML = "";
         calle.onkeyup = () => {
-            const regExpCalle =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+[0-9]+$/;
+            const regExpCalle = /^[A-Za-zÁÉÍÓÚáéíóúñÑ]+[ ]?[A-Za-zÁÉÍÓÚáéíóúñÑ ]*[0-9]+$/;
             if(regExpCalle.test(calle.value)){
                 calle_error.innerHTML = "";
                 calle.style.borderColor = "";
                 calleFill = true;
                 console.log('Calle: '+calleFill);
+                comprobacion();
             }
             if(!regExpCalle.test(calle.value)){
                 calle_error.innerHTML = "El campo debe tener una cadena de caracteres y un número";
                 calle.style.borderColor = "red";
                 calleFill = false;
                 console.log('Calle: '+calleFill);
+                comprobacion();
             }
             if(calle.value == ""){
                 calle_error.innerHTML = "El campo no puede estar vacío";
                 calle.style.borderColor = "red";
                 calleFill = false;
                 console.log('Calle: '+calleFill);
+                comprobacion();
             }
         }
 
         {# Validación Localidad #}
         localidad_error.innerHTML = "";
         localidad.onkeyup = () => {
-            const regExpLocalidad =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
+            const regExpLocalidad = /^[A-Za-zÁÉÍÓÚáéíóúñÑ]+[ ]?[A-Za-zÁÉÍÓÚáéíóúñÑ ]*$/;
             if(regExpLocalidad.test(localidad.value)){
                 localidad_error.innerHTML = "";
                 localidad.style.borderColor = "";
                 localidadFill = true;
                 console.log('Localidad: '+localidadFill);
+                comprobacion();
             }
             if(!regExpLocalidad.test(localidad.value)){
                 localidad_error.innerHTML = "El campo debe tener una cadena de caracteres";
                 localidad.style.borderColor = "red";
                 localidadFill = false;
                 console.log('Localidad: '+localidadFill);
+                comprobacion();
             }
             if(localidad.value == ""){
                 localidad_error.innerHTML = "El campo no puede estar vacío";
                 localidad.style.borderColor = "red";
                 localidadFill = false;
                 console.log('Localidad: '+localidadFill);
+                comprobacion();
             }
         }
 
         {# Validación Provincia #}
         provincia_error.innerHTML = "";
         provincia.onkeyup = () => {
-            const regExpLocalidad =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
+            const regExpLocalidad = /^[A-Za-zÁÉÍÓÚáéíóúñÑ]+[ ]?[A-Za-zÁÉÍÓÚáéíóúñÑ ]*$/;
             if(regExpLocalidad.test(provincia.value)){
                 provincia_error.innerHTML = "";
                 provincia.style.borderColor = "";
                 provinciaFill = true;
                 console.log('Provincia: '+provinciaFill);
+                comprobacion();
             }
             if(!regExpLocalidad.test(provincia.value)){
                 provincia_error.innerHTML = "El campo debe tener una cadena de caracteres";
                 provincia.style.borderColor = "red";
                 provinciaFill = false;
                 console.log('Provincia: '+provinciaFill);
+                comprobacion();
             }
             if(provincia.value == ""){
                 provincia_error.innerHTML = "El campo no puede estar vacío";
                 provincia.style.borderColor = "red";
                 provinciaFill = false;
                 console.log('Provincia: '+provinciaFill);
+                comprobacion();
             }
         }
 
@@ -562,46 +615,68 @@
                 cp.style.borderColor = "";
                 cpFill = true;
                 console.log('CP: '+cpFill);
+                comprobacion();
             }
             if(!regExpCp.test(cp.value)){
                 cp_error.innerHTML = "El campo debe tener 5 numeros comprendidos entre 01000 y 52999";
                 cp.style.borderColor = "red";
                 cpFill = false;
                 console.log('CP: '+cpFill);
+                comprobacion();
             }
             if(cp.value == ""){
                 cp_error.innerHTML = "El campo no puede estar vacío";
                 cp.style.borderColor = "red";
                 cpFill = false;
                 console.log('CP: '+cpFill);
+                comprobacion();
             }
         }
 
-        onchange = () => {
+        function comprobacion(){
+            if(nombreFill && apellidosFill && dniFill && emailFill && contraseñaFill && confirmarContraseñaFill && fechaNacimientoFill && calleFill && localidadFill && provinciaFill && cpFill) {
+                boton_registrar.className="btn btn-outline-success";
+                boton_registrar.style.cursor = "pointer";
+                boton_registrar.disabled = false;
+                boton_error.innerHTML = "";
+                console.log('Comprobación de todo: OK');
+                console.log('Nombre: '+nombreFill+' Apellidos: '+ apellidosFill+' Dni: '+ dniFill +' email: '+ emailFill +' contraseña: '+ contraseñaFill +' Confirmar contraseña: '+confirmarContraseñaFill+' Fecha: '+ fechaNacimientoFill+' Calle: '+ calleFill + ' Localidad: '+ localidadFill +' Provincia: '+ provinciaFill + ' CP: '+ cpFill);
+            } else {
+                boton_registrar.className="btn btn-outline-danger";
+                boton_registrar.style.cursor = "not-allowed";
+                console.log('Comprobación de todo: KO');
+                console.log('Nombre: '+nombreFill+' Apellidos: '+ apellidosFill+' Dni: '+ dniFill +' email: '+ emailFill +' contraseña: '+ contraseñaFill +' Confirmar contraseña: '+confirmarContraseñaFill+' Fecha: '+ fechaNacimientoFill+' Calle: '+ calleFill + ' Localidad: '+ localidadFill +' Provincia: '+ provinciaFill + ' CP: '+ cpFill);
+                boton_registrar.disabled = true;
+            }
+        }
+
+        {# onchange = () => {
             if(nombreFill && apellidosFill && dniFill && emailFill && contraseñaFill && confirmarContraseñaFill && fechaNacimientoFill && calleFill && localidadFill && provinciaFill && cpFill) {
                 boton_registrar.className="btn btn-success";
                 boton_registrar.style.cursor = "pointer";
                 boton_registrar.disabled = false;
                 boton_error.innerHTML = "";
                 console.log('Comprobación de todo: OK');
+                console.log('Nombre: '+nombreFill+' Apellidos: '+ apellidosFill+' Dni: '+ dniFill +' email: '+ emailFill +' contraseña: '+ contraseñaFill +' Confirmar contraseña: '+confirmarContraseñaFill+' Fecha: '+ fechaNacimientoFill+' Calle: '+ calleFill + ' Localidad: '+ localidadFill +' Provincia: '+ provinciaFill + ' CP: '+ cpFill);
             } else {
                 boton_registrar.className="btn btn-danger";
                 boton_registrar.style.cursor = "not-allowed";
                 console.log('Comprobación de todo: KO');
+                console.log('Nombre: '+nombreFill+' Apellidos: '+ apellidosFill+' Dni: '+ dniFill +' email: '+ emailFill +' contraseña: '+ contraseñaFill +' Confirmar contraseña: '+confirmarContraseñaFill+' Fecha: '+ fechaNacimientoFill+' Calle: '+ calleFill + ' Localidad: '+ localidadFill +' Provincia: '+ provinciaFill + ' CP: '+ cpFill);
                 boton_registrar.disabled = true;
             }
-        }
+        } #}
                 
-        boton_registrar.className="btn btn-success";
+        boton_registrar.className="btn btn-outline-success";
         boton_registrar.onmouseover = () => {
             if(nombreFill && apellidosFill && dniFill && emailFill && contraseñaFill && confirmarContraseñaFill && fechaNacimientoFill && calleFill && localidadFill && provinciaFill && cpFill) {
-                boton_registrar.className="btn btn-success";
+                boton_registrar.className="btn btn-outline-success";
                 boton_registrar.style.cursor = "pointer";
                 boton_error.innerHTML = "";
                 console.log('Estoy pasando el mouse por el botón verde');
                 todoOk = true;
             } else {
-                boton_registrar.className="btn btn-danger";
+                boton_registrar.className="btn btn-outline-danger";
                 boton_registrar.style.cursor = "not-allowed";
                 boton_error.innerHTML = "Antes de pulsarme debes rellenar TODOS los campos correctamente";
                 console.log('Estoy pasando el mouse por el botón rojo');

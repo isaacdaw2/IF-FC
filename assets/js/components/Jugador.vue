@@ -301,7 +301,7 @@ export default {
                 })
                 document.getElementById('botonJugador').style.display = 'none';
                 this.dismissCountDown = this.dismissSecs
-                setTimeout( () => this.$router.push({ name: 'home'}), 3000);
+                setTimeout( () => this.$router.push({ name: 'home'}), 2000);
             } else {
                 console.log('No puedo ejecutar aún. '+
                 'Categoria: '+okCategoria+

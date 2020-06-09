@@ -16,12 +16,12 @@
 
           <b-collapse id="nav-collapse" class="text-center" is-nav>
             <b-navbar-nav>
-              <b-nav-item :to="{name: 'home'}" >Noticias del club</b-nav-item>
-              <b-nav-item :to="{name: 'socio'}" v-show="mostrarSocio">Inscribirse como socio</b-nav-item>
-              <b-nav-item :to="{name: 'jugador'}" v-show="mostrarJugador">Inscribirse como jugador</b-nav-item>              
-              <b-nav-item :to="{name: 'entrenador'}" v-show="mostrarEntrenador">Enviar solicitud de entrenador</b-nav-item>       
-              <b-nav-item :to="{name: 'perfil'}" class="pr-5"><b-spinner type="grow" small variant="success"></b-spinner> Mi perfil</b-nav-item>       
-              <b-nav-item @click="eliminarCookies" href="/logout"><font-awesome-icon icon="sign-out-alt" :style="{ color: '#CD5C5C' }" size="lg"/></b-nav-item>    
+              <b-nav-item :to="{name: 'home'}" class="ml-5 mr-5">Noticias del club</b-nav-item>
+              <b-nav-item :to="{name: 'socio'}"  class="ml-5 mr-5" v-show="mostrarSocio">Inscribirse como socio</b-nav-item>
+              <b-nav-item :to="{name: 'jugador'}" class="ml-5 mr-5" v-show="mostrarJugador">Inscribirse como jugador</b-nav-item>              
+              <b-nav-item :to="{name: 'entrenador'}" class="ml-5 mr-5" v-show="mostrarEntrenador">Enviar solicitud de entrenador</b-nav-item>       
+              <b-nav-item :to="{name: 'perfil'}" class="ml-5 mr-5"><b-spinner type="grow" small variant="success"></b-spinner> Mi perfil</b-nav-item>       
+              <b-nav-item @click="eliminarCookies" class="logout" href="/logout"><font-awesome-icon icon="sign-out-alt" :style="{ color: '#CD5C5C' }" size="lg"/></b-nav-item>    
             </b-navbar-nav>
           </b-collapse>
       </b-navbar>

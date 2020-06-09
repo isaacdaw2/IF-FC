@@ -113,7 +113,7 @@ export default {
                 }) 
                 document.getElementById('botonSocios').style.display = 'none';
                 this.dismissCountDown = this.dismissSecs
-                setTimeout( () => this.$router.push({ name: 'home'}), 3000);           
+                setTimeout( () => this.$router.push({ name: 'home'}), 2000);           
             } else {
                 console.log('No puedo ejecutame porque el pago está: '+okPagoSocio);
             }

@@ -348,7 +348,7 @@
             jugador: [],
             socio: [],
             entrenador: [],
-            file:[],
+            file:undefined,
             existeJugador: false,
             existeSocio: false,
             existeEntrenador: false,
@@ -435,6 +435,7 @@
                     var usuarioNombre = document.getElementById("nombre");
                     var usuarioApellidos = document.getElementById("usuarioApellidos");
                     var usuarioEmail = document.getElementById("usuarioEmail");
+                    var fechaNacimiento = document.getElementById("date");
                     var usuarioPassword = document.getElementById("usuarioPassword");
                     var confirmarPassword = document.getElementById("confirmPass");
                     var usuarioDni = document.getElementById("usuarioDni");
@@ -479,11 +480,11 @@
                     var emailFill = true;
                     var contraseñaFill = true;
                     var confirmarContraseñaFill = true;
-                    var fechaNacimientoFill = true;
                     var calleFill = true;
                     var localidadFill = true;
                     var provinciaFill = true;
                     var cpFill = true;
+                    var fechaFill = true;
                     var modificacionesUsuario = false;
 
                     // Ok validaciones Usuario Jugador
@@ -503,153 +504,22 @@
 
                     // FUNCION COMPROBACION EDITAR PERFIL
                     function comprobacion(){
-                        if(nombreFill && apellidosFill && dniFill && emailFill && fechaNacimientoFill
+                        if(nombreFill && apellidosFill && dniFill && emailFill && fechaFill
                             && calleFill && localidadFill && provinciaFill && cpFill) {
                             if((contraseñaFill && confirmarContraseñaFill) || (!contraseñaFill && !confirmarContraseñaFill)){
-                                
-                                // Comprobación de existencia de usuario Jugador + Socio + Entrenador
-                                if(categoria && pagoSocio && entrenador) {
-                                    if(okCategoria && okCamiseta && okPantalon && okAbrigo && okMedias && okPagoJugador && okPagoSocio && okEntrenador) {
-                                        saveChanges.disabled = false;
-                                        botonSave.style.cursor = "pointer";
-                                        botonSave.className = "btn btn-outline-success";
-                                    } else {
-                                         if (modificacionesUsuario) {
-                                            saveChanges.disabled = false;
-                                            botonSave.style.cursor = "pointer";
-                                            botonSave.className = "btn btn-outline-success";
-                                        } else {
-                                            saveChanges.disabled = true;
-                                            botonSave.style.cursor = "not-allowed";
-                                            botonSave.className = "btn btn-outline-danger";
-                                        }
-                                    }
-                                } else {
-                                    // Comprobación de existencia de usuario Jugador + Socio
-                                    if(categoria && pagoSocio) {
-                                        if(okCategoria && okCamiseta && okPantalon && okAbrigo && okMedias && okPagoJugador && okPagoSocio) {
-                                            saveChanges.disabled = false;
-                                            botonSave.style.cursor = "pointer";
-                                            botonSave.className = "btn btn-outline-success";
-                                        } else {
-                                             if (modificacionesUsuario) {
-                                                saveChanges.disabled = false;
-                                                botonSave.style.cursor = "pointer";
-                                                botonSave.className = "btn btn-outline-success";
-                                            } else {
-                                                saveChanges.disabled = true;
-                                                botonSave.style.cursor = "not-allowed";
-                                                botonSave.className = "btn btn-outline-danger";
-                                            }
-                                        }
-                                    }
-
-                                    // Comprobación de existencia de usuario Jugador + Entrenador
-                                    if(categoria && entrenador) {
-                                        if(okCategoria && okCamiseta && okPantalon && okAbrigo && okMedias && okPagoJugador && okEntrenador) {
-                                            saveChanges.disabled = false;
-                                            botonSave.style.cursor = "pointer";
-                                            botonSave.className = "btn btn-outline-success";
-                                        } else {
-                                            if (modificacionesUsuario) {
-                                                saveChanges.disabled = false;
-                                                botonSave.style.cursor = "pointer";
-                                                botonSave.className = "btn btn-outline-success";
-                                            } else {
-                                                saveChanges.disabled = true;
-                                                botonSave.style.cursor = "not-allowed";
-                                                botonSave.className = "btn btn-outline-danger";
-                                            }
-                                        }
-                                    }
-
-                                    // Comprobación de existencia de usuario Socio + Entrenador
-                                    if(pagoSocio && entrenador) {
-                                        if(okPagoSocio && okEntrenador) {
-                                            saveChanges.disabled = false;
-                                            botonSave.style.cursor = "pointer";
-                                            botonSave.className = "btn btn-outline-success";
-                                        } else {
-                                            if (modificacionesUsuario) {
-                                                saveChanges.disabled = false;
-                                                botonSave.style.cursor = "pointer";
-                                                botonSave.className = "btn btn-outline-success";
-                                            } else {
-                                                saveChanges.disabled = true;
-                                                botonSave.style.cursor = "not-allowed";
-                                                botonSave.className = "btn btn-outline-danger";
-                                            }
-                                        }
-
-                                    }
-
-                                    // Comprobación de existencia de usuario Jugdor
-                                    if(categoria && !pagoSocio && !entrenador) {
-                                        if(okCategoria){
-                                            saveChanges.disabled = false;
-                                            botonSave.style.cursor = "pointer";
-                                            botonSave.className = "btn btn-outline-success";
-                                        } else {
-                                            if (modificacionesUsuario) {
-                                                saveChanges.disabled = false;
-                                                botonSave.style.cursor = "pointer";
-                                                botonSave.className = "btn btn-outline-success";
-                                            } else {
-                                                saveChanges.disabled = true;
-                                                botonSave.style.cursor = "not-allowed";
-                                                botonSave.className = "btn btn-outline-danger";
-                                            }
-                                        }
-                                    }
-
-                                    // Comprobación de existencia de usuario Socio
-                                    if(pagoSocio && !categoria && !entrenador) {
-                                        if(okPagoSocio){
-                                            saveChanges.disabled = false;
-                                            botonSave.style.cursor = "pointer";
-                                            botonSave.className = "btn btn-outline-success";
-                                        } else {
-                                            if (modificacionesUsuario) {
-                                                saveChanges.disabled = false;
-                                                botonSave.style.cursor = "pointer";
-                                                botonSave.className = "btn btn-outline-success";
-                                            } else {
-                                                saveChanges.disabled = true;
-                                                botonSave.style.cursor = "not-allowed";
-                                                botonSave.className = "btn btn-outline-danger";
-                                            }
-                                        }
-                                    }
-
-                                    // Comprobación de existencia de usuario Entrenador
-                                    if(entrenador && !categoria && !pagoSocio) {
-                                        if(okEntrenador){
-                                            saveChanges.disabled = false;
-                                            botonSave.style.cursor = "pointer";
-                                            botonSave.className = "btn btn-outline-success";
-                                        } else {
-                                            if (modificacionesUsuario) {
-                                                saveChanges.disabled = false;
-                                                botonSave.style.cursor = "pointer";
-                                                botonSave.className = "btn btn-outline-success";
-                                            } else {
-                                                saveChanges.disabled = true;
-                                                botonSave.style.cursor = "not-allowed";
-                                                botonSave.className = "btn btn-outline-danger";
-                                            }
-                                        }
-                                    }
-                                }
+                                saveChanges.disabled = false;
+                                botonSave.style.cursor = "pointer";
+                                botonSave.className = "btn btn-outline-success";
                             } else {
                                 saveChanges.disabled = true;
                                 botonSave.style.cursor = "not-allowed";
                                 botonSave.className = "btn btn-outline-danger";
-                            }
+                            }                    
                         } else {
                             saveChanges.disabled = true;
                             botonSave.style.cursor = "not-allowed";
                             botonSave.className = "btn btn-outline-danger";
-                        }                    
+                        }
                     }
                     // Cierre de función conprobación
 
@@ -674,7 +544,7 @@
                     // Validación: Nombre
                     nombreError.innerHTML = "";
                     usuarioNombre.onkeyup = () => {
-                        const regExpNombre =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
+                        const regExpNombre = /^[A-Za-zÁÉÍÓÚáéíóúñÑ]+[ ]?[A-Za-zÁÉÍÓÚáéíóúñÑ ]*$/;
                         if(regExpNombre.test(usuarioNombre.value)){
                             nombreError.innerHTML = "";
                             usuarioNombre.style.borderColor = "";
@@ -700,7 +570,7 @@
                     // Validación: Apellidos
                     apellidosError.innerHTML = "";
                     usuarioApellidos.onkeyup = () => {
-                        const regExpApellidos =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
+                        const regExpApellidos = /^[A-Za-zÁÉÍÓÚáéíóúñÑ]+[ ]?[A-Za-zÁÉÍÓÚáéíóúñÑ ]*$/;
                                     
                         if(regExpApellidos.test(usuarioApellidos.value)){
                             apellidosError.innerHTML = "";
@@ -721,6 +591,17 @@
                             usuarioApellidos.style.borderColor = "red";
                             apellidosFill = false;
                             modificacionesUsuario = false;
+                            comprobacion();
+                        }
+                    }
+
+                    // Validación: Fecha
+                    fechaNacimiento.onchange = () => {
+                        if(fechaNacimiento.value){
+                            fechaFill = true;
+                            comprobacion();
+                        } else {
+                            fechaFill = false;
                             comprobacion();
                         }
                     }
@@ -938,7 +819,7 @@
                     // Validación: Calle
                     calleError.innerHTML = "";
                     usuarioCalle.onkeyup = () => {
-                        const regExpCalle =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+[0-9]+$/;
+                        const regExpCalle = /^[A-Za-zÁÉÍÓÚáéíóúñÑ]+[ ]?[A-Za-zÁÉÍÓÚáéíóúñÑ ]*[0-9]+$/;
                         if(regExpCalle.test(usuarioCalle.value)){
                             calleError.innerHTML = "";
                             usuarioCalle.style.borderColor = "";
@@ -966,7 +847,7 @@
                     // Validación: Localidad
                     localidadError.innerHTML = "";
                     usuarioLocalidad.onkeyup = () => {
-                        const regExpLocalidad =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
+                        const regExpLocalidad = /^[A-Za-zÁÉÍÓÚáéíóúñÑ]+[ ]?[A-Za-zÁÉÍÓÚáéíóúñÑ ]*$/;
                         if(regExpLocalidad.test(usuarioLocalidad.value)){
                             localidadError.innerHTML = "";
                             usuarioLocalidad.style.borderColor = "";
@@ -994,7 +875,7 @@
                     // Validación: Provincia
                     provinciaError.innerHTML = "";
                     usuarioProvincia.onkeyup = () => {
-                        const regExpLocalidad =/^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/;
+                        const regExpLocalidad = /^[A-Za-zÁÉÍÓÚáéíóúñÑ]+[ ]?[A-Za-zÁÉÍÓÚáéíóúñÑ ]*$/;
                         if(regExpLocalidad.test(usuarioProvincia.value)){
                             provinciaError.innerHTML = "";
                             usuarioProvincia.style.borderColor = "";
@@ -1051,93 +932,30 @@
 
                     /* VALIDACIONES USUARIO JUGADOR */
 
-                    // Validación Categoría
                     if(categoria) {
-                        var valorCategoria = categoria.value; 
-                    
+                        // Validación Categoría
                         categoria.onchange = () => {
-                            if(categoria.value === valorCategoria){
-                                okCategoria = false;
-                                comprobacion();
-                            } else {
-                                okCategoria = true;
-                                comprobacion();
-                            }
+                            comprobacion();
                         }
-                    }
-
-                    // Validación Camiseta
-                    if(camiseta) {
-                        var valorCamiseta = camiseta.value; 
-
+                        // Validación Camiseta
                         camiseta.onchange = () => {
-                            if(camiseta.value === valorCamiseta){
-                                okCamiseta = false;
-                                comprobacion();
-                            } else {
-                                okCamiseta = true;
-                                comprobacion();
-                            }
+                            comprobacion();
                         }
-                    }
-
-                    // Validación Pantalon
-                    if(pantalon) {
-                        var valorPantalon = pantalon.value; 
-                    
+                        // Validación Pantalon
                         pantalon.onchange = () => {
-                            if(pantalon.value === valorPantalon){
-                                okPantalon = false;
-                                comprobacion();
-                            } else {
-                                okPantalon = true;
-                                comprobacion();
-                            }
+                            comprobacion();
                         }
-                    }
-
-                    // Validación Medias
-                    if(medias) {
-                        var valorMedias = medias.value; 
-                    
+                        // Validación Medias
                         medias.onchange = () => {
-                            if(medias.value === valorMedias){
-                                okMedias = false;
-                                comprobacion();
-                            } else {
-                                okMedias = true;
-                                comprobacion();
-                            }
+                            comprobacion();
                         }
-                    }
-
-                    // Validación Abrigo
-                    if(abrigo) {
-                        var valorAbrigo = abrigo.value; 
-                    
+                        // Validación Abrigo
                         abrigo.onchange = () => {
-                            if(abrigo.value === valorAbrigo){
-                                okAbrigo = false;
-                                comprobacion();
-                            } else {
-                                okAbrigo = true;
-                                comprobacion();
-                            }
+                            comprobacion();
                         }
-                    }
-
-                    // Validación Pago jugador
-                    if(pagoJugador) {
-                        var jugadorPago = pagoJugador.value; 
-                    
+                        // Validación Pago jugador
                         pagoJugador.onchange = () => {
-                            if(pagoJugador.value === jugadorPago){
-                                okPagoJugador = false;
-                                comprobacion();
-                            } else {
-                                okPagoJugador = true;
-                                comprobacion();
-                            }
+                            comprobacion();
                         }
                     }
 
@@ -1145,16 +963,8 @@
 
                     // Validación Pago Socio
                     if(pagoSocio) {
-                        var socioPago = pagoSocio.value; 
-                    
                         pagoSocio.onchange = () => {
-                            if(pagoSocio.value === socioPago){
-                                okPagoSocio = false;
-                                comprobacion();
-                            } else {
-                                okPagoSocio = true;
-                                comprobacion();
-                            }
+                            comprobacion();
                         }
                     }
 
