@@ -43,3 +43,16 @@
         </b-container>
     </div>
 </template>
+
+<script>
+export default {
+    data(){
+        return {
+            footer: document.getElementById("footer")
+        }
+    },
+    mounted() {
+        footer.style.display = 'block';
+    }
+}
+</script>

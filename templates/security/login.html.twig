@@ -1,3 +1,7 @@
+<!doctype html>
+
+<html lang="{{ app.request.locale }}">
+
 <title>{% block title %}Accceder{% endblock %}</title>
 
 {{ encore_entry_link_tags('css/app') }}
@@ -34,7 +38,7 @@
                 <div class="row mt-4"> 
                     <div class="col">Email:</div> 
                     <div class="col">
-                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control text-center" required autofocus placeholder="Introduce el email">
+                        <input type="email" value="{{ last_username }}" aria-label="email" name="email" id="inputEmail" class="form-control text-center" required autofocus placeholder="Introduce el email">
                         <small class="text-success">No compartiremos tu correo con nadie</small>                        
 
                     </div>                        
@@ -44,7 +48,7 @@
                 <div class="row mt-4"> 
                     <div class="col">Contraseña:</div>                        
                     <div class="col">
-                        <input type="password" name="password" id="inputPassword" placeholder="Introduce la contraseña" class="form-control text-center" required>
+                        <input type="password" name="password" aria-label="contraseña" id="inputPassword" placeholder="Introduce la contraseña" class="form-control text-center" required>
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     </div>                        
                 </div>

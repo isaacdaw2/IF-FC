@@ -111,6 +111,7 @@ export default {
             tallaAbrigo: null,
             metodoPago: null,
             dismissSecs: 3,
+            footer: document.getElementById("footer"),
             dismissCountDown: 0,
             showDismissibleAlert: false,
             categorias:[
@@ -137,6 +138,9 @@ export default {
                 {value: 'Domiciliación bancaria', text: 'Domiciliación bancaria'}
             ]
         }
+    },
+    mounted() {
+        footer.style.display = 'block';
     },
     methods: {
         countDownChanged(dismissCountDown) {

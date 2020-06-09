@@ -310,4 +310,75 @@ class UsuariosController extends AbstractController
             throw new \Exception('Accesso negado');
         }
     }
+
+    /**
+     * @Route("/comprobacion", options={"expose"=true}, name="comprobacion")
+     */
+    public function comprobacion(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $this->getUser();
+        $jugador = $em->getRepository(Jugadores::class)->findOneBy(['usuarios' => $usuario]);
+        $entrenador = $em->getRepository(Entrenadores::class)->findOneBy(['usuarios' => $usuario]);
+        $socio = $em->getRepository(Socios::class)->findOneBy(['usuarios' => $usuario]);
+
+        if($jugador && $socio && $entrenador) {
+            $data = [
+                'idJugador'=> $jugador->getId(),
+                'idSocio'=> $socio->getId(),
+                'idEntrenador'=> $entrenador->getId()
+            ];
+
+            return new JsonResponse($data, Response::HTTP_OK); 
+
+        } else if($jugador && $socio) {
+            $data = [
+                'idJugador'=> $jugador->getId(),
+                'idSocio'=> $socio->getId(),
+            ];
+
+            return new JsonResponse($data, Response::HTTP_OK);  
+
+        } else if($jugador && $entrenador) {
+            $data = [
+                'idJugador'=> $jugador->getId(),
+                'idEntrenador'=> $entrenador->getId()
+            ];
+
+            return new JsonResponse($data, Response::HTTP_OK); 
+
+        } else if($socio && $entrenador) {
+            $data = [
+                'idSocio'=> $socio->getId(),
+                'idEntrenador'=> $entrenador->getId()
+            ];
+
+            return new JsonResponse($data, Response::HTTP_OK); 
+
+        } else if($jugador) {
+            $data = [
+                'idJugador'=> $jugador->getId()
+            ];
+
+            return new JsonResponse($data, Response::HTTP_OK); 
+
+        } else if($socio) {
+            $data = [
+                'idSocio'=> $socio->getId()
+            ];
+
+            return new JsonResponse($data, Response::HTTP_OK); 
+
+        } else if($entrenador) {
+            $data = [
+                'idEntrenador'=> $entrenador->getId()
+            ];
+
+            return new JsonResponse($data, Response::HTTP_OK); 
+
+        } else {
+            return new JsonResponse('No hay datos');
+
+        }
+    }
 }

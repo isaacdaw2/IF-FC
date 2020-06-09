@@ -221,7 +221,7 @@
 
         {# Puntero body #}
         document.querySelector('body').style.cursor = "pointer";
-        boton_registrar.className="btn btn-outline-danger";
+        boton_registrar.className="btn btn-danger";
 
         {# Validaciones #}
 
@@ -579,29 +579,29 @@
 
         onchange = () => {
             if(nombreFill && apellidosFill && dniFill && emailFill && contraseñaFill && confirmarContraseñaFill && fechaNacimientoFill && calleFill && localidadFill && provinciaFill && cpFill) {
-                boton_registrar.className="btn btn-outline-success";
+                boton_registrar.className="btn btn-success";
                 boton_registrar.style.cursor = "pointer";
                 boton_registrar.disabled = false;
                 boton_error.innerHTML = "";
                 console.log('Comprobación de todo: OK');
             } else {
-                boton_registrar.className="btn btn-outline-danger";
+                boton_registrar.className="btn btn-danger";
                 boton_registrar.style.cursor = "not-allowed";
                 console.log('Comprobación de todo: KO');
                 boton_registrar.disabled = true;
             }
         }
                 
-        boton_registrar.className="btn btn-outline-success";
+        boton_registrar.className="btn btn-success";
         boton_registrar.onmouseover = () => {
             if(nombreFill && apellidosFill && dniFill && emailFill && contraseñaFill && confirmarContraseñaFill && fechaNacimientoFill && calleFill && localidadFill && provinciaFill && cpFill) {
-                boton_registrar.className="btn btn-outline-success";
+                boton_registrar.className="btn btn-success";
                 boton_registrar.style.cursor = "pointer";
                 boton_error.innerHTML = "";
                 console.log('Estoy pasando el mouse por el botón verde');
                 todoOk = true;
             } else {
-                boton_registrar.className="btn btn-outline-danger";
+                boton_registrar.className="btn btn-danger";
                 boton_registrar.style.cursor = "not-allowed";
                 boton_error.innerHTML = "Antes de pulsarme debes rellenar TODOS los campos correctamente";
                 console.log('Estoy pasando el mouse por el botón rojo');

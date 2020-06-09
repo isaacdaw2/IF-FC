@@ -363,6 +363,7 @@
             fecha: '',
             confirmarPass: '',
             contraseñaGuardada: '',
+            footer: document.getElementById("footer"),
             categorias:[
                 {value: 'Benjamin', text: 'Benjamín'},
                 {value: 'Alevin', text: 'Alevín'},
@@ -390,7 +391,9 @@
                     this.usuario = response.data,
                     this.parrafo = true,
                     this.copyright = true,
-                    this.mensajeContraseña = false
+                    this.mensajeContraseña = false,
+                    footer.style.display = 'block'
+
                 ))
             
             axios.get('/datos-jugadores')
@@ -412,8 +415,9 @@
                 if(response.data.id){
                     this.entrenador = response.data,
                     this.existeEntrenador = true
-                }                                      
+                }
             })
+
         },
         methods: {
             editarPerfil(){

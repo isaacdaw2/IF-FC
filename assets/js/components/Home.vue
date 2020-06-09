@@ -222,6 +222,7 @@
         data() {
             return {
                 slide: 0,
+                footer: document.getElementById("footer"),
                 sliding: null
             }
         },
@@ -243,6 +244,7 @@
                 localStorage.setItem('reloaded', '1');
                 location.reload();
             }
+            footer.style.display = 'block';
         }
     }
 </script>

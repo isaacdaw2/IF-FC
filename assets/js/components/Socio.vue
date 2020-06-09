@@ -59,6 +59,7 @@ export default {
             dismissSecs: 3,
             dismissCountDown: 0,
             showDismissibleAlert: false,
+            footer: document.getElementById("footer"),
              pago:[
                 {value: null, text: 'Seleccione un método de pago'},
                 {value: 'Paypal', text: 'Paypal'},
@@ -66,6 +67,9 @@ export default {
                 {value: 'Domiciliación bancaria', text: 'Domiciliación bancaria'}
             ]
         }
+    },
+    mounted() {
+        footer.style.display = 'block';
     },
     methods:{
         countDownChanged(dismissCountDown) {

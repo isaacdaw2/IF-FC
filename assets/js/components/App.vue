@@ -40,9 +40,24 @@
       <router-view/>
   </div>
     
-    <footer class="footer sticky-bottom container text-center">
+    <footer class="footer sticky-bottom text-center" id="footer">
         <hr>
-        <span class="text-muted">&copy; 2020 IF-ormáticos FC</span>
+        <b-row>
+          <b-col>
+            <span class="text-muted">Síguenos en nuestras redes sociales: &nbsp; <a href="" class="text-muted"> <font-awesome-icon :icon="['fab', 'facebook']"/></a> &nbsp; <a href="" class="text-muted"> <font-awesome-icon :icon="['fab', 'twitter']"/></a> &nbsp; <a href="" class="text-muted"> <font-awesome-icon :icon="['fab', 'instagram']"/></a> </span>
+          </b-col>
+          <b-col>
+            <span class="text-muted">&copy; 2020 IF-ormáticos FC <font-awesome-icon icon="futbol"/></span>
+          </b-col>
+          <b-col>
+            <span class="text-muted">Contáctanos: &nbsp; <a href="" class="text-muted"><font-awesome-icon icon="envelope"/></a> &nbsp; <a href="" class="text-muted"><font-awesome-icon icon="phone-square-alt"/></a> </span>
+          </b-col>
+        </b-row>
+        <b-row class="mt-3">
+          <b-col>
+            <span class="text-muted">Hecho con <font-awesome-icon icon="heart"/> y mucho <font-awesome-icon icon="coffee"/> en San Sebastián de los reyes y Alcobendas, Madrid.</span>
+          </b-col>
+        </b-row>        
     </footer>
   </div>
 </template>

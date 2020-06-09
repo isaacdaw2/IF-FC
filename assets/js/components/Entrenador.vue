@@ -56,8 +56,12 @@ export default {
         okEntrenador: false,
         dismissSecs: 3,
         dismissCountDown: 0,
+        footer: document.getElementById("footer"),
         showDismissibleAlert: false
       }
+    },
+    mounted() {
+        footer.style.display = 'block';
     },
     methods:{
         countDownChanged(dismissCountDown) {

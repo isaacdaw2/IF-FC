@@ -1,3 +1,9 @@
 body {
     background-color: papayawhip;
 }
+
+footer {
+    margin-top: 16em;
+    padding: 1em;
+    display: none;
+}

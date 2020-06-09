@@ -15,10 +15,27 @@ import BootstrapVue from 'bootstrap-vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faFutbol } from '@fortawesome/free-solid-svg-icons'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faPhoneSquareAlt } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faFacebook } from '@fortawesome/free-brands-svg-icons'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 
 library.add(faUserSecret)
 library.add(faSignOutAlt)
+library.add(faFutbol)
+library.add(faHeart)
+library.add(faCoffee)
+library.add(faEnvelope)
+library.add(faPhoneSquareAlt)
+library.add(faFacebook)
+library.add(faTwitter)
+library.add(faInstagram)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
@@ -48,25 +65,88 @@ const router = new VueRouter({
     routes // short for `routes: routes`
 });
 
+
 router.beforeEach((to, from, next) => {
 
-    axios.get('/datos-jugadores')
+    axios.get('/comprobacion')
         .then(response => {  
-                                                           
-            if(response.data.id){
-                if(to.path === '/jugadores'){
+            if(response.data.idJugador && response.data.idSocio && response.data.idEntrenador) {
+                
+                if(to.path === '/jugadores' || to.path === '/socios' || to.path === '/entrenadores') {
                     next('/') 
-                    console.log('Estoy en home porque ya estoy inscrito como jugador') 
-                }  else {
-                    console.log('Soy jugador pero me dirijo a otra página') 
+                    console.log('Estoy en home, porque soy Jugador + Socio + Entrenador')
+                } else {
                     next() 
-                }                
+                    console.log('Soy Jugador + Socio + Entrenador, pero me dirijo a otra página')
+                }
+
+            } else if (response.data.idJugador && response.data.idSocio) {
+                
+                if(to.path === '/jugadores' || to.path === '/socios') {
+                    next('/') 
+                    console.log('Estoy en home, porque soy Jugador + Socio')
+                } else {
+                    next() 
+                    console.log('Soy Jugador + Socio, pero me dirijo a otra página')
+                }
+
+            } else if (response.data.idJugador && response.data.idEntrenador) {
+
+                if(to.path === '/jugadores' || to.path === '/entrenadores') {
+                    next('/') 
+                    console.log('Estoy en home, porque soy Jugador + Entrenador')
+                } else {
+                    next() 
+                    console.log('Soy Jugador + Entrenador, pero me dirijo a otra página')
+                }
+
+            } else if (response.data.idSocio && response.data.idEntrenador) {
+
+                if(to.path === '/socios' || to.path === '/entrenadores') {
+                    next('/') 
+                    console.log('Estoy en home, porque soy Socio + Entrenador')
+                } else {
+                    next() 
+                    console.log('Soy Socio + Entrenador, pero me dirijo a otra página')
+                }
+
+            } else if (response.data.idJugador) {
+
+                if(to.path === '/jugadores') {
+                    next('/') 
+                    console.log('Estoy en home, porque soy Jugador')
+                } else {
+                    next() 
+                    console.log('Soy Jugador, pero me dirijo a otra página')
+                }
+
+            } else if (response.data.idSocio) {
+
+                if(to.path === '/socios') {
+                    next('/') 
+                    console.log('Estoy en home, porque soy Socio')
+                } else {
+                    next() 
+                    console.log('Soy Socio, pero me dirijo a otra página')
+                }
+
+            } else if (response.data.idEntrenador) {
+
+                if(to.path === '/entrenadores') {
+                    next('/') 
+                    console.log('Estoy en home, porque soy Entrenador')
+                } else {
+                    next() 
+                    console.log('Soy Entrenador, pero me dirijo a otra página')
+                }
             } else {
                 next() 
-                console.log('No soy jugador, desvio con éxito hacia la página elegida')                                                     
+                console.log('Estoy en home, porque NO soy Jugador ni Socio ni Entrenador')
             }
-        })
+        })  
 })
+
+
 
 export default router;
 
